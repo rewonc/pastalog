@@ -21,20 +21,29 @@
   </body>
 <script src="/socket.io/socket.io.js"></script>
 <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+
 <script>
   var socket = io();
+  models = null;
+
   $('form').submit(function(){
-    socket.emit('chat message', $('#m').val());
-    $('#m').val('');
+    socket.emit('data request', models);
     return false;
   });
 
-  socket.on('initial data', function(data) {
+  socket.on('available models', function(data) {
+    console.log('models:');
+    console.log(data);
+    models = data;
+  });
+
+  socket.on('refreshed data', function(data){
     console.log(data);
   });
 
-  socket.on('chat message', function(msg){
-    $('#messages').append($('<li>').text(msg));
+  socket.on('data point', function(point) {
+    console.log(point);
   });
+
 </script>
 </html>

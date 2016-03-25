@@ -5,36 +5,40 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var bodyParser = require('body-parser');
 var _ = require('lodash');
-
-var db = {};
-
 app.use( bodyParser.json() );
 
+var db = {};
 db.logs = {};
-db.logs.modelA = {};
-// fill with fake data to find out how long it takes to request data that's in memory, 10k epochs
-// result: fast!!! no problem.
-db.logs.modelA.validLoss = Array(10000);
-_.fill(db.logs.modelA.validLoss, 1.234567);
 
-// How should we think about doing visualization?
-// 1) Each client has a list of 'active' feeds
-  // 1a) This is mirrored on the server
-// 2) When this changes, it registers w/ server and server sends updated data
-// 3) Client refreshes if sent new data, otherwise just listens for new events.
-// 4) When events are emitted, the client filters based on its local copy of stuff.
-// 5) When client disconnects, server destroys its record based on the socket id.
-// 5) Settings are saved locally on the client using localstorage. If refreshed, it will re-register those 
-// settings on its websocket before requesting all the data.
+// generate fake data
+addNewData('modelA', 3000);
+addNewData('modelB', 3200);
+addNewData('modelC', 2800);
+function addNewData(modelName, rate, step) {
+  if (step === undefined) {
+    step = 0;
+  }
+  addDataPoint({
+    modelName: modelName,
+    pointType: 'trainLoss',
+    pointValue: Math.random(),
+    globalStep: step
+  });
 
-// http://stackoverflow.com/questions/10110411/node-js-socket-io-how-to-emit-to-a-particular-client
-// see there maybe -- play with socket ids and keep a hashmap in memory.
+  if (step !== 0 && step % 20 === 0) {
+    addDataPoint({
+      modelName: modelName,
+      pointType: 'validLoss',
+      pointValue: Math.random(),
+      globalStep: step
+    });
+  }
 
-// TODO:
-// get this working above in plaintext
-// then work with graphing / plotting
-// then do simple activations, etc.
-// 
+  setTimeout(function () {
+    addNewData(modelName, rate, step + 1);
+  }, rate);
+}
+// end generate fake data
 
 
 app.get('/', function(req, res){
@@ -42,29 +46,43 @@ app.get('/', function(req, res){
 });
 
 app.post('/data', function(req, res) {
-  var modelName = req.body.modelName,
-      pointType = req.body.pointType,
-      pointValue = req.body.pointValue;
-
-  io.emit('chat message', pointType + ' ~~~ ' + pointValue);
-
   // to post using curl:
-  // curl -H "Content-Type: application/json" -X POST -d '{"modelName":"model1","pointType":"loss", "pointValue": 2.5}' http://localhost:8120/data
-
-  // todo: do something for 
-  res.sendStatus(200);
-
+  // curl -H "Content-Type: application/json" -X POST -d '{"modelName":"model1","pointType":"validLoss", "pointValue": 2.5, "globalStep": 1}' http://localhost:8120/data
+  if (req.body.modelName === undefined ||
+      req.body.pointType === undefined ||
+      req.body.pointValue === undefined ) {
+    res.sendStatus(400);
+  } else {
+    addDataPoint(req.body);
+    res.sendStatus(200);
+  }
 });
 
 io.on('connection', function(socket){
-  socket.emit('initial data', db);
-
-  socket.on('chat message', function(msg){
-    socket.emit('initial data', db);
-    io.emit('chat message', msg);
+  socket.emit('available models', _.keys(db.logs));
+  socket.on('data request', function(models) {
+    socket.emit('refreshed data', _.pick(db.logs, models));
   });
 });
 
 http.listen(PORT, function(){
   console.log('listening on *:', PORT);
 });
+
+function addDataPoint(point) {
+  var name = point.modelName;
+  var type = point.pointType;
+  var step = point.globalStep;
+  var value = point.pointValue;
+  if (db.logs[name] === undefined) {
+    db.logs[name] = {};
+  }
+  if (db.logs[name][type] === undefined) {
+    db.logs[name][type] = {};
+  }
+  db.logs[name][type][step] = value;
+  io.emit('data point', point);
+}
+
+
+
