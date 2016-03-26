@@ -4,6 +4,9 @@ import socketIO from 'socket.io';
 import bodyParser from 'body-parser';
 import _keys from 'lodash/keys';
 import _pick from 'lodash/pick';
+import App from './App';
+import React from 'react';
+import ReactDOMServer from 'react-dom/server';
 
 const app = express();
 const HTTP = new Server(app);
@@ -66,7 +69,8 @@ app.use(bodyParser.json());
 app.use(express.static(`${__dirname}/assets`));
 
 app.get('/', (req, res) => {
-  res.sendFile(`${__dirname}/index.html`);
+  const html = ReactDOMServer.renderToString(<App />);
+  res.send(html);
 });
 
 app.post('/data', (req, res) => {
