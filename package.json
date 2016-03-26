@@ -4,7 +4,9 @@
   "description": "Logging and visualization library for lasagne and other nn frameworks.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node dist/server.js",
+    "build": "rollup -c rollup.client.js && rollup -c rollup.server.js"
   },
   "author": "rewonc",
   "license": "MIT",
@@ -16,7 +18,7 @@
   },
   "devDependencies": {
     "babel-preset-es2015-rollup": "^1.1.1",
-    "babel-preset-es2015-webpack": "^6.4.0",
+    "rollup": "^0.25.6",
     "rollup-plugin-babel": "^2.4.0"
   }
 }

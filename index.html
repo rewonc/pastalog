@@ -23,28 +23,5 @@
 <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
 <link href="https://npmcdn.com/basscss@8.0.1/css/basscss.min.css" rel="stylesheet">
 
-<script>
-  var socket = io();
-  models = null;
-
-  $('form').submit(function(){
-    socket.emit('data request', models);
-    return false;
-  });
-
-  socket.on('available models', function(data) {
-    console.log('models:');
-    console.log(data);
-    models = data;
-  });
-
-  socket.on('refreshed data', function(data){
-    console.log(data);
-  });
-
-  socket.on('data point', function(point) {
-    console.log(point);
-  });
-
-</script>
+<script src='/app.js'> </script>
 </html>
