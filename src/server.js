@@ -66,7 +66,7 @@ addNewData('modelC', 2800);
 // ROUTES
 
 app.use(bodyParser.json());
-app.use(express.static(`${__dirname}/assets`));
+app.use(express.static('dist/assets'));
 
 app.get('/', (req, res) => {
   const html = ReactDOMServer.renderToString(<App />);
@@ -94,5 +94,5 @@ io.on('connection', (socket) => {
 });
 
 HTTP.listen(PORT, () => {
-  console.log('listening on *:', PORT);
+  console.log('Node server listening on localhost:', PORT);
 });
