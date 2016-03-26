@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node dist/server.js",
-    "build": "rollup -c rollup.client.js && rollup -c rollup.server.js"
+    "start": "node dist/server.js"
   },
   "author": "rewonc",
   "license": "MIT",
@@ -16,12 +15,15 @@
     "lodash": "^4.6.1",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
-    "socket.io": "^1.4.5"
+    "socket.io": "^1.4.5",
+    "socket.io-client": "^1.4.5"
   },
   "devDependencies": {
-    "babel-preset-es2015-rollup": "^1.1.1",
+    "babel-core": "^6.7.4",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015-webpack": "^6.4.0",
     "babel-preset-react": "^6.5.0",
-    "rollup": "^0.25.6",
-    "rollup-plugin-babel": "^2.4.0"
+    "json-loader": "^0.5.4",
+    "webpack": "^2.1.0-beta.4"
   }
 }

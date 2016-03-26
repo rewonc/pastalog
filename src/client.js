@@ -1,4 +1,4 @@
-import io from 'socket.io';
+import io from 'socket.io-client';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Container from './Container';
