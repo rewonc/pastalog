@@ -1,21 +1,16 @@
-var socket = io();
-models = null;
+import io from 'socket.io';
 
-$('form').submit(function(){
+const socket = io();
+
+socket.on('available models', (models) => {
+  // todo: check if locally stored models are different
   socket.emit('data request', models);
-  return false;
 });
 
-socket.on('available models', function(data) {
-  console.log('models:');
-  console.log(data);
-  models = data;
-});
-
-socket.on('refreshed data', function(data){
+socket.on('refreshed data', (data) => {
   console.log(data);
 });
 
-socket.on('data point', function(point) {
+socket.on('data point', (point) => {
   console.log(point);
 });
