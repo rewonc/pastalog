@@ -7,8 +7,10 @@ const App = () => (
       <title>pastalog ~~~~~~~</title>
       <script src='app.js' defer></script>
     </head>
-    <body id="container">
-      <Container />
+    <body>
+      <div id="container">
+        <Container />
+      </div>
     </body>
   </html>
 );
