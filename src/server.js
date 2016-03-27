@@ -4,7 +4,8 @@ import socketIO from 'socket.io';
 import bodyParser from 'body-parser';
 import _keys from 'lodash/keys';
 import _pick from 'lodash/pick';
-import App from './App';
+import Container from './Container';
+import appWrapper from './appWrapper';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 
@@ -69,7 +70,8 @@ app.use(bodyParser.json());
 app.use(express.static('dist/assets'));
 
 app.get('/', (req, res) => {
-  const html = ReactDOMServer.renderToString(<App />);
+  const innerElement = ReactDOMServer.renderToString(<Container />);
+  const html = appWrapper(innerElement);
   res.send(html);
 });
 

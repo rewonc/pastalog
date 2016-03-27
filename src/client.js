@@ -21,4 +21,4 @@ socket.on('data point', (point) => {
 setTimeout(() => {
   console.log('call render');
   ReactDOM.render(<Container />, document.getElementById('container'));
-}, 10000);
+}, 5000);
