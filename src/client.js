@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import Container from './components/Container';
 import _union from 'lodash/union';
 import { updateLog, logsFromJS } from 'lib';
+import './styles.scss';
 
 const socket = io();
 const db = { logs: null };

@@ -4,7 +4,7 @@ import Grid from './Grid';
 const Container = (props) => (
   /* This class instantiates the headers and grid.*/
   <div>
-    <div className="header">pastalog</div>
+    <h2 className="m0">pastalog</h2>
     <Grid {...props} />
   </div>
 

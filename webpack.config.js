@@ -37,13 +37,17 @@ module.exports = [
           test: /\.json$/,
           loader: 'json-loader',
         },
+        {
+          test: /\.scss$/,
+          loaders: ["style", "css", "sass"]
+        },
       ],
     },
     resolve: {
       alias: {
         lib: __dirname + '/src/lib',
       },
-      extensions: ['', '.js'],
+      extensions: ['', '.js', '.scss'],
     },
   },
 
@@ -67,13 +71,17 @@ module.exports = [
           test: /\.json$/,
           loader: 'json-loader',
         },
+        {
+          test: /\.scss$/,
+          loaders: ["style", "css", "sass"]
+        },
       ],
     },
     resolve: {
       alias: {
         lib: __dirname + '/src/lib',
       },
-      extensions: ['', '.js'],
+      extensions: ['', '.js', '.scss'],
     },
     node: {
       console: 'empty',
