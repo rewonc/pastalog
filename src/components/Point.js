@@ -11,7 +11,7 @@ const Point = (props) => {
   let y = props.value;
   x = (x - minX) / deltaX * 100;
   y = (y - minY) / deltaY * 100;
-  return (<circle r="1" stroke={props.color}
+  return (<circle r="1" fill={props.color} stroke="0"
     cx={`${x}%`}
     cy={`${y}%`}
   />);

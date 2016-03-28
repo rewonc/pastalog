@@ -19,7 +19,7 @@ class Series extends React.Component {
 
   render() {
     const intermediate = _zip(this.props.indices.toJS(), this.props.values.toJS());
-    return (<svg className="series max">
+    return (<svg className="series max absolute top-0 left-0">
       {intermediate.map((pair) => (
         <Point index={pair[0]} value={pair[1]} ratios={this.props.ratios}
           color={this.color} key={pair[0]}
