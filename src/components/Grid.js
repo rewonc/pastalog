@@ -8,10 +8,10 @@ class Grid extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      yMin: 0,
-      yMax: 1,
-      xMin: 0,
-      xMax: 80,
+      minX: 0,
+      maxX: 80,
+      minY: 0,
+      maxY: 1,
     };
     this.style = {
       width: 1100,
@@ -31,7 +31,7 @@ class Grid extends React.Component {
                 {_map(series, (vals, seriesName) => (
                   <Series key={seriesName}
                     seriesName={seriesName} modelName={modelName} indices={vals.indices}
-                    values={vals.values} {...this.state}
+                    values={vals.values} ratios={this.state}
                   />))}
               </div>))
         ) : (<div className="no-series col col-4 border mt-3 mx-auto">No logs Yet</div>)}

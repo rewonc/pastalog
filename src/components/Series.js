@@ -1,6 +1,8 @@
 import React, { PropTypes } from 'react';
 import { List } from 'immutable';
 import { stringToColor } from 'lib';
+import _zip from 'lodash/zip';
+import Point from './Point';
 
 class Series extends React.Component {
   /* This class displays a line corresponding to a series.*/
@@ -16,13 +18,14 @@ class Series extends React.Component {
   }
 
   render() {
-    return (<div className="series">
-      <h3 style={{ color: this.color }}>{this.props.seriesName}</h3>
-      <br />
-      {JSON.stringify(this.props.values)}
-      <br />
-      {JSON.stringify(this.props.indices)}
-    </div>);
+    const intermediate = _zip(this.props.indices.toJS(), this.props.values.toJS());
+    return (<svg className="series max">
+      {intermediate.map((pair) => (
+        <Point index={pair[0]} value={pair[1]} ratios={this.props.ratios}
+          color={this.color} key={pair[0]}
+        />
+      ))}
+    </svg>);
   }
 }
 
@@ -31,10 +34,7 @@ Series.propTypes = {
   values: PropTypes.instanceOf(List),
   seriesName: PropTypes.string,
   modelName: PropTypes.string,
-  xMin: PropTypes.number,
-  xMax: PropTypes.number,
-  yMin: PropTypes.number,
-  yMax: PropTypes.number,
+  ratios: PropTypes.object,
 };
 
 
