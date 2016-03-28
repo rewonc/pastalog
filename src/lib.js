@@ -1,4 +1,5 @@
 // Library for common server-client utilities
+import { List } from 'immutable';
 
 export function updateLog(database, point) {
   // Update a database with a new data point
@@ -14,8 +15,8 @@ export function updateLog(database, point) {
   }
   if (db.logs[name][type] === undefined) {
     db.logs[name][type] = {
-      values: [],
-      indices: [],
+      values: List(),
+      indices: List(),
     };
   }
   db.logs[name][type].values.push(value);
@@ -25,4 +26,4 @@ export function updateLog(database, point) {
 
 export default {
   updateLog,
-}
+};

@@ -1,1 +1,3 @@
-{"extends": "airbnb"}
+{
+    "extends": "airbnb"
+}

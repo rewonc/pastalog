@@ -9,7 +9,7 @@ const socket = io();
 const db = { logs: null };
 
 function renderData() {
-  ReactDOM.render(<Container data={db} />, document.getElementById('container'));
+  ReactDOM.render(<Container logs={db.logs} />, document.getElementById('container'));
 }
 
 socket.on('available models', (models) => {
