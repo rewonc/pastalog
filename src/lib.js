@@ -73,10 +73,14 @@ function hashCode(str) {
 }
 
 function intToHex(i) {
-  const hex = ((i >> 24) & 0xFF).toString(16).slice(-2) +
+  let hex = ((i >> 24) & 0xFF).toString(16).slice(-2) +
               ((i >> 16) & 0xFF).toString(16).slice(-2) +
-              ((i >> 8) & 0xFF).toString(16).slice(-2);
-         // + (i&0xFF).toString(16).slice(-2); Leave out A for now.
+              ((i >> 8) & 0xFF).toString(16).slice(-2) +
+              (i & 0xFF).toString(16).slice(-2);
+  hex = hex.slice(-6);
+  while (hex.length < 6) {
+    hex = `0${hex}`;
+  }
   return `#${hex}`;
 }
 

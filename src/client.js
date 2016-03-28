@@ -20,6 +20,7 @@ socket.on('available models', (models) => {
 });
 
 socket.on('refreshed data', (data) => {
+  console.log(data);
   db.logs = logsFromJS(data);
   renderData();
 });

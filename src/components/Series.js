@@ -9,7 +9,6 @@ class Series extends React.Component {
     super(props);
     this.uuid = `${this.props.modelName}/${this.props.seriesName}`;
     this.color = stringToColor(this.uuid);
-    console.log(this.color);
   }
 
   shouldComponentUpdate(nextProps) {
