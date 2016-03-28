@@ -2,9 +2,10 @@
 import { List } from 'immutable';
 
 export function updateLog(database, point) {
-  // Update a database with a new data point
-  // This assumes that db has a key 'log' and mutates
-  // that object in place.
+  /* Update a database with a new data point
+  ** This assumes that db has a key 'log' and mutates
+  ** that object in place. */
+
   const db = database;
   const name = point.modelName;
   const type = point.pointType;

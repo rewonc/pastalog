@@ -1,3 +1,9 @@
+#### todo
+- Tests for visualization (make sure it works)
+- tests for python api
+- make sure scaling, etc works
+
+
 # pastalog
 
 _Real-time logging and visualization library for Lasagne (and other python-based nn libraries)_
