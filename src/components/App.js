@@ -1,4 +1,4 @@
-const appWrapper = (child) =>
+const App = (child) =>
   `<!DOCTYPE html>
   <html>
     <head>
@@ -10,4 +10,4 @@ const appWrapper = (child) =>
     </body>
   </html>`;
 
-export default appWrapper;
+export default App;

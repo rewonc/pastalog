@@ -1,7 +1,7 @@
 import io from 'socket.io-client';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Container from './Container';
+import Container from './components/Container';
 import _union from 'lodash/union';
 import { updateLog, logsFromJS } from './lib';
 

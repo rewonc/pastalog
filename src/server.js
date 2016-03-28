@@ -4,8 +4,8 @@ import socketIO from 'socket.io';
 import bodyParser from 'body-parser';
 import _keys from 'lodash/keys';
 import _pick from 'lodash/pick';
-import Container from './Container';
-import appWrapper from './appWrapper';
+import Container from './components/Container';
+import App from './components/App';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { updateLog, logsToJS } from './lib';
@@ -62,7 +62,7 @@ app.use(express.static('dist/assets'));
 
 app.get('/', (req, res) => {
   const innerElement = ReactDOMServer.renderToString(<Container />);
-  const html = appWrapper(innerElement);
+  const html = App(innerElement);
   res.send(html);
 });
 

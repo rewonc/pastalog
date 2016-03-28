@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --watch",
+    "dev": "nodemon dist/server.js",
     "start": "node dist/server.js"
   },
   "author": "rewonc",
@@ -25,6 +27,7 @@
     "babel-preset-es2015-webpack": "^6.4.0",
     "babel-preset-react": "^6.5.0",
     "json-loader": "^0.5.4",
+    "nodemon": "^1.9.1",
     "webpack": "^2.1.0-beta.4"
   }
 }
