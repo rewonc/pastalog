@@ -8,7 +8,7 @@ import Container from './components/Container';
 import App from './components/App';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
-import { updateLog, logsToJS } from './lib';
+import { updateLog, logsToJS } from 'lib';
 
 const app = express();
 const HTTP = new Server(app);

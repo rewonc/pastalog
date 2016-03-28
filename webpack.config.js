@@ -1,4 +1,5 @@
 // webpack.config.js
+/*eslint-disable */
 
 // hack to avoid packaging external modules
 // http://jlongster.com/Backend-Apps-with-Webpack--Part-I
@@ -39,7 +40,9 @@ module.exports = [
       ],
     },
     resolve: {
-      // you can now require('file') instead of require('file.coffee')
+      alias: {
+        lib: __dirname + '/src/lib',
+      },
       extensions: ['', '.js'],
     },
   },
@@ -67,7 +70,9 @@ module.exports = [
       ],
     },
     resolve: {
-      // you can now require('file') instead of require('file.coffee')
+      alias: {
+        lib: __dirname + '/src/lib',
+      },
       extensions: ['', '.js'],
     },
     node: {
@@ -76,7 +81,8 @@ module.exports = [
       net: 'empty',
       tls: 'empty',
     },
-    externals: nodeModules
+    externals: nodeModules,
   },
 ];
 
+/*eslint-enable */

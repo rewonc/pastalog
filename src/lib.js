@@ -46,7 +46,41 @@ export function logsFromJS(logs) {
   ));
 }
 
+/*
+String to Color representation comes from:
+http://stackoverflow.com/questions/3426404/create-a-hexadecimal-colour-based-on-a-string-with-javascript
+*/
+
+function hashCode(str) {
+  let i;
+  let chr;
+  let len;
+  let hash = 0;
+  if (str.length === 0) return hash;
+  for (i = 0, len = str.length; i < len; i++) {
+    chr = str.charCodeAt(i);
+    hash = ((hash << 5) - hash) + chr;
+    hash |= 0;
+  }
+  return hash;
+}
+
+function intToHex(i) {
+  const hex = ((i >> 24) & 0xFF).toString(16).slice(-2) +
+              ((i >> 16) & 0xFF).toString(16).slice(-2) +
+              ((i >> 8) & 0xFF).toString(16).slice(-2);
+         // + (i&0xFF).toString(16).slice(-2); Leave out A for now.
+  return `#${hex}`;
+}
+
+export function stringToColor(str) {
+  return intToHex(hashCode(str));
+}
+
+/*
+End String to Color
+*/
 
 export default {
-  updateLog, logsToJS, logsFromJS,
+  updateLog, logsToJS, logsFromJS, stringToColor,
 };

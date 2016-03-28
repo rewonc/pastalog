@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Container from './components/Container';
 import _union from 'lodash/union';
-import { updateLog, logsFromJS } from './lib';
+import { updateLog, logsFromJS } from 'lib';
 
 const socket = io();
 const db = { logs: null };
