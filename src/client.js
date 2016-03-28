@@ -2,23 +2,33 @@ import io from 'socket.io-client';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Container from './Container';
+import _union from 'lodash/union';
+import { updateLog } from './lib';
 
 const socket = io();
+const db = { logs: null };
+
+function renderData() {
+  ReactDOM.render(<Container data={db} />, document.getElementById('container'));
+}
 
 socket.on('available models', (models) => {
-  // todo: check if locally stored models are different
-  socket.emit('data request', models);
+  const clientModels = ['modelA', 'modelB'];
+  const validModels = _union(clientModels, models);
+  socket.emit('data request', validModels);
 });
 
 socket.on('refreshed data', (data) => {
-  console.log(data);
+  db.logs = data;
+  renderData();
 });
 
 socket.on('data point', (point) => {
-  console.log(point);
+  if (db.logs === null) {
+    return;
+  }
+  updateLog(db, point);
+  renderData();
 });
 
-setTimeout(() => {
-  console.log('call render');
-  ReactDOM.render(<Container />, document.getElementById('container'));
-}, 5000);
+ReactDOM.render(<Container />, document.getElementById('container'));

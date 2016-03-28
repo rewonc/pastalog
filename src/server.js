@@ -8,6 +8,7 @@ import Container from './Container';
 import appWrapper from './appWrapper';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
+import { updateLog } from './lib';
 
 const app = express();
 const HTTP = new Server(app);
@@ -21,17 +22,7 @@ const db = {
 
 
 function addDataPoint(point) {
-  const name = point.modelName;
-  const type = point.pointType;
-  const step = point.globalStep;
-  const value = point.pointValue;
-  if (db.logs[name] === undefined) {
-    db.logs[name] = {};
-  }
-  if (db.logs[name][type] === undefined) {
-    db.logs[name][type] = {};
-  }
-  db.logs[name][type][step] = value;
+  updateLog(db, point);
   io.emit('data point', point);
 }
 
