@@ -1,5 +1,7 @@
 // Library for common server-client utilities
 import { List } from 'immutable';
+import _mapValues from 'lodash/mapValues';
+
 
 export function updateLog(database, point) {
   /* Update a database with a new data point
@@ -20,11 +22,31 @@ export function updateLog(database, point) {
       indices: List(),
     };
   }
-  db.logs[name][type].values.push(value);
-  db.logs[name][type].indices.push(step);
+  const series = db.logs[name][type];
+  series.values = series.values.push(value);
+  series.indices = series.indices.push(step);
   return true;
 }
 
+
+export function logsToJS(logs) {
+  return _mapValues(logs, (model) => (
+    _mapValues(model, (series) => (
+      _mapValues(series, (list) => (list.toJS()))
+    ))
+  ));
+}
+
+
+export function logsFromJS(logs) {
+  return _mapValues(logs, (model) => (
+    _mapValues(model, (series) => (
+      _mapValues(series, (arr) => (List(arr)))
+    ))
+  ));
+}
+
+
 export default {
-  updateLog,
+  updateLog, logsToJS, logsFromJS,
 };

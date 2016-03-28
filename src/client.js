@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Container from './Container';
 import _union from 'lodash/union';
-import { updateLog } from './lib';
+import { updateLog, logsFromJS } from './lib';
 
 const socket = io();
 const db = { logs: null };
@@ -19,7 +19,7 @@ socket.on('available models', (models) => {
 });
 
 socket.on('refreshed data', (data) => {
-  db.logs = data;
+  db.logs = logsFromJS(data);
   renderData();
 });
 

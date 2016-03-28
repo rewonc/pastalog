@@ -8,7 +8,7 @@ import Container from './Container';
 import appWrapper from './appWrapper';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
-import { updateLog } from './lib';
+import { updateLog, logsToJS } from './lib';
 
 const app = express();
 const HTTP = new Server(app);
@@ -82,7 +82,7 @@ app.post('/data', (req, res) => {
 io.on('connection', (socket) => {
   socket.emit('available models', _keys(db.logs));
   socket.on('data request', (models) => {
-    socket.emit('refreshed data', _pick(db.logs, models));
+    socket.emit('refreshed data', logsToJS(_pick(db.logs, models)));
   });
 });
 
