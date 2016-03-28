@@ -1,6 +1,7 @@
 // Library for common server-client utilities
 import { List } from 'immutable';
 import _mapValues from 'lodash/mapValues';
+import _map from 'lodash/map';
 
 
 export function updateLog(database, point) {
@@ -44,6 +45,12 @@ export function logsFromJS(logs) {
       _mapValues(series, (arr) => (List(arr)))
     ))
   ));
+}
+
+export function convertScales(list, minIn, maxIn, minOut, maxOut) {
+  const deltaIn = maxIn - minIn;
+  const deltaOut = maxOut - minOut;
+  return _map(list, (val) => ((val - minIn) / deltaIn * deltaOut + minOut));
 }
 
 /*

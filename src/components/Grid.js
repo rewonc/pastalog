@@ -31,7 +31,8 @@ class Grid extends React.Component {
                 {_map(series, (vals, seriesName) => (
                   <Series key={seriesName}
                     seriesName={seriesName} modelName={modelName} indices={vals.indices}
-                    values={vals.values} ratios={this.state}
+                    values={vals.values} ratios={this.state} width={this.style.width}
+                    height={this.style.height}
                   />))}
               </div>))
         ) : (<div className="no-series col col-4 border mt-3 mx-auto">No logs Yet</div>)}
