@@ -53,6 +53,10 @@ export function convertScales(list, minIn, maxIn, minOut, maxOut) {
   return _map(list, (val) => ((val - minIn) / deltaIn * deltaOut + minOut));
 }
 
+export function getUUID(modelName, seriesName) {
+  return `${modelName}/${seriesName}`;
+}
+
 /*
 String to Color representation comes from:
 http://stackoverflow.com/questions/3426404/create-a-hexadecimal-colour-based-on-a-string-with-javascript
@@ -93,5 +97,5 @@ End String to Color
 */
 
 export default {
-  updateLog, logsToJS, logsFromJS, stringToColor,
+  updateLog, logsToJS, logsFromJS, stringToColor, getUUID
 };

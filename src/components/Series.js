@@ -1,31 +1,38 @@
 import React, { PropTypes } from 'react';
 import { List } from 'immutable';
-import { stringToColor, convertScales } from 'lib';
+import { stringToColor, convertScales, getUUID } from 'lib';
 import _zip from 'lodash/zip';
 
 class Series extends React.Component {
   /* This class displays a line corresponding to a series.*/
   constructor(props) {
     super(props);
-    this.uuid = `${this.props.modelName}/${this.props.seriesName}`;
+    this.uuid = getUUID(props.modelName, props.seriesName);
     this.color = stringToColor(this.uuid);
   }
 
   shouldComponentUpdate(nextProps) {
-    return ((nextProps.indices !== this.props.indices) ||
-            (nextProps.values !== this.props.values));
+    const props = this.props;
+    return ((nextProps.minX !== props.minX) ||
+            (nextProps.minY !== props.minY) ||
+            (nextProps.maxX !== props.maxX) ||
+            (nextProps.maxY !== props.maxY) ||
+            (nextProps.width !== props.width) ||
+            (nextProps.height !== props.height) ||
+            (nextProps.indices !== props.indices) ||
+            (nextProps.values !== props.values));
   }
 
   render() {
-    const ratios = this.props.ratios;
-    const indices = convertScales(this.props.indices.toJS(), ratios.minX,
-        ratios.maxX, 0, this.props.width);
-    const values = convertScales(this.props.values.toJS(), ratios.minY,
-        ratios.maxY, 0, this.props.height);
+    const props = this.props;
+    const indices = convertScales(props.indices.toJS(), props.minX,
+        props.maxX, 0, props.width);
+    const values = convertScales(props.values.toJS(), props.minY,
+        props.maxY, 0, props.height);
     const pairs = _zip(indices, values);
     return (<svg className="series max absolute top-0 left-0">
       {pairs.map((pair) => (
-        <circle r="3" fill={this.color} stroke="0" cx={pair[0]}
+        <circle r="2" fill={this.color} stroke="0" cx={pair[0]}
           cy={pair[1]} key={pair[0]}
         />
       ))}
@@ -41,9 +48,12 @@ Series.propTypes = {
   values: PropTypes.instanceOf(List),
   seriesName: PropTypes.string,
   modelName: PropTypes.string,
-  ratios: PropTypes.object,
   width: PropTypes.number,
   height: PropTypes.number,
+  minX: PropTypes.number,
+  minY: PropTypes.number,
+  maxX: PropTypes.number,
+  maxY: PropTypes.number,
 };
 
 

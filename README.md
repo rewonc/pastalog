@@ -1,8 +1,16 @@
 #### todo
+- Grid - adjust scale automatically mode
+- Grid - adjust scale manually mode
+- Grid - Styling, numbers, button
+- Grid - Legend
+- Grid - display options (which models, which series)
+- Grid - hover at step and display values
+
+- Series - click to see series numbers
+         - see all values for a series
+
 - Tests for visualization (make sure it works)
 - tests for python api
-- make sure scaling, etc works
-
 
 # pastalog
 
