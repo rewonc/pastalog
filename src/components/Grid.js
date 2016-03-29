@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import Series from './Series';
+import Legend from './Legend';
 import _map from 'lodash/map';
 import _forEach from 'lodash/forEach';
 
@@ -73,9 +74,7 @@ class Grid extends React.Component {
       <div className="grid relative clearfix border"
         style={{ width: this.state.width, height: this.state.height }}
       >
-        <ul className="absolute top-0 right-0 m2">
-          Legend goes here.
-        </ul>
+        <Legend {...this.props} />
         {this.props.logs ? (
             _map(this.props.logs, (series, modelName) => (
               <div key={modelName} className="absolute top-0 left-0 max">

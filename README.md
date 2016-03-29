@@ -1,10 +1,11 @@
 #### todo
-- Grid - adjust scale automatically mode
-- Grid - adjust scale manually mode
-- Grid - Styling, numbers, button
+- Grid >>>>>>>>>>>DONE>>>>>>>>>>>- adjust scale automatically mode 
 - Grid - Legend
+- lib  - extract a library function that iterates through each series and provides a cb
+- Grid - Styling, numbers, button (ask tiffany)
 - Grid - display options (which models, which series)
 - Grid - hover at step and display values
+- Grid - adjust scale manually mode
 
 - Series - click to see series numbers
          - see all values for a series

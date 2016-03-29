@@ -2,6 +2,7 @@
 import { List } from 'immutable';
 import _mapValues from 'lodash/mapValues';
 import _map from 'lodash/map';
+import _forEach from 'lodash/forEach';
 
 
 export function updateLog(database, point) {
@@ -58,6 +59,16 @@ export function convertScales(list, minIn, maxIn, minOut, maxOut, options = {}) 
 
 export function getUUID(modelName, seriesName) {
   return `${modelName}/${seriesName}`;
+}
+
+export function seriesMap(logs, cb) {
+  const results = [];
+  _forEach(logs, (series, modelName) => {
+    _forEach(series, (list, seriesName) => {
+      results.push(cb(list, modelName, seriesName));
+    });
+  });
+  return results;
 }
 
 /*
