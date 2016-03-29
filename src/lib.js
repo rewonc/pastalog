@@ -47,9 +47,12 @@ export function logsFromJS(logs) {
   ));
 }
 
-export function convertScales(list, minIn, maxIn, minOut, maxOut) {
+export function convertScales(list, minIn, maxIn, minOut, maxOut, options = {}) {
   const deltaIn = maxIn - minIn;
   const deltaOut = maxOut - minOut;
+  if (options.invert === true) {
+    return _map(list, (val) => ((1 - (val - minIn) / deltaIn) * deltaOut + minOut));
+  }
   return _map(list, (val) => ((val - minIn) / deltaIn * deltaOut + minOut));
 }
 

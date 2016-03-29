@@ -27,8 +27,9 @@ class Series extends React.Component {
     const props = this.props;
     const indices = convertScales(props.indices.toJS(), props.minX,
         props.maxX, 0, props.width);
+    // pass invert: true for Y values because pixel values go top down
     const values = convertScales(props.values.toJS(), props.minY,
-        props.maxY, 0, props.height);
+        props.maxY, 0, props.height, { invert: true });
     const pairs = _zip(indices, values);
     return (<svg className="series max absolute top-0 left-0">
       {pairs.map((pair) => (

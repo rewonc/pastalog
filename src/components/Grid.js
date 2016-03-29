@@ -4,7 +4,7 @@ import _map from 'lodash/map';
 import _forEach from 'lodash/forEach';
 
 // Constants to set grid sizing relative to minimum and maximum points in the data
-const MULTIPLIER = 2.0;
+const MULTIPLIER = 1.6;
 const BUFFER = 0.9;
 const CONSTANT = 0.1;
 const DEFAULT_WIDTH = 900;
