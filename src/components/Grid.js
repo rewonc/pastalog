@@ -3,14 +3,17 @@ import Series from './Series';
 import Legend from './Legend';
 import Gridlines from './Gridlines';
 import _map from 'lodash/map';
+import _mapValues from 'lodash/mapValues';
 import _forEach from 'lodash/forEach';
+import _merge from 'lodash/merge';
+import _pickBy from 'lodash/pickBy';
 
 // Constants to set grid sizing relative to minimum and maximum points in the data
-const MULTIPLIER = 1.6;
-const BUFFER = 0.9;
-const CONSTANT = 0.1;
+const BUFFER = 0.01;
+const PADDING = 0.1;
 const DEFAULT_WIDTH = 900;
 const DEFAULT_HEIGHT = 500;
+
 
 class Grid extends React.Component {
   /* This class instantiates series if data exists, or renders a blank grid if not.
@@ -21,19 +24,21 @@ class Grid extends React.Component {
     this.state = {
       width,
       height,
-      minX: -0.1,
-      maxX: 2,
-      minY: -0.1,
-      maxY: 0.1,
+      minX: -0.05,
+      maxX: 20,
+      minY: -0.001,
+      maxY: 0.5,
+      modelBlacklist: { 'modelB': true },
+      seriesBlacklist: {},
     };
   }
-
 
   componentWillReceiveProps(nextProps) {
     const thisState = this.state;
     const newState = {};
     const props = this.props;
-    _forEach(nextProps.logs, (series, modelName) => {
+    const newLogs = this.filterLogs(nextProps.logs);
+    _forEach(newLogs, (series, modelName) => {
       _forEach(series, (list, seriesName) => {
         if (props.log !== undefined) {
           const model = props.log[modelName];
@@ -48,37 +53,70 @@ class Grid extends React.Component {
         const maxX = xs.max();
         const minY = ys.min();
         const maxY = ys.max();
-        if (minX < thisState.minX * BUFFER) {
-          newState.minX = minX * MULTIPLIER - CONSTANT;
+        const xRange = maxX - minX;
+        const yRange = maxY - minY;
+        if (minX < thisState.minX + BUFFER * xRange) {
+          newState.minX = minX - PADDING * xRange;
         }
-        if (minY < thisState.minY * BUFFER) {
-          newState.minY = minY * MULTIPLIER - CONSTANT;
+        if (minY < thisState.minY + BUFFER * yRange) {
+          newState.minY = minY - PADDING * yRange;
         }
-        if (maxX > thisState.maxX * BUFFER) {
-          newState.maxX = maxX * MULTIPLIER + CONSTANT;
+        if (maxX > thisState.maxX - BUFFER * xRange) {
+          newState.maxX = maxX + PADDING * xRange;
         }
-        if (maxY > thisState.maxY * BUFFER) {
-          newState.maxY = maxY * MULTIPLIER + CONSTANT;
+        if (maxY > thisState.maxY - BUFFER * yRange) {
+          newState.maxY = maxY + PADDING * yRange;
         }
       });
     });
     this.setState(newState);
-    console.log(JSON.stringify(newState));
   }
 
   getGridDims() {
     return { width: DEFAULT_WIDTH, height: DEFAULT_HEIGHT };
   }
 
+  filterLogs(logs) {
+    if (!logs) return null;
+    const modelBlacklist = this.state.modelBlacklist;
+    const seriesBlacklist = this.state.seriesBlacklist;
+    const models = _pickBy(logs, (series, modelName) =>
+      modelBlacklist[modelName] !== true
+    );
+    const series = _mapValues(models, (seriesMap) =>
+      _pickBy(seriesMap, (list, seriesName) =>
+        seriesBlacklist[seriesName] !== true
+      )
+    );
+    return series;
+  }
+
+  updateModelBlacklist(key, val) {
+    this.setState({ modelBlacklist: _merge({ [key]: val }, this.state.modelBlacklist) });
+  }
+
+  updateSeriesBlacklist(key, val) {
+    this.setState({ seriesBlacklist: _merge({ [key]: val }, this.state.seriesBlacklist) });
+  }
+
   render() {
+    const logs = this.props.logs;
+    const modelBlacklist = this.state.modelBlacklist;
+    const seriesBlacklist = this.state.seriesBlacklist;
+    const filteredLogs = this.filterLogs(logs);
+    console.log(filteredLogs);
     return (
       <div className="grid relative clearfix border m3"
         style={{ width: this.state.width, height: this.state.height }}
       >
-        <Legend {...this.props} />
+        <Legend logs={logs} modelBlacklist={modelBlacklist}
+          updateModelBlacklist={this.updateModelBlacklist}
+          seriesBlacklist={seriesBlacklist}
+          updateSeriesBlacklist={this.updateSeriesBlacklist}
+        />
         <Gridlines {...this.state} />
-        {this.props.logs ? (
-            _map(this.props.logs, (series, modelName) => (
+        {filteredLogs ? (
+            _map(filteredLogs, (series, modelName) => (
               <div key={modelName} className="absolute top-0 left-0 max z2">
                 {_map(series, (vals, seriesName) => (
                   <Series key={seriesName}

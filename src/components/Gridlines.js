@@ -26,7 +26,7 @@ function getMarkings({ min, max, width, height, horizontal, showLines, numMarkin
       };
       return (
       <div key={`${idx}-${horizontal}`} className="gridMark center" style={style}>
-        {Math.round(value * 10) / 10}
+        {Math.round(value)}
       </div>);
     });
   }

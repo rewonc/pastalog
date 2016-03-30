@@ -2,7 +2,7 @@ import io from 'socket.io-client';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Container from './components/Container';
-import _union from 'lodash/union';
+import _difference from 'lodash/difference';
 import { updateLog, logsFromJS } from 'lib';
 import './styles.scss';
 
@@ -14,8 +14,9 @@ function renderData() {
 }
 
 socket.on('available models', (models) => {
-  const clientModels = ['modelA', 'modelB'];
-  const validModels = _union(clientModels, models);
+  // todo: add way to delete models, which means don't request them.
+  const modelBlacklist = [];
+  const validModels = _difference(models, modelBlacklist);
   socket.emit('data request', validModels);
 });
 
