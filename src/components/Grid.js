@@ -5,8 +5,9 @@ import Gridlines from './Gridlines';
 import _map from 'lodash/map';
 import _mapValues from 'lodash/mapValues';
 import _forEach from 'lodash/forEach';
-import _merge from 'lodash/merge';
+import _assign from 'lodash/assign';
 import _pickBy from 'lodash/pickBy';
+import { getUUID } from 'lib';
 
 // Constants to set grid sizing relative to minimum and maximum points in the data
 const BUFFER = 0.01;
@@ -28,9 +29,13 @@ class Grid extends React.Component {
       maxX: 20,
       minY: -0.001,
       maxY: 0.5,
-      modelBlacklist: { 'modelB': true },
+      modelBlacklist: { modelB: true },
       seriesBlacklist: {},
+      uniqueBlacklist: {},
     };
+    this.updateModelBlacklist = this.updateModelBlacklist.bind(this);
+    this.updateSeriesBlacklist = this.updateSeriesBlacklist.bind(this);
+    this.updateUniqueBlacklist = this.updateUniqueBlacklist.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -80,39 +85,51 @@ class Grid extends React.Component {
     if (!logs) return null;
     const modelBlacklist = this.state.modelBlacklist;
     const seriesBlacklist = this.state.seriesBlacklist;
+    const uniqueBlacklist = this.state.uniqueBlacklist;
     const models = _pickBy(logs, (series, modelName) =>
       modelBlacklist[modelName] !== true
     );
-    const series = _mapValues(models, (seriesMap) =>
-      _pickBy(seriesMap, (list, seriesName) =>
-        seriesBlacklist[seriesName] !== true
-      )
+    const series = _mapValues(models, (seriesMap, modelName) =>
+      _pickBy(seriesMap, (list, seriesName) => {
+        const uuid = getUUID(modelName, seriesName);
+        return (
+          seriesBlacklist[seriesName] !== true &&
+          uniqueBlacklist[uuid] !== true
+        );
+      })
     );
     return series;
   }
 
   updateModelBlacklist(key, val) {
-    this.setState({ modelBlacklist: _merge({ [key]: val }, this.state.modelBlacklist) });
+    this.setState({ modelBlacklist: _assign({}, this.state.modelBlacklist, { [key]: val }) });
   }
 
   updateSeriesBlacklist(key, val) {
-    this.setState({ seriesBlacklist: _merge({ [key]: val }, this.state.seriesBlacklist) });
+    this.setState({ seriesBlacklist: _assign({}, this.state.seriesBlacklist, { [key]: val }) });
+  }
+
+  updateUniqueBlacklist(key, val) {
+    this.setState({ uniqueBlacklist: _assign({}, this.state.uniqueBlacklist, { [key]: val }) });
   }
 
   render() {
     const logs = this.props.logs;
     const modelBlacklist = this.state.modelBlacklist;
     const seriesBlacklist = this.state.seriesBlacklist;
+    const uniqueBlacklist = this.state.uniqueBlacklist;
     const filteredLogs = this.filterLogs(logs);
-    console.log(filteredLogs);
     return (
       <div className="grid relative clearfix border m3"
         style={{ width: this.state.width, height: this.state.height }}
       >
-        <Legend logs={logs} modelBlacklist={modelBlacklist}
+        <Legend logs={logs}
+          modelBlacklist={modelBlacklist}
           updateModelBlacklist={this.updateModelBlacklist}
           seriesBlacklist={seriesBlacklist}
           updateSeriesBlacklist={this.updateSeriesBlacklist}
+          uniqueBlacklist={uniqueBlacklist}
+          updateUniqueBlacklist={this.updateUniqueBlacklist}
         />
         <Gridlines {...this.state} />
         {filteredLogs ? (
