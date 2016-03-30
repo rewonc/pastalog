@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import Series from './Series';
 import Legend from './Legend';
+import Gridlines from './Gridlines';
 import _map from 'lodash/map';
 import _forEach from 'lodash/forEach';
 
@@ -71,13 +72,14 @@ class Grid extends React.Component {
 
   render() {
     return (
-      <div className="grid relative clearfix border"
+      <div className="grid relative clearfix border m3"
         style={{ width: this.state.width, height: this.state.height }}
       >
         <Legend {...this.props} />
+        <Gridlines {...this.state} />
         {this.props.logs ? (
             _map(this.props.logs, (series, modelName) => (
-              <div key={modelName} className="absolute top-0 left-0 max">
+              <div key={modelName} className="absolute top-0 left-0 max z2">
                 {_map(series, (vals, seriesName) => (
                   <Series key={seriesName}
                     seriesName={seriesName} modelName={modelName} indices={vals.indices}

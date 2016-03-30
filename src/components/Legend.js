@@ -13,7 +13,7 @@ function Legend(props) {
   });
 
   return (
-    <ul className="absolute top-0 right-0 m2 list-reset">
+    <ul className="absolute top-0 right-0 m2 list-reset z3">
       {legendItems}
     </ul>
   );
