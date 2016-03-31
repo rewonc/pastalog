@@ -4,7 +4,7 @@
   "description": "Logging and visualization library for lasagne and other nn frameworks.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test/build/index.js",
+    "test": "mocha test/build/index.js --debug",
     "test:watch": "npm run test -- --watch",
     "build": "webpack --watch",
     "dev": "nodemon dist/server.js",

@@ -26,6 +26,10 @@ export const INITIAL_STATE = fromJS(
   }
 );
 
+function mergeElements(old, current) {
+  return old.merge(current);
+}
+
 export function toggleHover(state, value) {
   return state.update(
     'hovering',
@@ -33,23 +37,28 @@ export function toggleHover(state, value) {
   );
 }
 
-export function moveHover(coords, newCoords) {
-  return coords.merge(newCoords);
+export function updateObject(state = INITIAL_STATE, key, current) {
+  if (state === null) {
+    return fromJS({ [key]: current });
+  }
+  return state.update(key, fromJS({}), val => mergeElements(val, current));
 }
 
-export function rescale(scale, newScale) {
-  return scale.merge(newScale);
+export function moveHover(old, current) {
+  return mergeElements(old, current);
 }
 
-export function resize(size, newSize) {
-  return size.merge(newSize);
+export function rescale(old, current) {
+  return mergeElements(old, current);
+}
+
+export function resize(old, current) {
+  return mergeElements(old, current);
 }
 
 export function disable(state, category, id) {
   return state.updateIn(
-    ['disabled', category, id],
-    false,
-    () => true
+    ['disabled', category, id], () => true
   );
 }
 

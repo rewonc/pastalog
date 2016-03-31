@@ -1,4 +1,4 @@
-import { rescale, resize, disable, enable,
+import { rescale, resize, disable, enable, updateObject,
   toggleHover, moveHover, INITIAL_STATE } from './actions';
 
 /*
@@ -34,20 +34,19 @@ export const INITIAL_STATE = fromJS(
 export default function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case 'RESCALE':
-      return state.update('scale',
-        scale => rescale(scale, action.scale));
+      return updateObject(state, 'scale', action.scale);
     case 'RESIZE':
       return state.update('size',
         size => resize(size, action.size));
+    case 'MOVE_HOVER':
+      return state.update('hoverPosition',
+        coords => moveHover(coords, action.coords));
     case 'DISABLE':
       return disable(state, action.category, action.id);
     case 'ENABLE':
       return enable(state, action.category, action.id);
     case 'TOGGLE_HOVER':
       return toggleHover(state, action.value);
-    case 'MOVE_HOVER':
-      return state.update('hoverPosition',
-        coords => moveHover(coords, action.coords));
     default:
       return state;
   }

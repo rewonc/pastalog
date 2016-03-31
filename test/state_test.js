@@ -1,8 +1,9 @@
+import { fromJS } from 'immutable';
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
 import reducer from '../src/state/reducer';
-import INITIAL_STATE from '../src/state/actions';
-import { fromJS } from 'immutable';
+import { INITIAL_STATE } from '../src/state/actions';
+import { isDisabled } from '../src/state/helpers';
 
 describe('reducer actions', () => {
   describe('rescale', () => {
@@ -33,7 +34,8 @@ describe('reducer actions', () => {
         type: 'RESCALE',
         scale: newScale,
       });
-      expect(newState.get('scale')).to.equal(INITIAL_STATE.get('scale').update('xMin', 10));
+      const updatedDefaults = INITIAL_STATE.get('scale').update('xMin', () => 10);
+      expect(newState.get('scale')).to.equal(updatedDefaults);
     });
 
     it('should update multiple values for scale at once', () => {
@@ -83,26 +85,65 @@ describe('reducer actions', () => {
     });
   });
 
-  describe('disable and enable', () => {
-    it('should disable a model', () => {
-      expect(true).to.equal(false);
+  describe('disable/enable', () => {
+    it('should disable a model when no keys exist', () => {
+      const initialState = fromJS({});
+      const newState = reducer(initialState, {
+        type: 'DISABLE',
+        category: 'models',
+        id: 'modelA',
+      });
+      expect(isDisabled(newState, 'models', 'modelA')).to.equal(true);
     });
+
     it('should disable a series type', () => {
-      expect(true).to.equal(false);
+      const initialState = fromJS({});
+      const newState = reducer(initialState, {
+        type: 'DISABLE',
+        category: 'series',
+        id: 'train_loss',
+      });
+      expect(isDisabled(newState, 'series', 'train_loss')).to.equal(true);
     });
+
     it('should disable a unique model/series', () => {
-      expect(true).to.equal(false);
+      const initialState = fromJS({});
+      const newState = reducer(initialState, {
+        type: 'DISABLE',
+        category: 'uniques',
+        id: 'modelA/train_loss',
+      });
+      expect(isDisabled(newState, 'uniques', 'modelA/train_loss')).to.equal(true);
     });
+
     it('should enable disabled elements', () => {
-      expect(true).to.equal(false);
+      const initialState = fromJS({ disabled: { models: { modelA: true } } });
+      const newState = reducer(initialState, {
+        type: 'ENABLE',
+        category: 'models',
+        id: 'modelA',
+      });
+      expect(isDisabled(newState, 'model', 'modelA')).to.equal(false);
     });
 
     it('should do nothing when enabled elements are enabled again', () => {
-      expect(true).to.equal(false);
+      const initialState = fromJS({ disabled: { models: {} } });
+      const newState = reducer(initialState, {
+        type: 'ENABLE',
+        category: 'models',
+        id: 'modelA',
+      });
+      expect(isDisabled(newState, 'model', 'modelA')).to.equal(false);
     });
 
     it('should do nothing when disabled elements are disabled again', () => {
-      expect(true).to.equal(false);
+      const initialState = fromJS({ disabled: { models: { modelA: true } } });
+      const newState = reducer(initialState, {
+        type: 'DISABLE',
+        category: 'models',
+        id: 'modelA',
+      });
+      expect(isDisabled(newState, 'models', 'modelA')).to.equal(true);
     });
   });
 
