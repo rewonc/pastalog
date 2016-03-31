@@ -33,7 +33,7 @@ class Series extends React.Component {
     const pairs = _zip(indices, values);
     return (<svg className="series max absolute top-0 left-0">
       {pairs.map((pair) => (
-        <circle r="2" fill={this.color} stroke="0" cx={pair[0]}
+        <circle r="0" fill={this.color} stroke="0" cx={pair[0]}
           cy={pair[1]} key={pair[0]}
         />
       ))}

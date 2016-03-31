@@ -4,7 +4,8 @@
   "description": "Logging and visualization library for lasagne and other nn frameworks.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha test/build/index.js",
+    "test:watch": "npm run test -- --watch",
     "build": "webpack --watch",
     "dev": "nodemon dist/server.js",
     "start": "node dist/server.js"
@@ -27,8 +28,12 @@
     "babel-loader": "^6.2.4",
     "babel-preset-es2015-webpack": "^6.4.0",
     "babel-preset-react": "^6.5.0",
+    "babel-register": "^6.7.2",
+    "chai": "^3.5.0",
+    "chai-immutable": "^1.5.4",
     "css-loader": "^0.23.1",
     "json-loader": "^0.5.4",
+    "mocha": "^2.4.5",
     "node-sass": "^3.4.2",
     "nodemon": "^1.9.1",
     "sass-loader": "^3.2.0",

@@ -5,7 +5,9 @@
 - Grid >>>>>>>>>>>DONE>>>>>>>>>>>- Gridlines
 - Grid >>>>>>>>>>>DONE>>>>>>>>>>>- round numbers
 - Grid >>>>>>>>>>>DONE>>>>>>>>>>>- display options (which models, which series), refresh
-- Grid - hover at step and display values
+- Grid >>>>>>>>>>>DONE>>>>>>>>>>>- hover at step and display values
+- App - Create a redux state tree to hold all the application state.
+- App - Create unit tests for state tree
 - Grid - adjust scale manually mode
 - Grid - Styling (ask tiffany -- do in coinbase format)
 - Series display options
@@ -18,6 +20,18 @@
 
 - Tests for visualization (make sure it works)
 - tests for python api
+
+state tree:
+
+- gridScales - minX, minY, maxX, maxY
+- containerSize - width, height
+- logs
+- hoverStates
+- disabled
+    - models
+    - series
+    - uniques
+
 
 # pastalog
 

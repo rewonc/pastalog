@@ -1,11 +1,13 @@
 import React from 'react';
-import Grid from './Grid';
+import Interface from './Interface';
 
 const Container = (props) => (
   /* This class instantiates the headers and grid.*/
-  <div>
-    <h2 className="m0">pastalog</h2>
-    <Grid {...props} />
+  <div className="Container">
+    <div className="clearfix">
+      <h2 className="m0">pastalog</h2>
+    </div>
+    <Interface {...props} />
   </div>
 
 );

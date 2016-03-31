@@ -91,6 +91,33 @@ module.exports = [
     },
     externals: nodeModules,
   },
+
+  // TEST
+  {
+    entry: './test/index.js',
+    target: 'node',
+    output: {
+      filename: './test/build/index.js',
+    },
+    module: {
+      loaders: [
+        {
+          test: /\.js$/,
+          loader: 'babel-loader',
+          query: {
+            presets: ['es2015-webpack', 'react'],
+          },
+        },
+      ],
+    },
+    node: {
+      console: 'empty',
+      fs: 'empty',
+      net: 'empty',
+      tls: 'empty',
+    },
+    externals: nodeModules,
+  },
 ];
 
 /*eslint-enable */

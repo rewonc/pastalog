@@ -143,7 +143,7 @@ class Grid extends React.Component {
     const uniqueBlacklist = this.state.uniqueBlacklist;
     const filteredLogs = this.filterLogs(logs);
     return (
-      <div className="grid relative clearfix border m3"
+      <div className="Grid relative clearfix border m3"
         style={{ width: this.state.width, height: this.state.height }}
         onMouseEnter={this.onMouseEnter}
         onMouseLeave={this.onMouseLeave}
