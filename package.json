@@ -20,6 +20,7 @@
     "lodash": "^4.6.1",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
+    "redux": "^3.3.1",
     "socket.io": "^1.4.5",
     "socket.io-client": "^1.4.5"
   },

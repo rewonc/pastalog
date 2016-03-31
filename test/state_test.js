@@ -4,6 +4,23 @@ import { expect } from 'chai';
 import reducer from '../src/state/reducer';
 import { INITIAL_STATE } from '../src/state/actions';
 import { isDisabled } from '../src/state/helpers';
+import makeStore from '../src/state/store';
+
+
+describe('Redux store', () => {
+  it('is initialized with the correct reducer', () => {
+    const store = makeStore();
+    expect(store.getState()).to.equal(INITIAL_STATE);
+
+    store.dispatch({
+      type: 'RESCALE',
+      scale: { minX: 10 },
+    });
+    expect(store.getState()).to.equal(
+      INITIAL_STATE.updateIn(['scale', 'minX'], () => 10)
+    );
+  });
+});
 
 describe('reducer actions', () => {
   describe('rescale', () => {
