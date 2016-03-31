@@ -103,7 +103,7 @@
 	  return state.deleteIn(['disabled', category, id]);
 	}
 
-	/* unused harmony default export */ var _unused_webpack_default_export = {
+	/* harmony default export */ exports["h"] = {
 	  rescale: rescale, resize: resize, disable: disable, enable: enable, toggleHover: toggleHover, moveHover: moveHover, INITIAL_STATE: INITIAL_STATE
 	};
 
@@ -144,7 +144,37 @@
 
 	/* harmony import */__WEBPACK_IMPORTED_MODULE_0_mocha__["describe"].bind()('reducer actions', function () {
 	  /* harmony import */__WEBPACK_IMPORTED_MODULE_0_mocha__["describe"].bind()('rescale', function () {
-	    /* harmony import */__WEBPACK_IMPORTED_MODULE_0_mocha__["it"].bind()('should update values for scale', function () {
+	    /* harmony import */__WEBPACK_IMPORTED_MODULE_0_mocha__["it"].bind()('should work for state variables with no scale property', function () {
+	      var initialState = /* harmony import */__WEBPACK_IMPORTED_MODULE_4_immutable__["fromJS"].bind()({});
+	      var newScale = { xMin: 10 };
+	      var newState = /* harmony import */__WEBPACK_IMPORTED_MODULE_2__src_state_reducer__["a"].bind()(initialState, {
+	        type: 'RESCALE',
+	        scale: newScale
+	      });
+	      /* harmony import */__WEBPACK_IMPORTED_MODULE_1_chai__["expect"].bind()(newState.get('scale')).to.equal(/* harmony import */__WEBPACK_IMPORTED_MODULE_4_immutable__["fromJS"].bind()(newScale));
+	    });
+
+	    /* harmony import */__WEBPACK_IMPORTED_MODULE_0_mocha__["it"].bind()('should work for state variables that are null', function () {
+	      var initialState = null;
+	      var newScale = { xMin: 10 };
+	      var newState = /* harmony import */__WEBPACK_IMPORTED_MODULE_2__src_state_reducer__["a"].bind()(initialState, {
+	        type: 'RESCALE',
+	        scale: newScale
+	      });
+	      /* harmony import */__WEBPACK_IMPORTED_MODULE_1_chai__["expect"].bind()(newState.get('scale')).to.equal(/* harmony import */__WEBPACK_IMPORTED_MODULE_4_immutable__["fromJS"].bind()(newScale));
+	    });
+
+	    /* harmony import */__WEBPACK_IMPORTED_MODULE_0_mocha__["it"].bind()('should apply defaults when state variable is undefined', function () {
+	      var initialState = undefined;
+	      var newScale = { xMin: 10 };
+	      var newState = /* harmony import */__WEBPACK_IMPORTED_MODULE_2__src_state_reducer__["a"].bind()(initialState, {
+	        type: 'RESCALE',
+	        scale: newScale
+	      });
+	      /* harmony import */__WEBPACK_IMPORTED_MODULE_1_chai__["expect"].bind()(newState.get('scale')).to.equal(/* harmony import */__WEBPACK_IMPORTED_MODULE_3__src_state_actions__["h"].get('scale').update('xMin', 10));
+	    });
+
+	    /* harmony import */__WEBPACK_IMPORTED_MODULE_0_mocha__["it"].bind()('should update multiple values for scale at once', function () {
 	      var initialState = /* harmony import */__WEBPACK_IMPORTED_MODULE_4_immutable__["fromJS"].bind()({ scale: {} });
 	      var newScale = { xMin: 10, yMin: 20, xMax: 30, yMax: 40 };
 	      var newState = /* harmony import */__WEBPACK_IMPORTED_MODULE_2__src_state_reducer__["a"].bind()(initialState, {
@@ -152,6 +182,90 @@
 	        scale: newScale
 	      });
 	      /* harmony import */__WEBPACK_IMPORTED_MODULE_1_chai__["expect"].bind()(newState.get('scale')).to.equal(/* harmony import */__WEBPACK_IMPORTED_MODULE_4_immutable__["fromJS"].bind()(newScale));
+	    });
+
+	    /* harmony import */__WEBPACK_IMPORTED_MODULE_0_mocha__["it"].bind()('should work when update only includes some keys', function () {
+	      var initialState = /* harmony import */__WEBPACK_IMPORTED_MODULE_4_immutable__["fromJS"].bind()({ scale: { xMin: 10, xMax: 30 } });
+	      var newScale = { xMax: 30, yMax: 40 };
+	      var newState = /* harmony import */__WEBPACK_IMPORTED_MODULE_2__src_state_reducer__["a"].bind()(initialState, {
+	        type: 'RESCALE',
+	        scale: newScale
+	      });
+	      /* harmony import */__WEBPACK_IMPORTED_MODULE_1_chai__["expect"].bind()(newState.get('scale')).to.equal(/* harmony import */__WEBPACK_IMPORTED_MODULE_4_immutable__["fromJS"].bind()({
+	        xMin: 10, xMax: 30, yMax: 40
+	      }));
+	    });
+	  });
+
+	  /* harmony import */__WEBPACK_IMPORTED_MODULE_0_mocha__["describe"].bind()('resize', function () {
+	    /* harmony import */__WEBPACK_IMPORTED_MODULE_0_mocha__["it"].bind()('should update multiple values for size at once', function () {
+	      var initialState = /* harmony import */__WEBPACK_IMPORTED_MODULE_4_immutable__["fromJS"].bind()({ size: { width: 100, height: 200 } });
+	      var newSize = { height: 1000, width: 1000 };
+	      var newState = /* harmony import */__WEBPACK_IMPORTED_MODULE_2__src_state_reducer__["a"].bind()(initialState, {
+	        type: 'RESIZE',
+	        size: newSize
+	      });
+	      /* harmony import */__WEBPACK_IMPORTED_MODULE_1_chai__["expect"].bind()(newState.get('size')).to.equal(/* harmony import */__WEBPACK_IMPORTED_MODULE_4_immutable__["fromJS"].bind()(newSize));
+	    });
+	  });
+
+	  /* harmony import */__WEBPACK_IMPORTED_MODULE_0_mocha__["describe"].bind()('moveHover', function () {
+	    /* harmony import */__WEBPACK_IMPORTED_MODULE_0_mocha__["it"].bind()('should update multiple values for coordinates at once', function () {
+	      var initialState = /* harmony import */__WEBPACK_IMPORTED_MODULE_4_immutable__["fromJS"].bind()({ hoverPosition: { hoverX: 100, hoverY: 200 } });
+	      var newCoords = { hoverX: 1000, hoverY: 1000 };
+	      var newState = /* harmony import */__WEBPACK_IMPORTED_MODULE_2__src_state_reducer__["a"].bind()(initialState, {
+	        type: 'MOVE_HOVER',
+	        coords: newCoords
+	      });
+	      /* harmony import */__WEBPACK_IMPORTED_MODULE_1_chai__["expect"].bind()(newState.get('hoverPosition')).to.equal(/* harmony import */__WEBPACK_IMPORTED_MODULE_4_immutable__["fromJS"].bind()(newCoords));
+	    });
+	  });
+
+	  /* harmony import */__WEBPACK_IMPORTED_MODULE_0_mocha__["describe"].bind()('disable and enable', function () {
+	    /* harmony import */__WEBPACK_IMPORTED_MODULE_0_mocha__["it"].bind()('should disable a model', function () {
+	      /* harmony import */__WEBPACK_IMPORTED_MODULE_1_chai__["expect"].bind()(true).to.equal(false);
+	    });
+	    /* harmony import */__WEBPACK_IMPORTED_MODULE_0_mocha__["it"].bind()('should disable a series type', function () {
+	      /* harmony import */__WEBPACK_IMPORTED_MODULE_1_chai__["expect"].bind()(true).to.equal(false);
+	    });
+	    /* harmony import */__WEBPACK_IMPORTED_MODULE_0_mocha__["it"].bind()('should disable a unique model/series', function () {
+	      /* harmony import */__WEBPACK_IMPORTED_MODULE_1_chai__["expect"].bind()(true).to.equal(false);
+	    });
+	    /* harmony import */__WEBPACK_IMPORTED_MODULE_0_mocha__["it"].bind()('should enable disabled elements', function () {
+	      /* harmony import */__WEBPACK_IMPORTED_MODULE_1_chai__["expect"].bind()(true).to.equal(false);
+	    });
+
+	    /* harmony import */__WEBPACK_IMPORTED_MODULE_0_mocha__["it"].bind()('should do nothing when enabled elements are enabled again', function () {
+	      /* harmony import */__WEBPACK_IMPORTED_MODULE_1_chai__["expect"].bind()(true).to.equal(false);
+	    });
+
+	    /* harmony import */__WEBPACK_IMPORTED_MODULE_0_mocha__["it"].bind()('should do nothing when disabled elements are disabled again', function () {
+	      /* harmony import */__WEBPACK_IMPORTED_MODULE_1_chai__["expect"].bind()(true).to.equal(false);
+	    });
+	  });
+
+	  /* harmony import */__WEBPACK_IMPORTED_MODULE_0_mocha__["describe"].bind()('toggle hover', function () {
+	    /* harmony import */__WEBPACK_IMPORTED_MODULE_0_mocha__["it"].bind()('should set hover to true', function () {
+	      var initialState = /* harmony import */__WEBPACK_IMPORTED_MODULE_4_immutable__["fromJS"].bind()({ hovering: false });
+	      var newState = /* harmony import */__WEBPACK_IMPORTED_MODULE_2__src_state_reducer__["a"].bind()(initialState, {
+	        type: 'TOGGLE_HOVER',
+	        value: true
+	      });
+	      /* harmony import */__WEBPACK_IMPORTED_MODULE_1_chai__["expect"].bind()(newState.get('hovering')).to.equal(true);
+	      var newState2 = /* harmony import */__WEBPACK_IMPORTED_MODULE_2__src_state_reducer__["a"].bind()(initialState, {
+	        type: 'TOGGLE_HOVER',
+	        value: true
+	      });
+	      /* harmony import */__WEBPACK_IMPORTED_MODULE_1_chai__["expect"].bind()(newState2.get('hovering')).to.equal(true);
+	    });
+
+	    /* harmony import */__WEBPACK_IMPORTED_MODULE_0_mocha__["it"].bind()('should set hover to false', function () {
+	      var initialState = /* harmony import */__WEBPACK_IMPORTED_MODULE_4_immutable__["fromJS"].bind()({ hovering: true });
+	      var newState = /* harmony import */__WEBPACK_IMPORTED_MODULE_2__src_state_reducer__["a"].bind()(initialState, {
+	        type: 'TOGGLE_HOVER',
+	        value: false
+	      });
+	      /* harmony import */__WEBPACK_IMPORTED_MODULE_1_chai__["expect"].bind()(newState.get('hovering')).to.equal(false);
 	    });
 	  });
 	});
@@ -177,7 +291,7 @@
 
 
 	/*
-	state tree:
+	reference state tree
 
 	export const INITIAL_STATE = fromJS(
 	  {

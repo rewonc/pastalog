@@ -2,7 +2,7 @@ import { rescale, resize, disable, enable,
   toggleHover, moveHover, INITIAL_STATE } from './actions';
 
 /*
-state tree:
+reference state tree
 
 export const INITIAL_STATE = fromJS(
   {
