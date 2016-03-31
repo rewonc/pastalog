@@ -6,10 +6,18 @@
 - Grid >>>>>>>>>>>DONE>>>>>>>>>>>- round numbers
 - Grid >>>>>>>>>>>DONE>>>>>>>>>>>- display options (which models, which series), refresh
 - Grid >>>>>>>>>>>DONE>>>>>>>>>>>- hover at step and display values
-- App - Create a redux state tree to hold all the application state.
-- App - Create unit tests for state tree
-- Grid - adjust scale manually mode
+- App >>>>>>>>>>>DONE>>>>>>>>>>>- Create a redux state tree to hold all the application state.
+- App >>>>>>>>>>>DONE>>>>>>>>>>>- Create unit tests for state tree
+
+- App - Create tests / actions / helpers for logs
+    - updating them w/ initial data
+    - updating with incremental data 
+    - iterating through them
+- App - refactor to be stateless
+
 - Grid - Styling (ask tiffany -- do in coinbase format)
+
+- Grid - adjust scale manually mode
 - Series display options
     - candlestick (minibatch)
     - exponential weighted

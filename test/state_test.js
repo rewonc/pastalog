@@ -22,7 +22,64 @@ describe('Redux store', () => {
   });
 });
 
-describe('reducer actions', () => {
+describe('Log', () => {
+  describe('initialization', () => {
+    it('should add initial values for log', () => {
+      const initialState = fromJS({});
+      const logs = fromJS({
+        modelA: {
+          trainLoss: {
+            values: [12, 13, 14, 15],
+            indices: [0, 1, 2, 3],
+          },
+        },
+      });
+      const newState = reducer(initialState, {
+        type: 'INITIALIZE_LOGS',
+        logs,
+      });
+      expect(newState.get('logs')).to.equal(logs);
+    });
+  });
+
+  describe('updates', () => {
+    it('should update values for log', () => {
+      const initialState = fromJS({
+        logs: { modelA: { trainLoss: { values: [12, 13, 14, 15], indices: [0, 1, 2, 3] } } },
+      });
+      const newState = reducer(initialState, {
+        type: 'UPDATE_MODEL',
+        modelName: 'modelA',
+        seriesName: 'trainLoss',
+        index: 4,
+        value: 16,
+      });
+      expect(newState).to.equal(initialState.
+        updateIn(['logs', 'modelA', 'trainLoss', 'values'], arr => arr.push(16)).
+        updateIn(['logs', 'modelA', 'trainLoss', 'indices'], arr => arr.push(4))
+      );
+    });
+
+    it('should update values for models that dont exist', () => {
+      const initialState = fromJS({
+        logs: { modelA: { trainLoss: { values: [12, 13, 14, 15], indices: [0, 1, 2, 3] } } },
+      });
+      const newState = reducer(initialState, {
+        type: 'UPDATE_MODEL',
+        modelName: 'modelB',
+        seriesName: 'validLoss',
+        index: 4,
+        value: 16,
+      });
+      expect(newState).to.equal(initialState.
+        updateIn(['logs', 'modelB', 'validLoss', 'values'], fromJS([]), arr => arr.push(16)).
+        updateIn(['logs', 'modelB', 'validLoss', 'indices'], fromJS([]), arr => arr.push(4))
+      );
+    });
+  });
+});
+
+describe('App state actions', () => {
   describe('rescale', () => {
     it('should work for state variables with no scale property', () => {
       const initialState = fromJS({});

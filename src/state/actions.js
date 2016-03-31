@@ -1,4 +1,4 @@
-import { fromJS } from 'immutable';
+import { fromJS, List, Map } from 'immutable';
 
 export const INITIAL_STATE = fromJS(
   {
@@ -55,6 +55,16 @@ export function enable(state, category, id) {
   return state.deleteIn(['disabled', category, id]);
 }
 
+export function initializeLogs(state, logs) {
+  return state.set('logs', logs);
+}
+
+export function updateList(list = Map(), index, value) {
+  return list.
+    update('indices', List(), arr => arr.push(index)).
+    update('values', List(), arr => arr.push(value));
+}
+
 export default {
-  disable, enable, toggleHover, updateObject, INITIAL_STATE,
+  disable, enable, toggleHover, updateObject, initializeLogs, updateList, INITIAL_STATE,
 };
