@@ -46,6 +46,46 @@ function getMarkings({ min, max, width, height, horizontal, showLines, numMarkin
   });
 }
 
+
+function getMark({ position, horizontal, min, max, height, width }) {
+  let value = null;
+  if (horizontal) {
+    value = position / width;
+  } else {
+    value = position / height;
+  }
+  value = value * (max - min) + min;
+  if (horizontal) {
+    return (
+    <div key="activeMarkX" className="gridMark center current bold"
+      style={{
+        position: 'absolute',
+        top: `${height + 10}px`,
+        left: `${position - 10}px`,
+        height: '10px',
+        fontSize: '10px',
+        width: '20px',
+      }}
+    >
+      {Math.round(value)}
+    </div>);
+  }
+  return (
+  <div key="activeMarkY" className="gridMark center current bold"
+    style={{
+      position: 'absolute',
+      top: `${position - 5}px`,
+      left: '-30px',
+      height: '10px',
+      fontSize: '10px',
+      width: '20px',
+    }}
+  >
+    {Math.round(value * 100) / 100}
+  </div>);
+}
+
+
 const NUM_MARKINGS_X = 10;
 const NUM_MARKINGS_Y = 6;
 const SHOW_LINES_X = false;
@@ -71,6 +111,22 @@ const Gridlines = (props) => (
       showLines: SHOW_LINES_Y,
       numMarkings: NUM_MARKINGS_Y,
     })}
+    {props.currentlyHovering ? (getMark({
+      position: props.hoverX,
+      horizontal: true,
+      min: props.minX,
+      max: props.maxX,
+      height: props.height,
+      width: props.width,
+    })) : <div></div>}
+    {props.currentlyHovering ? (getMark({
+      position: props.hoverY,
+      horizontal: false,
+      min: props.minY,
+      max: props.maxY,
+      height: props.height,
+      width: props.width,
+    })) : <div></div>}
   </div>
 );
 
@@ -81,6 +137,9 @@ Gridlines.propTypes = {
   maxX: PropTypes.number,
   minY: PropTypes.number,
   maxY: PropTypes.number,
+  currentlyHovering: PropTypes.bool,
+  hoverX: PropTypes.number,
+  hoverY: PropTypes.number,
 };
 
 export default Gridlines;

@@ -10,8 +10,8 @@ import _pickBy from 'lodash/pickBy';
 import { getUUID } from 'lib';
 
 // Constants to set grid sizing relative to minimum and maximum points in the data
-const BUFFER = 0.01;
-const PADDING = 0.1;
+const BUFFER = 0.001;
+const PADDING = 0.05;
 const DEFAULT_WIDTH = 900;
 const DEFAULT_HEIGHT = 500;
 
@@ -32,10 +32,16 @@ class Grid extends React.Component {
       modelBlacklist: { modelB: true },
       seriesBlacklist: {},
       uniqueBlacklist: {},
+      currentlyHovering: false,
+      hoverX: 0,
+      hoverY: 0,
     };
     this.updateModelBlacklist = this.updateModelBlacklist.bind(this);
     this.updateSeriesBlacklist = this.updateSeriesBlacklist.bind(this);
     this.updateUniqueBlacklist = this.updateUniqueBlacklist.bind(this);
+    this.onMouseEnter = this.onMouseEnter.bind(this);
+    this.onMouseLeave = this.onMouseLeave.bind(this);
+    this.onMouseMove = this.onMouseMove.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -60,9 +66,10 @@ class Grid extends React.Component {
         const maxY = ys.max();
         const xRange = maxX - minX;
         const yRange = maxY - minY;
-        if (minX < thisState.minX + BUFFER * xRange) {
-          newState.minX = minX - PADDING * xRange;
-        }
+        // for now, skip resizing min X as it shouldn't be below 0.
+        // if (minX < thisState.minX + BUFFER * xRange) {
+        //   newState.minX = minX - PADDING * xRange;
+        // }
         if (minY < thisState.minY + BUFFER * yRange) {
           newState.minY = minY - PADDING * yRange;
         }
@@ -75,6 +82,22 @@ class Grid extends React.Component {
       });
     });
     this.setState(newState);
+  }
+
+  onMouseEnter() {
+    this.setState({ currentlyHovering: true });
+  }
+
+  onMouseLeave() {
+    this.setState({ currentlyHovering: false });
+  }
+
+  onMouseMove(e) {
+    const obj = e.target.getBoundingClientRect();
+    this.setState({
+      hoverX: e.clientX - obj.left,
+      hoverY: e.clientY - obj.top,
+    });
   }
 
   getGridDims() {
@@ -122,6 +145,9 @@ class Grid extends React.Component {
     return (
       <div className="grid relative clearfix border m3"
         style={{ width: this.state.width, height: this.state.height }}
+        onMouseEnter={this.onMouseEnter}
+        onMouseLeave={this.onMouseLeave}
+        onMouseMove={this.onMouseMove}
       >
         <Legend logs={logs}
           modelBlacklist={modelBlacklist}

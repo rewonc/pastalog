@@ -3,8 +3,8 @@
 - Grid >>>>>>>>>>>DONE>>>>>>>>>>>- Legend
 - lib  >>>>>>>>>>>DONE>>>>>>>>>>>- extract a library function that iterates through each series and provides a cb
 - Grid >>>>>>>>>>>DONE>>>>>>>>>>>- Gridlines
-- Grid >>>>>>>>>>>DONE>>>>>>>>>>> round numbers
-- Grid - display options (which models, which series)
+- Grid >>>>>>>>>>>DONE>>>>>>>>>>>- round numbers
+- Grid >>>>>>>>>>>DONE>>>>>>>>>>>- display options (which models, which series), refresh
 - Grid - hover at step and display values
 - Grid - adjust scale manually mode
 - Grid - Styling (ask tiffany -- do in coinbase format)
@@ -92,6 +92,8 @@ For a given batch, find the most common mistaken examples
 		- Latest image, all logs
 		- One log, throughout time.
 
+# Caveats
+- Not optimized for mobile. But how many Titan X's does your phone have anyway?
 
 # Architecture
 node.js server with nginx
