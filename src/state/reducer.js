@@ -1,5 +1,5 @@
-import { rescale, resize, disable, enable, updateObject,
-  toggleHover, moveHover, INITIAL_STATE } from './actions';
+import { disable, enable, updateObject,
+  toggleHover, INITIAL_STATE } from './actions';
 
 /*
 reference state tree
@@ -36,11 +36,9 @@ export default function reducer(state = INITIAL_STATE, action) {
     case 'RESCALE':
       return updateObject(state, 'scale', action.scale);
     case 'RESIZE':
-      return state.update('size',
-        size => resize(size, action.size));
+      return updateObject(state, 'size', action.size);
     case 'MOVE_HOVER':
-      return state.update('hoverPosition',
-        coords => moveHover(coords, action.coords));
+      return updateObject(state, 'hoverPosition', action.coords);
     case 'DISABLE':
       return disable(state, action.category, action.id);
     case 'ENABLE':

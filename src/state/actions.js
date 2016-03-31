@@ -44,17 +44,6 @@ export function updateObject(state = INITIAL_STATE, key, current) {
   return state.update(key, fromJS({}), val => mergeElements(val, current));
 }
 
-export function moveHover(old, current) {
-  return mergeElements(old, current);
-}
-
-export function rescale(old, current) {
-  return mergeElements(old, current);
-}
-
-export function resize(old, current) {
-  return mergeElements(old, current);
-}
 
 export function disable(state, category, id) {
   return state.updateIn(
@@ -67,5 +56,5 @@ export function enable(state, category, id) {
 }
 
 export default {
-  rescale, resize, disable, enable, toggleHover, moveHover, INITIAL_STATE,
+  disable, enable, toggleHover, updateObject, INITIAL_STATE,
 };
