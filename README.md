@@ -77,16 +77,30 @@ Go to localhost:8120 and view your logs updating in real time.
 [animated gif]
 
 
-## Views
-1) View all models, one statistic (valid loss)
-2) Detail view
-	- One model, all statistics
-	- Image output
-		- Latest image, all logs
-		- One log, throughout time.
-
-
 ## Notes
 - Stores data in a file, so no server configuration required.
 - You might want to back up that file occasionally, though.
 - Python library is a thin wrapper which makes post requests to a node.js server instance, so the logging doesn't have to be on the same machine as the training.
+
+## Contributing
+
+```bash
+# to install
+git clone https://github.com/rewonc/pastalog
+cd pastalog
+npm install
+
+# build + watch
+npm run build
+
+# dev server + watch
+npm run dev
+
+# tests
+npm test
+# alternatively:
+npm test:watch
+
+
+```
+
