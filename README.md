@@ -16,12 +16,13 @@
 - App - refactor to be stateless
 
 - Grid - Styling (ask tiffany)
-
-- Grid - adjust scale manually mode
 - Series display options
     - candlestick (minibatch)
     - exponential weighted
     - raw
+- Series color function
+    - hash to hierarchical list of good colors
+- Grid - adjust scale manually mode
 
 - Series - click to see series numbers
          - see all values for a series

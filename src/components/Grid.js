@@ -137,7 +137,7 @@ class Grid extends React.Component {
   }
 
   render() {
-    const logs = this.props.logs;
+    const logs = this.props.state.get('logs');
     const modelBlacklist = this.state.modelBlacklist;
     const seriesBlacklist = this.state.seriesBlacklist;
     const uniqueBlacklist = this.state.uniqueBlacklist;

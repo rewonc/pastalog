@@ -40,6 +40,24 @@ describe('Log', () => {
       });
       expect(newState.get('logs')).to.equal(logs);
     });
+
+    it('should change the scaling on initialization', () => {
+      const initialState = INITIAL_STATE;
+      const logs = fromJS({
+        modelA: {
+          trainLoss: {
+            values: [12, 13, 14, 15],
+            indices: [0, 1, 2, 3],
+          },
+        },
+      });
+      const newState = reducer(initialState, {
+        type: 'INITIALIZE_LOGS',
+        logs,
+      });
+      expect(initialState.get('scale')).to.equal(INITIAL_STATE.get('scale'));
+      expect(newState.get('scale')).to.not.equal(INITIAL_STATE.get('scale'));
+    });
   });
 
   describe('updates', () => {
@@ -58,6 +76,21 @@ describe('Log', () => {
         updateIn(['logs', 'modelA', 'trainLoss', 'values'], arr => arr.push(16)).
         updateIn(['logs', 'modelA', 'trainLoss', 'indices'], arr => arr.push(4))
       );
+    });
+
+    it('should update scales for log', () => {
+      const initialState = fromJS({
+        logs: { modelA: { trainLoss: { values: [12, 13, 14, 15], indices: [0, 1, 2, 3] } } },
+      });
+      const newState = reducer(initialState, {
+        type: 'UPDATE_MODEL',
+        modelName: 'modelA',
+        seriesName: 'trainLoss',
+        index: 1000,
+        value: 10000,
+      });
+      expect(newState.getIn(['scale', 'maxX'], 0)).to.be.above(1000);
+      expect(newState.getIn(['scale', 'maxY'], 0)).to.be.above(10000);
     });
 
     it('should update values for models that dont exist', () => {

@@ -116,6 +116,7 @@ module.exports = [
       net: 'empty',
       tls: 'empty',
     },
+
     externals: nodeModules,
   },
 ];

@@ -4,7 +4,6 @@ import _mapValues from 'lodash/mapValues';
 import _map from 'lodash/map';
 import _forEach from 'lodash/forEach';
 
-
 export function updateLog(database, point) {
   /* Update a database with a new data point
   ** This assumes that db has a key 'log' and mutates

@@ -1,4 +1,4 @@
-import { disable, enable, updateObject, initializeLogs, updateList,
+import { disable, enable, updateObject, initializeLogs, addLogPoint,
   toggleHover, INITIAL_STATE } from './actions';
 
 
@@ -55,9 +55,8 @@ export default function reducer(state = INITIAL_STATE, action) {
     case 'INITIALIZE_LOGS':
       return initializeLogs(state, action.logs);
     case 'UPDATE_MODEL':
-      return state.updateIn(
-        ['logs', action.modelName, action.seriesName],
-        (list) => updateList(list, action.index, action.value));
+      return addLogPoint(state, action.modelName, action.seriesName,
+          action.index, action.value);
     default:
       return state;
   }
