@@ -54,6 +54,14 @@ body{
         position:relative;
         top: 3px;
         right: 3px;
+        font-size:32px;
+        line-height:18px;
+    }
+    .sub{
+        .bullet{
+            line-height:18px;
+            font-size:18px;
+        }
     }
 }
 

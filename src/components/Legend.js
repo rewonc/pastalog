@@ -33,7 +33,7 @@ function Legend(props) {
       >
         <span className="h4">{modelName} - {seriesName}</span>
         <span className="bullet left"
-          style={{ color, fontSize: 32, lineHeight: 0.5 }}
+          style={{ color }}
         > &bull; </span>
       </li>
     );
@@ -42,7 +42,7 @@ function Legend(props) {
     types.push(seriesName);
   });
 
-  const modelElements = _map(_uniq(models, (modelName) => {
+  const modelElements = _map(_uniq(models), (modelName) => {
     const notEnabled = isDisabled(state, 'models', modelName);
     const type = (notEnabled) ? 'ENABLE' : 'DISABLE';
     const toggle = () => {
@@ -54,17 +54,17 @@ function Legend(props) {
     };
     return (
       <li key={modelName}
-        onClick={toggle} className={notEnabled ? 'deactivated clearfix' : 'activated clearfix'}
+        onClick={toggle} className={notEnabled ? 'deactivated sub' : 'activated sub'}
       >
         <span className="h4">{modelName}</span>
-        <span className="bullet left"
-          style={{ fontSize: 32, lineHeight: 0.5 }}
-        > &bull; </span>
+        <span className="bullet left">
+          { notEnabled ? <span>&times;</span> : <span>&bull;</span> }
+        </span>
       </li>
     );
-  }));
+  });
 
-  const typeElements = _map(_uniq(types, (typeName) => {
+  const typeElements = _map(_uniq(types), (typeName) => {
     const notEnabled = isDisabled(state, 'series', typeName);
     const type = (notEnabled) ? 'ENABLE' : 'DISABLE';
     const toggle = () => {
@@ -76,15 +76,15 @@ function Legend(props) {
     };
     return (
       <li key={typeName} onClick={toggle}
-        className={notEnabled ? 'deactivated clearfix' : 'activated clearfix'}
+        className={notEnabled ? 'deactivated sub' : 'activated sub'}
       >
         <span className="h4">{typeName}</span>
-        <span className="bullet left"
-          style={{ fontSize: 32, lineHeight: 0.5 }}
-        > &bull; </span>
+        <span className="bullet left">
+          { notEnabled ? <span>&times;</span> : <span>&bull;</span> }
+        </span>
       </li>
     );
-  }));
+  });
 
   return (
   <div className="Legend md-col md-col-2">
