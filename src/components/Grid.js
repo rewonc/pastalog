@@ -17,11 +17,11 @@ class Grid extends React.Component {
   componentDidMount() {
     const rect = ReactDOM.findDOMNode(this).getBoundingClientRect();
     // reset the width, height to the real size of the window
+    // Theoretically we should do this on resize. We can do that later,
     this.props.store.dispatch({
       type: 'RESIZE',
       size: { width: rect.width - 50, height: rect.height - 70 },
     });
-    console.log(rect.width, rect.height);
   }
 
 

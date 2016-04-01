@@ -30,7 +30,7 @@ function Legend(props) {
 
   return (
   <div className="Legend md-col md-col-2">
-    <ul className="m2 list-reset z3">
+    <ul className="m0 list-reset">
       {legendItems}
     </ul>
   </div>
