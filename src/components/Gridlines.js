@@ -18,10 +18,9 @@ function getMarkings({ min, max, width, height, horizontal, showLines, numMarkin
     return _map(pairs, ([value, location], idx) => {
       const style = {
         position: 'absolute',
-        top: `${height + 10}px`,
+        top: `${height + 5}px`,
         left: `${location - 10}px`,
         height: '10px',
-        fontSize: '10px',
         width: '20px',
       };
       return (
@@ -34,9 +33,8 @@ function getMarkings({ min, max, width, height, horizontal, showLines, numMarkin
     const style = {
       position: 'absolute',
       top: `${location - 5}px`,
-      left: '-30px',
+      left: '-40px',
       height: '10px',
-      fontSize: '10px',
       width: '20px',
       pointerEvents: 'none',
     };
@@ -61,10 +59,9 @@ function getMark({ position, horizontal, min, max, height, width }) {
     <div key="activeMarkX" className="gridMark center current bold"
       style={{
         position: 'absolute',
-        top: `${height + 10}px`,
+        top: `${height + 5}px`,
         left: `${position - 10}px`,
         height: '10px',
-        fontSize: '10px',
         width: '20px',
       }}
     >
@@ -76,9 +73,8 @@ function getMark({ position, horizontal, min, max, height, width }) {
     style={{
       position: 'absolute',
       top: `${position - 5}px`,
-      left: '-30px',
+      left: '-40px',
       height: '10px',
-      fontSize: '10px',
       width: '20px',
     }}
   >

@@ -22,15 +22,15 @@ function Legend(props) {
       });
     };
     return (
-    <li key={uuid} onClick={toggle} className={enabled ? 'activated' : 'deactivated'}>
-      <span style={{ color, fontSize: 32, lineHeight: 0.5 }}> &bull; </span>
-      <span className="h6">{modelName} - {seriesName}</span>
+    <li key={uuid} onClick={toggle} className={enabled ? 'activated relative' : 'deactivated relative'}>
+      <span className="h4">{modelName} - {seriesName}</span>
+      <span className="bullet absolute top-0 right-0" style={{ color, fontSize: 32, lineHeight: 0.5 }}> &bull; </span>
     </li>);
   });
 
   return (
   <div className="Legend md-col md-col-2">
-    <ul className="m0 list-reset">
+    <ul className="m1 list-reset">
       {legendItems}
     </ul>
   </div>

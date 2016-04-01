@@ -53,9 +53,10 @@ class Grid extends React.Component {
     const height = Math.max(document.documentElement.clientHeight,
       window.innerHeight || 0);
     const width = ReactDOM.findDOMNode(this).getBoundingClientRect().width;
+    console.log(height, width);
     this.props.store.dispatch({
       type: 'RESIZE',
-      size: { width: width - 50, height: height - 70 },
+      size: { width: width - 70, height: height - 70 },
     });
   }
 
@@ -68,8 +69,8 @@ class Grid extends React.Component {
     const scale = state.get('scale');
 
     return (
-    <div className="Grid md-col md-col-10 max-height">
-      <div className="relative Grid-well clearfix mt1 mr0 ml4 mb3"
+    <div className="Grid md-col md-col-10">
+      <div className="relative Grid-well clearfix mt1 mr0 ml4 mb4"
         style={{ width, height }}
         onMouseEnter={this.onMouseEnter}
         onMouseLeave={this.onMouseLeave}

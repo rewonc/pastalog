@@ -35,7 +35,7 @@ class Series extends React.Component {
     return (<svg className="series max absolute top-0 left-0">
       {
       pairs.map((pair) => (
-        <circle r="0" fill={color} stroke="0" cx={pair[0]}
+        <circle r="1" fill={color} stroke="0" cx={pair[0]}
           cy={pair[1]} key={uuid + pair[0]}
         />
       ))

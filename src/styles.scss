@@ -20,6 +20,7 @@ html{
     // font-family: -apple-technique, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
     font-family: monospace;
     line-height: 1.5;
+    overflow-y: scroll;
 }
 
 body{
@@ -61,6 +62,7 @@ body{
 }
 
 .gridMark {
+    @extend .h3;
     color: $base1;
 }
 
