@@ -47,7 +47,7 @@ body{
 }
 
 .Grid{
-    background-color: $base03;
+    background-color: $base02;
 }
 
 .Header{
@@ -67,4 +67,12 @@ body{
     background-color: $yellow;
     color:$base3;
     padding: 2px 6px 6px 6px;
+}
+.Grid-well{
+    background-color: $base03;
+    border-color: darken($base03, 5%);
+}
+
+.max-height{
+    height: 100%;
 }

@@ -12,18 +12,17 @@ class Grid extends React.Component {
     this.onMouseEnter = this.onMouseEnter.bind(this);
     this.onMouseLeave = this.onMouseLeave.bind(this);
     this.onMouseMove = this.onMouseMove.bind(this);
+    this.dispatchResize = this.dispatchResize.bind(this);
   }
 
   componentDidMount() {
-    const rect = ReactDOM.findDOMNode(this).getBoundingClientRect();
-    // reset the width, height to the real size of the window
-    // Theoretically we should do this on resize. We can do that later,
-    this.props.store.dispatch({
-      type: 'RESIZE',
-      size: { width: rect.width - 50, height: rect.height - 70 },
-    });
+    this.dispatchResize();
+    window.addEventListener('resize', this.dispatchResize);
   }
 
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.dispatchResize);
+  }
 
   onMouseEnter() {
     this.props.store.dispatch({
@@ -50,6 +49,16 @@ class Grid extends React.Component {
     });
   }
 
+  dispatchResize() {
+    const height = Math.max(document.documentElement.clientHeight,
+      window.innerHeight || 0);
+    const width = ReactDOM.findDOMNode(this).getBoundingClientRect().width;
+    this.props.store.dispatch({
+      type: 'RESIZE',
+      size: { width: width - 50, height: height - 70 },
+    });
+  }
+
   render() {
     const state = this.props.state;
     const logs = state.get('logs');
@@ -59,8 +68,8 @@ class Grid extends React.Component {
     const scale = state.get('scale');
 
     return (
-    <div className="Grid md-col md-col-10">
-      <div className="relative clearfix border mt1 mr0 ml3 mb3"
+    <div className="Grid md-col md-col-10 max-height">
+      <div className="relative Grid-well clearfix border mt1 mr0 ml3 mb3"
         style={{ width, height }}
         onMouseEnter={this.onMouseEnter}
         onMouseLeave={this.onMouseLeave}

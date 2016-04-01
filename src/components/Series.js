@@ -33,11 +33,13 @@ class Series extends React.Component {
       minY, maxY, 0, height, { invert: true });
     const pairs = _zip(indices, values);
     return (<svg className="series max absolute top-0 left-0">
-      {pairs.map((pair) => (
+      {
+      pairs.map((pair) => (
         <circle r="0" fill={color} stroke="0" cx={pair[0]}
-          cy={pair[1]} key={pair[0]}
+          cy={pair[1]} key={uuid + pair[0]}
         />
-      ))}
+      ))
+      }
       <polyline style={{ strokeWidth: 1, stroke: color, fill: 'none' }}
         points={pairs.map((v) => v.join(',')).join(' ')}
       />

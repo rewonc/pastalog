@@ -12,15 +12,24 @@
         >>>>>>>>>>>DONE>>>>>>>>>>>- updating them w/ initial data
         >>>>>>>>>>>DONE>>>>>>>>>>>- updating with incremental data 
 - App >>>>>>>>>>>DONE>>>>>>>>>>>- refactor to be stateless
-
-- Grid - Styling (ask tiffany)
+- Grid >>>>>>>>>>>DONE>>>>>>>>>>>- Basic styling / colors
+- Grid >>>>>>>>>>>DONE>>>>>>>>>>>- resize on viewport change
+- Legend: styling and colors
+- Legend: enable/disable all
+- Legend: enable/disable series, model
+- Series: onHover: highlight on nearest index point, print out value
 - Series display options
     - candlestick (minibatch)
     - exponential weighted
     - raw
 - Series color function
     - hash to hierarchical list of good colors
+    - start with 20, move to 100, then pure hash.
+
+- Grid - keep min and max, but draw points when it's round, or when modulo % 5 or 10 is 0?
+- Grid - hover: edit y-scale button
 - Grid - adjust scale manually mode
+- Grid - adjust to logarithmic?
 
 - Series - click to see series numbers
          - see all values for a series
