@@ -79,7 +79,7 @@ class Grid extends React.Component {
         <Gridlines {...this.props} />
         {logs ? (
           mapEnabledSeries(logs, disabled, (modelName, seriesName, lists) => (
-            <div key={modelName} className="absolute top-0 left-0 max z2">
+            <div key={getUUID(modelName, seriesName)} className="absolute top-0 left-0 max z2">
               <Series key={getUUID(modelName, seriesName)}
                 seriesName={seriesName} modelName={modelName}
                 indices={lists.get('indices')}

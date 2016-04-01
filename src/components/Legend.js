@@ -1,6 +1,8 @@
 import React, { PropTypes } from 'react';
 import { getUUID, stringToColor } from 'lib';
-import { isSeriesEnabled, mapSeries } from './../state/helpers';
+import { isSeriesEnabled, forEachSeries, isDisabled } from './../state/helpers';
+import _uniq from 'lodash/uniq';
+import _map from 'lodash/map';
 
 function Legend(props) {
   const state = props.state;
@@ -9,7 +11,11 @@ function Legend(props) {
   if (logs === undefined) {
     return (<div></div>);
   }
-  const legendItems = mapSeries(state.get('logs'), (modelName, seriesName) => {
+  const seriesElements = [];
+  const models = [];
+  const types = [];
+
+  forEachSeries(state.get('logs'), (modelName, seriesName) => {
     const uuid = getUUID(modelName, seriesName);
     const color = stringToColor(uuid);
     const enabled = isSeriesEnabled(disabled, modelName, seriesName);
@@ -21,18 +27,78 @@ function Legend(props) {
         id: uuid,
       });
     };
-    return (
-    <li key={uuid} onClick={toggle} className={enabled ? 'activated clearfix' : 'deactivated clearfix'}>
-      <span className="h4">{modelName} - {seriesName}</span>
-      <span className="bullet left" style={{ color, fontSize: 32, lineHeight: 0.5 }}> &bull; </span>
-    </li>);
+    const el = (
+      <li key={uuid} onClick={toggle}
+        className={enabled ? 'activated clearfix' : 'deactivated clearfix'}
+      >
+        <span className="h4">{modelName} - {seriesName}</span>
+        <span className="bullet left"
+          style={{ color, fontSize: 32, lineHeight: 0.5 }}
+        > &bull; </span>
+      </li>
+    );
+    seriesElements.push(el);
+    models.push(modelName);
+    types.push(seriesName);
   });
+
+  const modelElements = _map(_uniq(models, (modelName) => {
+    const notEnabled = isDisabled(state, 'models', modelName);
+    const type = (notEnabled) ? 'ENABLE' : 'DISABLE';
+    const toggle = () => {
+      props.store.dispatch({
+        type,
+        category: 'models',
+        id: modelName,
+      });
+    };
+    return (
+      <li key={modelName}
+        onClick={toggle} className={notEnabled ? 'deactivated clearfix' : 'activated clearfix'}
+      >
+        <span className="h4">{modelName}</span>
+        <span className="bullet left"
+          style={{ fontSize: 32, lineHeight: 0.5 }}
+        > &bull; </span>
+      </li>
+    );
+  }));
+
+  const typeElements = _map(_uniq(types, (typeName) => {
+    const notEnabled = isDisabled(state, 'series', typeName);
+    const type = (notEnabled) ? 'ENABLE' : 'DISABLE';
+    const toggle = () => {
+      props.store.dispatch({
+        type,
+        category: 'series',
+        id: typeName,
+      });
+    };
+    return (
+      <li key={typeName} onClick={toggle}
+        className={notEnabled ? 'deactivated clearfix' : 'activated clearfix'}
+      >
+        <span className="h4">{typeName}</span>
+        <span className="bullet left"
+          style={{ fontSize: 32, lineHeight: 0.5 }}
+        > &bull; </span>
+      </li>
+    );
+  }));
 
   return (
   <div className="Legend md-col md-col-2">
-  <h3 className="headlines h3">Series <small className="h6">show all / hide all</small></h3>
+    <h3 className="headlines h3">Series <small className="h6">show all / hide all</small></h3>
     <ul className="m1 list-reset">
-      {legendItems}
+      {seriesElements}
+    </ul>
+    <h3 className="headlines h3">Models <small className="h6">show all / hide all</small></h3>
+    <ul className="m1 list-reset">
+      {modelElements}
+    </ul>
+    <h3 className="headlines h3">Types <small className="h6">show all / hide all</small></h3>
+    <ul className="m1 list-reset">
+      {typeElements}
     </ul>
   </div>
   );

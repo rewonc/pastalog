@@ -18,6 +18,7 @@
 - Legend: enable/disable all
 - Legend: enable/disable series, model
 - Series: onHover: highlight on nearest index point, print out value
+- Gridlines: make hover box look a little cooler
 - Series display options
     - candlestick (minibatch)
     - exponential weighted
@@ -42,6 +43,8 @@
 _Dead-simple realtime logging and visualization for nn libraries (like Lasagne)_
 
 [insert screenshots here]
+
+Why is this named "pastalog"? Well, I primarily use the library [lasagne](http://lasagne.readthedocs.org/en/latest/). You don't have to use lasagne, though. You can do whatever you want. There's an API for Python, Lua, and anything that can send a post request.
 
 
 ## Getting started
