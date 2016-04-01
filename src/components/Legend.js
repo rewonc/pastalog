@@ -22,14 +22,15 @@ function Legend(props) {
       });
     };
     return (
-    <li key={uuid} onClick={toggle} className={enabled ? 'activated relative' : 'deactivated relative'}>
+    <li key={uuid} onClick={toggle} className={enabled ? 'activated clearfix' : 'deactivated clearfix'}>
       <span className="h4">{modelName} - {seriesName}</span>
-      <span className="bullet absolute top-0 right-0" style={{ color, fontSize: 32, lineHeight: 0.5 }}> &bull; </span>
+      <span className="bullet left" style={{ color, fontSize: 32, lineHeight: 0.5 }}> &bull; </span>
     </li>);
   });
 
   return (
   <div className="Legend md-col md-col-2">
+  <h3 className="headlines h3">Series <small className="h6">show all / hide all</small></h3>
     <ul className="m1 list-reset">
       {legendItems}
     </ul>

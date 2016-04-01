@@ -37,14 +37,23 @@ body{
 
 .Legend{
     // background-color: $base02;
+    .headlines{
+        color: $base1;
+    }
     li{
         color: $base2;
+        cursor: pointer;
     }
     li.activated{
         opacity: 1;
     }
     li.deactivated{
         opacity: 0.4;
+    }
+    .bullet{
+        position:relative;
+        top: 3px;
+        right: 3px;
     }
 }
 
