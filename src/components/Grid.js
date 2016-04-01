@@ -69,7 +69,7 @@ class Grid extends React.Component {
 
     return (
     <div className="Grid md-col md-col-10 max-height">
-      <div className="relative Grid-well clearfix border mt1 mr0 ml3 mb3"
+      <div className="relative Grid-well clearfix mt1 mr0 ml4 mb3"
         style={{ width, height }}
         onMouseEnter={this.onMouseEnter}
         onMouseLeave={this.onMouseLeave}
