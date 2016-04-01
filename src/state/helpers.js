@@ -37,7 +37,17 @@ export function forEachEnabledSeries(logs, disabled, cb) {
 }
 
 export function mapSeries(logs, cb) {
+  const res = [];
+  forEachSeries(logs, (modelName, seriesName, lists) => {
+    res.push(cb(modelName, seriesName, lists));
+  });
+  return res;
 }
 
 export function mapEnabledSeries(logs, disabled, cb) {
+  const res = [];
+  forEachEnabledSeries(logs, disabled, (modelName, seriesName, lists) => {
+    res.push(cb(modelName, seriesName, lists));
+  });
+  return res;
 }

@@ -9,6 +9,8 @@ import App from './components/App';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { updateLog, logsToJS } from 'lib';
+import makeStore from './state/store';
+import { INITIAL_STATE } from './state/actions';
 
 const app = express();
 const HTTP = new Server(app);
@@ -19,6 +21,7 @@ const db = {
   logs: {},
   path: DATABASE,
 };
+const store = makeStore();
 
 
 function addDataPoint(point) {
@@ -61,7 +64,8 @@ app.use(bodyParser.json());
 app.use(express.static('dist/assets'));
 
 app.get('/', (req, res) => {
-  const innerElement = ReactDOMServer.renderToString(<Container />);
+  const innerElement = ReactDOMServer.renderToString(
+    <Container state={INITIAL_STATE} store={store} />);
   const html = App(innerElement);
   res.send(html);
 });

@@ -16,7 +16,7 @@ export const INITIAL_STATE = fromJS(
       width: 1000,
       height: 600,
     },
-    logs: {},
+    // logs: {},
     hovering: false,
     hoverPosition: {
       hoverX: 0,

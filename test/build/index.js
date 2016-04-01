@@ -75,7 +75,7 @@
 	    width: 1000,
 	    height: 600
 	  },
-	  logs: {},
+	  // logs: {},
 	  hovering: false,
 	  hoverPosition: {
 	    hoverX: 0,
@@ -243,9 +243,21 @@
 	  });
 	}
 
-	function mapSeries(logs, cb) {}
+	function mapSeries(logs, cb) {
+	  var res = [];
+	  forEachSeries(logs, function (modelName, seriesName, lists) {
+	    res.push(cb(modelName, seriesName, lists));
+	  });
+	  return res;
+	}
 
-	function mapEnabledSeries(logs, disabled, cb) {}
+	function mapEnabledSeries(logs, disabled, cb) {
+	  var res = [];
+	  forEachEnabledSeries(logs, disabled, function (modelName, seriesName, lists) {
+	    res.push(cb(modelName, seriesName, lists));
+	  });
+	  return res;
+	}
 
 /***/ },
 /* 3 */
@@ -327,19 +339,19 @@
 /* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__src_state_store__ = __webpack_require__(7);
-	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__src_state_helpers__ = __webpack_require__(2);
-	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__src_state_actions__ = __webpack_require__(1);
-	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__src_state_reducer__ = __webpack_require__(3);
-	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_chai__ = __webpack_require__(4);
-	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_chai___default = __WEBPACK_IMPORTED_MODULE_2_chai__ && __WEBPACK_IMPORTED_MODULE_2_chai__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_2_chai__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_2_chai__; }
-	/* harmony import */ Object.defineProperty(__WEBPACK_IMPORTED_MODULE_2_chai___default, 'a', { get: __WEBPACK_IMPORTED_MODULE_2_chai___default });
-	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_mocha__ = __webpack_require__(10);
-	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_mocha___default = __WEBPACK_IMPORTED_MODULE_1_mocha__ && __WEBPACK_IMPORTED_MODULE_1_mocha__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_1_mocha__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_1_mocha__; }
-	/* harmony import */ Object.defineProperty(__WEBPACK_IMPORTED_MODULE_1_mocha___default, 'a', { get: __WEBPACK_IMPORTED_MODULE_1_mocha___default });
 	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_immutable__ = __webpack_require__(0);
 	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_immutable___default = __WEBPACK_IMPORTED_MODULE_0_immutable__ && __WEBPACK_IMPORTED_MODULE_0_immutable__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_0_immutable__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_0_immutable__; }
 	/* harmony import */ Object.defineProperty(__WEBPACK_IMPORTED_MODULE_0_immutable___default, 'a', { get: __WEBPACK_IMPORTED_MODULE_0_immutable___default });
+	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_mocha__ = __webpack_require__(10);
+	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_mocha___default = __WEBPACK_IMPORTED_MODULE_1_mocha__ && __WEBPACK_IMPORTED_MODULE_1_mocha__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_1_mocha__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_1_mocha__; }
+	/* harmony import */ Object.defineProperty(__WEBPACK_IMPORTED_MODULE_1_mocha___default, 'a', { get: __WEBPACK_IMPORTED_MODULE_1_mocha___default });
+	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_chai__ = __webpack_require__(4);
+	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_chai___default = __WEBPACK_IMPORTED_MODULE_2_chai__ && __WEBPACK_IMPORTED_MODULE_2_chai__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_2_chai__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_2_chai__; }
+	/* harmony import */ Object.defineProperty(__WEBPACK_IMPORTED_MODULE_2_chai___default, 'a', { get: __WEBPACK_IMPORTED_MODULE_2_chai___default });
+	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__src_state_reducer__ = __webpack_require__(3);
+	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__src_state_actions__ = __webpack_require__(1);
+	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__src_state_helpers__ = __webpack_require__(2);
+	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__src_state_store__ = __webpack_require__(7);
 	'use strict';
 
 
@@ -642,10 +654,10 @@
 /* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__reducer__ = __webpack_require__(3);
 	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redux__ = __webpack_require__(11);
 	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redux___default = __WEBPACK_IMPORTED_MODULE_0_redux__ && __WEBPACK_IMPORTED_MODULE_0_redux__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_0_redux__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_0_redux__; }
 	/* harmony import */ Object.defineProperty(__WEBPACK_IMPORTED_MODULE_0_redux___default, 'a', { get: __WEBPACK_IMPORTED_MODULE_0_redux___default });
+	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__reducer__ = __webpack_require__(3);
 	/* harmony export */ exports["a"] = makeStore;'use strict';
 
 
@@ -659,12 +671,12 @@
 /* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__state_test__ = __webpack_require__(5);
-	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__state_test___default = __WEBPACK_IMPORTED_MODULE_1__state_test__ && __WEBPACK_IMPORTED_MODULE_1__state_test__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_1__state_test__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_1__state_test__; }
-	/* harmony import */ Object.defineProperty(__WEBPACK_IMPORTED_MODULE_1__state_test___default, 'a', { get: __WEBPACK_IMPORTED_MODULE_1__state_test___default });
 	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__test_helper__ = __webpack_require__(6);
 	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__test_helper___default = __WEBPACK_IMPORTED_MODULE_0__test_helper__ && __WEBPACK_IMPORTED_MODULE_0__test_helper__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_0__test_helper__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_0__test_helper__; }
 	/* harmony import */ Object.defineProperty(__WEBPACK_IMPORTED_MODULE_0__test_helper___default, 'a', { get: __WEBPACK_IMPORTED_MODULE_0__test_helper___default });
+	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__state_test__ = __webpack_require__(5);
+	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__state_test___default = __WEBPACK_IMPORTED_MODULE_1__state_test__ && __WEBPACK_IMPORTED_MODULE_1__state_test__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_1__state_test__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_1__state_test__; }
+	/* harmony import */ Object.defineProperty(__WEBPACK_IMPORTED_MODULE_1__state_test___default, 'a', { get: __WEBPACK_IMPORTED_MODULE_1__state_test___default });
 	'use strict';
 
 
@@ -4125,19 +4137,19 @@
 /* 112 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_lodash_forEach__ = __webpack_require__(99);
-	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_lodash_forEach___default = __WEBPACK_IMPORTED_MODULE_3_lodash_forEach__ && __WEBPACK_IMPORTED_MODULE_3_lodash_forEach__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_3_lodash_forEach__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_3_lodash_forEach__; }
-	/* harmony import */ Object.defineProperty(__WEBPACK_IMPORTED_MODULE_3_lodash_forEach___default, 'a', { get: __WEBPACK_IMPORTED_MODULE_3_lodash_forEach___default });
-	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash_map__ = __webpack_require__(106);
-	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash_map___default = __WEBPACK_IMPORTED_MODULE_2_lodash_map__ && __WEBPACK_IMPORTED_MODULE_2_lodash_map__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_2_lodash_map__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_2_lodash_map__; }
-	/* harmony import */ Object.defineProperty(__WEBPACK_IMPORTED_MODULE_2_lodash_map___default, 'a', { get: __WEBPACK_IMPORTED_MODULE_2_lodash_map___default });
-	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash_mapValues__ = __webpack_require__(107);
-	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash_mapValues___default = __WEBPACK_IMPORTED_MODULE_1_lodash_mapValues__ && __WEBPACK_IMPORTED_MODULE_1_lodash_mapValues__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_1_lodash_mapValues__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_1_lodash_mapValues__; }
-	/* harmony import */ Object.defineProperty(__WEBPACK_IMPORTED_MODULE_1_lodash_mapValues___default, 'a', { get: __WEBPACK_IMPORTED_MODULE_1_lodash_mapValues___default });
 	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_immutable__ = __webpack_require__(0);
 	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_immutable___default = __WEBPACK_IMPORTED_MODULE_0_immutable__ && __WEBPACK_IMPORTED_MODULE_0_immutable__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_0_immutable__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_0_immutable__; }
 	/* harmony import */ Object.defineProperty(__WEBPACK_IMPORTED_MODULE_0_immutable___default, 'a', { get: __WEBPACK_IMPORTED_MODULE_0_immutable___default });
-	/* unused harmony export stringToColor *//* unused harmony export seriesMap *//* harmony export */ exports["a"] = getUUID;/* unused harmony export convertScales *//* unused harmony export logsFromJS *//* unused harmony export logsToJS *//* unused harmony export updateLog */'use strict';
+	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash_mapValues__ = __webpack_require__(107);
+	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash_mapValues___default = __WEBPACK_IMPORTED_MODULE_1_lodash_mapValues__ && __WEBPACK_IMPORTED_MODULE_1_lodash_mapValues__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_1_lodash_mapValues__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_1_lodash_mapValues__; }
+	/* harmony import */ Object.defineProperty(__WEBPACK_IMPORTED_MODULE_1_lodash_mapValues___default, 'a', { get: __WEBPACK_IMPORTED_MODULE_1_lodash_mapValues___default });
+	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash_map__ = __webpack_require__(106);
+	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash_map___default = __WEBPACK_IMPORTED_MODULE_2_lodash_map__ && __WEBPACK_IMPORTED_MODULE_2_lodash_map__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_2_lodash_map__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_2_lodash_map__; }
+	/* harmony import */ Object.defineProperty(__WEBPACK_IMPORTED_MODULE_2_lodash_map___default, 'a', { get: __WEBPACK_IMPORTED_MODULE_2_lodash_map___default });
+	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_lodash_forEach__ = __webpack_require__(99);
+	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_lodash_forEach___default = __WEBPACK_IMPORTED_MODULE_3_lodash_forEach__ && __WEBPACK_IMPORTED_MODULE_3_lodash_forEach__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_3_lodash_forEach__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_3_lodash_forEach__; }
+	/* harmony import */ Object.defineProperty(__WEBPACK_IMPORTED_MODULE_3_lodash_forEach___default, 'a', { get: __WEBPACK_IMPORTED_MODULE_3_lodash_forEach___default });
+	/* unused harmony export updateLog *//* unused harmony export logsToJS *//* unused harmony export logsFromJS *//* unused harmony export convertScales *//* harmony export */ exports["a"] = getUUID;/* unused harmony export seriesMap *//* unused harmony export stringToColor */'use strict';
 
 	// Library for common server-client utilities
 
