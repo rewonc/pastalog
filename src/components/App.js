@@ -6,7 +6,7 @@ const App = (child) =>
       <script src='app.js' defer></script>
     </head>
     <body>
-      <div id="container">${child}</div>
+      <div id="container" class="max">${child}</div>
     </body>
   </html>`;
 

@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import Series from './Series';
+import ReactDOM from 'react-dom';
 import Gridlines from './Gridlines';
 import { mapEnabledSeries } from './../state/helpers.js';
 import { getUUID } from 'lib';
@@ -12,6 +13,17 @@ class Grid extends React.Component {
     this.onMouseLeave = this.onMouseLeave.bind(this);
     this.onMouseMove = this.onMouseMove.bind(this);
   }
+
+  componentDidMount() {
+    const rect = ReactDOM.findDOMNode(this).getBoundingClientRect();
+    // reset the width, height to the real size of the window
+    this.props.store.dispatch({
+      type: 'RESIZE',
+      size: { width: rect.width - 50, height: rect.height - 70 },
+    });
+    console.log(rect.width, rect.height);
+  }
+
 
   onMouseEnter() {
     this.props.store.dispatch({
@@ -47,7 +59,8 @@ class Grid extends React.Component {
     const scale = state.get('scale');
 
     return (
-      <div className="Grid relative clearfix border m3"
+    <div className="Grid md-col md-col-10">
+      <div className="relative clearfix border mt1 mr0 ml3 mb3"
         style={{ width, height }}
         onMouseEnter={this.onMouseEnter}
         onMouseLeave={this.onMouseLeave}
@@ -67,6 +80,7 @@ class Grid extends React.Component {
           )
         ) : (<div className="no-series col col-4 border mt-3 mx-auto">No logs Yet</div>)}
       </div>
+    </div>
     );
   }
 }

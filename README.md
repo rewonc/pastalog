@@ -8,12 +8,10 @@
 - Grid >>>>>>>>>>>DONE>>>>>>>>>>>- hover at step and display values
 - App >>>>>>>>>>>DONE>>>>>>>>>>>- Create a redux state tree to hold all the application state.
 - App >>>>>>>>>>>DONE>>>>>>>>>>>- Create unit tests for state tree
-
 - App >>>>>>>>>>>DONE>>>>>>>>>>> - Create tests / actions / helpers for logs
-    >>>>>>>>>>>DONE>>>>>>>>>>>- updating them w/ initial data
-    >>>>>>>>>>>DONE>>>>>>>>>>>- updating with incremental data 
-
-- App - refactor to be stateless
+        >>>>>>>>>>>DONE>>>>>>>>>>>- updating them w/ initial data
+        >>>>>>>>>>>DONE>>>>>>>>>>>- updating with incremental data 
+- App >>>>>>>>>>>DONE>>>>>>>>>>>- refactor to be stateless
 
 - Grid - Styling (ask tiffany)
 - Series display options

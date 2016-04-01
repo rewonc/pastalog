@@ -3,7 +3,7 @@ import Interface from './Interface';
 
 const Container = (props) => (
   /* This class instantiates the headers and grid.*/
-  <div className="Container">
+  <div className="Container max">
     <div className="clearfix">
       <h2 className="m0">pastalog</h2>
     </div>

@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { seriesMap, getUUID, stringToColor } from 'lib';
+import { getUUID, stringToColor } from 'lib';
 import { isSeriesEnabled, mapSeries } from './../state/helpers';
 
 function Legend(props) {
@@ -29,9 +29,11 @@ function Legend(props) {
   });
 
   return (
-    <ul className="Legend absolute top-0 right-0 m2 list-reset z3">
+  <div className="Legend md-col md-col-2">
+    <ul className="m2 list-reset z3">
       {legendItems}
     </ul>
+  </div>
   );
 }
 
