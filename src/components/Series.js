@@ -10,10 +10,7 @@ class Series extends React.Component {
     const props = this.props;
     return ((nextProps.indices !== props.indices) ||
             (nextProps.values !== props.values) ||
-            (nextProps.minX !== props.minX) ||
-            (nextProps.minY !== props.minY) ||
-            (nextProps.maxX !== props.maxX) ||
-            (nextProps.maxY !== props.maxY) ||
+            (nextProps.scale !== props.scale) ||
             (nextProps.width !== props.width) ||
             (nextProps.height !== props.height));
   }
