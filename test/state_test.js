@@ -47,7 +47,7 @@ describe('Log', () => {
         modelA: {
           trainLoss: {
             values: [12, 13, 14, 15],
-            indices: [0, 1, 2, 3],
+            indices: [0, 1, 2, 3, 4],
           },
         },
       });
@@ -79,9 +79,9 @@ describe('Log', () => {
     });
 
     it('should update scales for log', () => {
-      const initialState = fromJS({
+      const initialState = INITIAL_STATE.merge(fromJS({
         logs: { modelA: { trainLoss: { values: [12, 13, 14, 15], indices: [0, 1, 2, 3] } } },
-      });
+      }));
       const newState = reducer(initialState, {
         type: 'UPDATE_MODEL',
         modelName: 'modelA',

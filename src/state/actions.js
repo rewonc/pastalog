@@ -1,4 +1,4 @@
-import { fromJS, List } from 'immutable';
+import { fromJS, List, Map } from 'immutable';
 import { forEachEnabledSeries, isSeriesEnabled } from './helpers';
 
 const BUFFER = 0.01;
@@ -61,32 +61,32 @@ export function enable(state, category, id) {
 
 function rescale(oldScale, minX, minY, maxX, maxY) {
   const newScale = {};
-  const xRange = oldScale.maxX - oldScale.minX;
-  const yRange = oldScale.maxY - oldScale.minY;
+  const xRange = oldScale.get('maxX') - oldScale.get('minX');
+  const yRange = oldScale.get('maxY') - oldScale.get('minY');
   // for now, skip resizing min X as it shouldn't be below 0.
-  // if (minX < oldScale.minX + BUFFER * xRange) {
+  // if (minX < oldScale.get('minX') + BUFFER * xRange) {
   //   newScale.minX = minX - PADDING * xRange;
   // }
-  if (minY < oldScale.minY + BUFFER * yRange) {
+  if (minY < oldScale.get('minY') + BUFFER * yRange) {
     newScale.minY = minY - PADDING * yRange;
   }
-  if (maxX > oldScale.maxX - BUFFER * xRange) {
+  if (maxX > oldScale.get('maxX') - BUFFER * xRange) {
     newScale.maxX = maxX + PADDING * xRange;
   }
-  if (maxY > oldScale.maxY - BUFFER * yRange) {
+  if (maxY > oldScale.get('maxY') - BUFFER * yRange) {
     newScale.maxY = maxY + PADDING * yRange;
   }
   return mergeElements(oldScale, newScale);
 }
 
-function initializeScale(state, logs) {
-  let scale = state.get('scale');
-  forEachEnabledSeries(logs, state.get('disabled'),
+function initializeScale(state = Map(), logs) {
+  let scale = state.get('scale', Map());
+  forEachEnabledSeries(logs, state.get('disabled', Map()),
     (modelName, seriesName, lists) => {
-      const minX = lists.indices.min();
-      const maxX = lists.indices.max();
-      const minY = lists.values.min();
-      const maxY = lists.values.max();
+      const minX = lists.get('indices').min();
+      const maxX = lists.get('indices').max();
+      const minY = lists.get('values').min();
+      const maxY = lists.get('values').max();
       scale = rescale(scale, minX, minY, maxX, maxY);
     }
   );
@@ -94,23 +94,23 @@ function initializeScale(state, logs) {
 }
 
 
-function updateScale(state, index, value) {
+function updateScale(state = Map(), index, value) {
   return updateObject(state, 'scale', rescale(
-      state.get('scale'), index, value, index, value
+      state.get('scale', Map()), index, value, index, value
     ));
 }
 
-export function initializeLogs(state, logs) {
+export function initializeLogs(state = Map(), logs) {
   return initializeScale(state, logs).set('logs', logs);
 }
 
-export function addLogPoint(state, modelName, seriesName, index, value) {
+export function addLogPoint(state = Map(), modelName, seriesName, index, value) {
   let rescaledState = state;
-  if (isSeriesEnabled(state.get('disabled'), modelName, seriesName)) {
+  if (isSeriesEnabled(state.get('disabled', Map()), modelName, seriesName)) {
     rescaledState = updateScale(state, index, value);
   }
   return rescaledState.updateIn(
-    ['logs', modelName, seriesName], list => list.
+    ['logs', modelName, seriesName], Map(), list => list.
       update('indices', List(), arr => arr.push(index)).
       update('values', List(), arr => arr.push(value))
     );

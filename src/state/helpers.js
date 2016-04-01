@@ -12,13 +12,16 @@ export function isSeriesEnabled(disabled = Map(), modelName, seriesName) {
   const series = disabled.getIn(['series', seriesName], false);
   const unique = disabled.getIn(['uniques',
     getUUID(modelName, seriesName)], false);
-  return (model || series || unique);
+  return !(model || series || unique);
 }
 
 export function forEachSeries(logs, cb) {
   logs.forEach((seriesMap, modelName) => {
     seriesMap.forEach((lists, seriesName) => {
-      cb(modelName, seriesName, lists);
+      if ((lists.get('indices') !== undefined) &&
+          (lists.get('values') !== undefined)) {
+        cb(modelName, seriesName, lists);
+      }
       return true;
     });
     return true;

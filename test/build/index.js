@@ -50,11 +50,11 @@
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(2);
 	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_immutable__ = __webpack_require__(0);
 	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_immutable___default = __WEBPACK_IMPORTED_MODULE_0_immutable__ && __WEBPACK_IMPORTED_MODULE_0_immutable__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_0_immutable__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_0_immutable__; }
 	/* harmony import */ Object.defineProperty(__WEBPACK_IMPORTED_MODULE_0_immutable___default, 'a', { get: __WEBPACK_IMPORTED_MODULE_0_immutable___default });
-	/* harmony export */ exports["g"] = addLogPoint;/* harmony export */ exports["f"] = initializeLogs;/* harmony export */ exports["d"] = enable;/* harmony export */ exports["c"] = disable;/* harmony export */ exports["b"] = updateObject;/* harmony export */ exports["e"] = toggleHover;'use strict';
+	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(2);
+	/* harmony export */ exports["e"] = toggleHover;/* harmony export */ exports["b"] = updateObject;/* harmony export */ exports["c"] = disable;/* harmony export */ exports["d"] = enable;/* harmony export */ exports["f"] = initializeLogs;/* harmony export */ exports["g"] = addLogPoint;'use strict';
 
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -123,50 +123,66 @@
 
 	function rescale(oldScale, minX, minY, maxX, maxY) {
 	  var newScale = {};
-	  var xRange = oldScale.maxX - oldScale.minX;
-	  var yRange = oldScale.maxY - oldScale.minY;
+	  var xRange = oldScale.get('maxX') - oldScale.get('minX');
+	  var yRange = oldScale.get('maxY') - oldScale.get('minY');
 	  // for now, skip resizing min X as it shouldn't be below 0.
-	  // if (minX < oldScale.minX + BUFFER * xRange) {
+	  // if (minX < oldScale.get('minX') + BUFFER * xRange) {
 	  //   newScale.minX = minX - PADDING * xRange;
 	  // }
-	  if (minY < oldScale.minY + BUFFER * yRange) {
+	  if (minY < oldScale.get('minY') + BUFFER * yRange) {
 	    newScale.minY = minY - PADDING * yRange;
 	  }
-	  if (maxX > oldScale.maxX - BUFFER * xRange) {
+	  if (maxX > oldScale.get('maxX') - BUFFER * xRange) {
 	    newScale.maxX = maxX + PADDING * xRange;
 	  }
-	  if (maxY > oldScale.maxY - BUFFER * yRange) {
+	  if (maxY > oldScale.get('maxY') - BUFFER * yRange) {
 	    newScale.maxY = maxY + PADDING * yRange;
 	  }
 	  return mergeElements(oldScale, newScale);
 	}
 
-	function initializeScale(state, logs) {
-	  var scale = state.get('scale');
-	  /* harmony import */__WEBPACK_IMPORTED_MODULE_1__helpers__["a"].bind()(logs, state.get('disabled'), function (modelName, seriesName, lists) {
-	    var minX = lists.indices.min();
-	    var maxX = lists.indices.max();
-	    var minY = lists.values.min();
-	    var maxY = lists.values.max();
+	function initializeScale() {
+	  var state = arguments.length <= 0 || arguments[0] === undefined ? /* harmony import */__WEBPACK_IMPORTED_MODULE_0_immutable__["Map"].bind()() : arguments[0];
+	  var logs = arguments[1];
+
+	  var scale = state.get('scale', /* harmony import */__WEBPACK_IMPORTED_MODULE_0_immutable__["Map"].bind()());
+	  /* harmony import */__WEBPACK_IMPORTED_MODULE_1__helpers__["a"].bind()(logs, state.get('disabled', /* harmony import */__WEBPACK_IMPORTED_MODULE_0_immutable__["Map"].bind()()), function (modelName, seriesName, lists) {
+	    var minX = lists.get('indices').min();
+	    var maxX = lists.get('indices').max();
+	    var minY = lists.get('values').min();
+	    var maxY = lists.get('values').max();
 	    scale = rescale(scale, minX, minY, maxX, maxY);
 	  });
 	  return updateObject(state, 'scale', scale);
 	}
 
-	function updateScale(state, index, value) {
-	  return updateObject(state, 'scale', rescale(state.get('scale'), index, value, index, value));
+	function updateScale() {
+	  var state = arguments.length <= 0 || arguments[0] === undefined ? /* harmony import */__WEBPACK_IMPORTED_MODULE_0_immutable__["Map"].bind()() : arguments[0];
+	  var index = arguments[1];
+	  var value = arguments[2];
+
+	  return updateObject(state, 'scale', rescale(state.get('scale', /* harmony import */__WEBPACK_IMPORTED_MODULE_0_immutable__["Map"].bind()()), index, value, index, value));
 	}
 
-	function initializeLogs(state, logs) {
+	function initializeLogs() {
+	  var state = arguments.length <= 0 || arguments[0] === undefined ? /* harmony import */__WEBPACK_IMPORTED_MODULE_0_immutable__["Map"].bind()() : arguments[0];
+	  var logs = arguments[1];
+
 	  return initializeScale(state, logs).set('logs', logs);
 	}
 
-	function addLogPoint(state, modelName, seriesName, index, value) {
+	function addLogPoint() {
+	  var state = arguments.length <= 0 || arguments[0] === undefined ? /* harmony import */__WEBPACK_IMPORTED_MODULE_0_immutable__["Map"].bind()() : arguments[0];
+	  var modelName = arguments[1];
+	  var seriesName = arguments[2];
+	  var index = arguments[3];
+	  var value = arguments[4];
+
 	  var rescaledState = state;
-	  if (/* harmony import */__WEBPACK_IMPORTED_MODULE_1__helpers__["b"].bind()(state.get('disabled'), modelName, seriesName)) {
+	  if (/* harmony import */__WEBPACK_IMPORTED_MODULE_1__helpers__["b"].bind()(state.get('disabled', /* harmony import */__WEBPACK_IMPORTED_MODULE_0_immutable__["Map"].bind()()), modelName, seriesName)) {
 	    rescaledState = updateScale(state, index, value);
 	  }
-	  return rescaledState.updateIn(['logs', modelName, seriesName], function (list) {
+	  return rescaledState.updateIn(['logs', modelName, seriesName], /* harmony import */__WEBPACK_IMPORTED_MODULE_0_immutable__["Map"].bind()(), function (list) {
 	    return list.update('indices', /* harmony import */__WEBPACK_IMPORTED_MODULE_0_immutable__["List"].bind()(), function (arr) {
 	      return arr.push(index);
 	    }).update('values', /* harmony import */__WEBPACK_IMPORTED_MODULE_0_immutable__["List"].bind()(), function (arr) {
@@ -183,11 +199,11 @@
 /* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__lib__ = __webpack_require__(112);
 	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_immutable__ = __webpack_require__(0);
 	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_immutable___default = __WEBPACK_IMPORTED_MODULE_0_immutable__ && __WEBPACK_IMPORTED_MODULE_0_immutable__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_0_immutable__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_0_immutable__; }
 	/* harmony import */ Object.defineProperty(__WEBPACK_IMPORTED_MODULE_0_immutable___default, 'a', { get: __WEBPACK_IMPORTED_MODULE_0_immutable___default });
-	/* unused harmony export mapEnabledSeries *//* unused harmony export mapSeries *//* harmony export */ exports["a"] = forEachEnabledSeries;/* unused harmony export forEachSeries *//* harmony export */ exports["b"] = isSeriesEnabled;/* harmony export */ exports["c"] = isDisabled;'use strict';
+	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__lib__ = __webpack_require__(112);
+	/* harmony export */ exports["c"] = isDisabled;/* harmony export */ exports["b"] = isSeriesEnabled;/* unused harmony export forEachSeries *//* harmony export */ exports["a"] = forEachEnabledSeries;/* unused harmony export mapSeries *//* unused harmony export mapEnabledSeries */'use strict';
 
 
 
@@ -204,13 +220,15 @@
 	  var model = disabled.getIn(['models', modelName], false);
 	  var series = disabled.getIn(['series', seriesName], false);
 	  var unique = disabled.getIn(['uniques', /* harmony import */__WEBPACK_IMPORTED_MODULE_1__lib__["a"].bind()(modelName, seriesName)], false);
-	  return model || series || unique;
+	  return !(model || series || unique);
 	}
 
 	function forEachSeries(logs, cb) {
 	  logs.forEach(function (seriesMap, modelName) {
 	    seriesMap.forEach(function (lists, seriesName) {
-	      cb(modelName, seriesName, lists);
+	      if (lists.get('indices') !== undefined && lists.get('values') !== undefined) {
+	        cb(modelName, seriesName, lists);
+	      }
 	      return true;
 	    });
 	    return true;
@@ -309,19 +327,19 @@
 /* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_immutable__ = __webpack_require__(0);
-	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_immutable___default = __WEBPACK_IMPORTED_MODULE_0_immutable__ && __WEBPACK_IMPORTED_MODULE_0_immutable__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_0_immutable__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_0_immutable__; }
-	/* harmony import */ Object.defineProperty(__WEBPACK_IMPORTED_MODULE_0_immutable___default, 'a', { get: __WEBPACK_IMPORTED_MODULE_0_immutable___default });
-	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_mocha__ = __webpack_require__(10);
-	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_mocha___default = __WEBPACK_IMPORTED_MODULE_1_mocha__ && __WEBPACK_IMPORTED_MODULE_1_mocha__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_1_mocha__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_1_mocha__; }
-	/* harmony import */ Object.defineProperty(__WEBPACK_IMPORTED_MODULE_1_mocha___default, 'a', { get: __WEBPACK_IMPORTED_MODULE_1_mocha___default });
+	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__src_state_store__ = __webpack_require__(7);
+	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__src_state_helpers__ = __webpack_require__(2);
+	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__src_state_actions__ = __webpack_require__(1);
+	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__src_state_reducer__ = __webpack_require__(3);
 	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_chai__ = __webpack_require__(4);
 	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_chai___default = __WEBPACK_IMPORTED_MODULE_2_chai__ && __WEBPACK_IMPORTED_MODULE_2_chai__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_2_chai__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_2_chai__; }
 	/* harmony import */ Object.defineProperty(__WEBPACK_IMPORTED_MODULE_2_chai___default, 'a', { get: __WEBPACK_IMPORTED_MODULE_2_chai___default });
-	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__src_state_reducer__ = __webpack_require__(3);
-	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__src_state_actions__ = __webpack_require__(1);
-	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__src_state_helpers__ = __webpack_require__(2);
-	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__src_state_store__ = __webpack_require__(7);
+	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_mocha__ = __webpack_require__(10);
+	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_mocha___default = __WEBPACK_IMPORTED_MODULE_1_mocha__ && __WEBPACK_IMPORTED_MODULE_1_mocha__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_1_mocha__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_1_mocha__; }
+	/* harmony import */ Object.defineProperty(__WEBPACK_IMPORTED_MODULE_1_mocha___default, 'a', { get: __WEBPACK_IMPORTED_MODULE_1_mocha___default });
+	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_immutable__ = __webpack_require__(0);
+	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_immutable___default = __WEBPACK_IMPORTED_MODULE_0_immutable__ && __WEBPACK_IMPORTED_MODULE_0_immutable__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_0_immutable__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_0_immutable__; }
+	/* harmony import */ Object.defineProperty(__WEBPACK_IMPORTED_MODULE_0_immutable___default, 'a', { get: __WEBPACK_IMPORTED_MODULE_0_immutable___default });
 	'use strict';
 
 
@@ -372,7 +390,7 @@
 	        modelA: {
 	          trainLoss: {
 	            values: [12, 13, 14, 15],
-	            indices: [0, 1, 2, 3]
+	            indices: [0, 1, 2, 3, 4]
 	          }
 	        }
 	      });
@@ -405,9 +423,9 @@
 	    });
 
 	    /* harmony import */__WEBPACK_IMPORTED_MODULE_1_mocha__["it"].bind()('should update scales for log', function () {
-	      var initialState = /* harmony import */__WEBPACK_IMPORTED_MODULE_0_immutable__["fromJS"].bind()({
+	      var initialState = /* harmony import */__WEBPACK_IMPORTED_MODULE_4__src_state_actions__["a"].merge(/* harmony import */__WEBPACK_IMPORTED_MODULE_0_immutable__["fromJS"].bind()({
 	        logs: { modelA: { trainLoss: { values: [12, 13, 14, 15], indices: [0, 1, 2, 3] } } }
-	      });
+	      }));
 	      var newState = /* harmony import */__WEBPACK_IMPORTED_MODULE_3__src_state_reducer__["a"].bind()(initialState, {
 	        type: 'UPDATE_MODEL',
 	        modelName: 'modelA',
@@ -624,10 +642,10 @@
 /* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__reducer__ = __webpack_require__(3);
 	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redux__ = __webpack_require__(11);
 	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redux___default = __WEBPACK_IMPORTED_MODULE_0_redux__ && __WEBPACK_IMPORTED_MODULE_0_redux__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_0_redux__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_0_redux__; }
 	/* harmony import */ Object.defineProperty(__WEBPACK_IMPORTED_MODULE_0_redux___default, 'a', { get: __WEBPACK_IMPORTED_MODULE_0_redux___default });
-	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__reducer__ = __webpack_require__(3);
 	/* harmony export */ exports["a"] = makeStore;'use strict';
 
 
@@ -641,12 +659,12 @@
 /* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__test_helper__ = __webpack_require__(6);
-	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__test_helper___default = __WEBPACK_IMPORTED_MODULE_0__test_helper__ && __WEBPACK_IMPORTED_MODULE_0__test_helper__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_0__test_helper__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_0__test_helper__; }
-	/* harmony import */ Object.defineProperty(__WEBPACK_IMPORTED_MODULE_0__test_helper___default, 'a', { get: __WEBPACK_IMPORTED_MODULE_0__test_helper___default });
 	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__state_test__ = __webpack_require__(5);
 	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__state_test___default = __WEBPACK_IMPORTED_MODULE_1__state_test__ && __WEBPACK_IMPORTED_MODULE_1__state_test__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_1__state_test__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_1__state_test__; }
 	/* harmony import */ Object.defineProperty(__WEBPACK_IMPORTED_MODULE_1__state_test___default, 'a', { get: __WEBPACK_IMPORTED_MODULE_1__state_test___default });
+	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__test_helper__ = __webpack_require__(6);
+	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__test_helper___default = __WEBPACK_IMPORTED_MODULE_0__test_helper__ && __WEBPACK_IMPORTED_MODULE_0__test_helper__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_0__test_helper__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_0__test_helper__; }
+	/* harmony import */ Object.defineProperty(__WEBPACK_IMPORTED_MODULE_0__test_helper___default, 'a', { get: __WEBPACK_IMPORTED_MODULE_0__test_helper___default });
 	'use strict';
 
 
