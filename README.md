@@ -14,15 +14,22 @@
 - App >>>>>>>>>>>DONE>>>>>>>>>>>- refactor to be stateless
 - Grid >>>>>>>>>>>DONE>>>>>>>>>>>- Basic styling / colors
 - Grid >>>>>>>>>>>DONE>>>>>>>>>>>- resize on viewport change
-- Legend: styling and colors
-- Legend: enable/disable all
-- Legend: enable/disable series, model
+- Legend >>>>>>>>>>>DONE>>>>>>>>>>> - styling and colors
+- Legend >>>>>>>>>>>DONE>>>>>>>>>>> - enable/disable series, model
+- Legend - enable/disable all
 - Series: onHover: highlight on nearest index point, print out value
+- Series: on add: highlight line in yellow or something
 - Gridlines: make hover box look a little cooler
+- Scale:
+    Make the scale manually adjustable (text input)
 - Series display options
     - candlestick (minibatch)
     - exponential weighted
     - raw
+- Ability to save (automatically) / delete stuff?
+
+Contributions that would help:
+
 - Series color function
     - hash to hierarchical list of good colors
     - start with 20, move to 100, then pure hash.
@@ -32,11 +39,6 @@
 - Grid - adjust scale manually mode
 - Grid - adjust to logarithmic?
 
-- Series - click to see series numbers
-         - see all values for a series
-
-- Tests for visualization (make sure it works)
-- tests for python api
 
 # pastalog
 
