@@ -37,8 +37,7 @@ class Series extends React.Component {
       pairs.map((pair) => (
         <circle r="1" fill={color} stroke="0" cx={pair[0]}
           cy={pair[1]} key={uuid + pair[0]}
-        />
-      ))
+        />))
       }
       <polyline style={{ strokeWidth: 1, stroke: color, fill: 'none' }}
         points={pairs.map((v) => v.join(',')).join(' ')}

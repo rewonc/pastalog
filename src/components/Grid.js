@@ -67,6 +67,8 @@ class Grid extends React.Component {
     const width = state.getIn(['size', 'width']);
     const height = state.getIn(['size', 'height']);
     const scale = state.get('scale');
+    const hovering = state.get('hovering');
+    const hoverIndex = Math.round(state.getIn(['hoverPosition', 'hoverX'], 0));
 
     return (
     <div className="Grid md-col md-col-10">
