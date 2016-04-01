@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import Series from './Series';
 import Gridlines from './Gridlines';
 import { mapEnabledSeries } from './../state/helpers.js';
-
+import { getUUID } from 'lib';
 
 class Grid extends React.Component {
 
@@ -23,7 +23,7 @@ class Grid extends React.Component {
   onMouseLeave() {
     this.props.store.dispatch({
       type: 'TOGGLE_HOVER',
-      value: true,
+      value: false,
     });
   }
 
@@ -44,6 +44,7 @@ class Grid extends React.Component {
     const disabled = state.get('disabled');
     const width = state.getIn(['size', 'width']);
     const height = state.getIn(['size', 'height']);
+    const scale = state.get('scale');
 
     return (
       <div className="Grid relative clearfix border m3"
@@ -56,9 +57,11 @@ class Grid extends React.Component {
         {logs ? (
           mapEnabledSeries(logs, disabled, (modelName, seriesName, lists) => (
             <div key={modelName} className="absolute top-0 left-0 max z2">
-              <Series key={seriesName}
-                seriesName={seriesName} modelName={modelName} indices={lists.indices}
-                values={lists.values}
+              <Series key={getUUID(modelName, seriesName)}
+                seriesName={seriesName} modelName={modelName}
+                indices={lists.get('indices')}
+                values={lists.get('values')}
+                scale={scale} width={width} height={height}
               />
             </div>)
           )

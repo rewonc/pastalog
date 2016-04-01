@@ -38,6 +38,7 @@ function getMarkings({ min, max, width, height, horizontal, showLines, numMarkin
       height: '10px',
       fontSize: '10px',
       width: '20px',
+      pointerEvents: 'none',
     };
     return (
     <div key={`${idx}-${horizontal}`} className="gridMark center" style={style}>
@@ -91,55 +92,59 @@ const NUM_MARKINGS_Y = 6;
 const SHOW_LINES_X = false;
 const SHOW_LINES_Y = true;
 
-const Gridlines = (props) => (
-  <div className="absolute top-0 left-0 max z1">
-    {getMarkings({
-      min: props.minX,
-      max: props.maxX,
-      height: props.height,
-      width: props.width,
-      horizontal: true,
-      showLines: SHOW_LINES_X,
-      numMarkings: NUM_MARKINGS_X,
-    })}
-    {getMarkings({
-      min: props.minY,
-      max: props.maxY,
-      width: props.width,
-      height: props.height,
-      horizontal: false,
-      showLines: SHOW_LINES_Y,
-      numMarkings: NUM_MARKINGS_Y,
-    })}
-    {props.currentlyHovering ? (getMark({
-      position: props.hoverX,
-      horizontal: true,
-      min: props.minX,
-      max: props.maxX,
-      height: props.height,
-      width: props.width,
-    })) : <div></div>}
-    {props.currentlyHovering ? (getMark({
-      position: props.hoverY,
-      horizontal: false,
-      min: props.minY,
-      max: props.maxY,
-      height: props.height,
-      width: props.width,
-    })) : <div></div>}
-  </div>
-);
+const Gridlines = (props) => {
+  const state = props.state;
+  const currentlyHovering = state.get('hovering');
+  const hoverPosition = state.get('hoverPosition');
+  const scale = state.get('scale');
+  const dims = state.get('size');
+  const height = dims.get('height');
+  const width = dims.get('width');
+  const minX = scale.get('minX');
+  const maxX = scale.get('maxX');
+  const minY = scale.get('minY');
+  const maxY = scale.get('maxY');
+  const hoverX = hoverPosition.get('hoverX');
+  const hoverY = hoverPosition.get('hoverY');
+  return (
+    <div className="absolute top-0 left-0 max z1">
+      {getMarkings({
+        width, height,
+        min: minX,
+        max: maxX,
+        horizontal: true,
+        showLines: SHOW_LINES_X,
+        numMarkings: NUM_MARKINGS_X,
+      })}
+      {getMarkings({
+        width, height,
+        min: minY,
+        max: maxY,
+        horizontal: false,
+        showLines: SHOW_LINES_Y,
+        numMarkings: NUM_MARKINGS_Y,
+      })}
+      {currentlyHovering ? (getMark({
+        width, height,
+        position: hoverX,
+        horizontal: true,
+        min: minX,
+        max: maxX,
+      })) : <div></div>}
+      {currentlyHovering ? (getMark({
+        width, height,
+        position: hoverY,
+        horizontal: false,
+        min: minY,
+        max: maxY,
+      })) : <div></div>}
+    </div>
+  );
+};
 
 Gridlines.propTypes = {
-  width: PropTypes.number,
-  height: PropTypes.number,
-  minX: PropTypes.number,
-  maxX: PropTypes.number,
-  minY: PropTypes.number,
-  maxY: PropTypes.number,
-  currentlyHovering: PropTypes.bool,
-  hoverX: PropTypes.number,
-  hoverY: PropTypes.number,
+  state: PropTypes.object,
+  store: PropTypes.object,
 };
 
 export default Gridlines;

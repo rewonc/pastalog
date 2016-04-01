@@ -5,39 +5,43 @@ import _zip from 'lodash/zip';
 
 class Series extends React.Component {
   /* This class displays a line corresponding to a series.*/
-  constructor(props) {
-    super(props);
-    this.uuid = getUUID(props.modelName, props.seriesName);
-    this.color = stringToColor(this.uuid);
-  }
 
   shouldComponentUpdate(nextProps) {
     const props = this.props;
-    return ((nextProps.minX !== props.minX) ||
+    return ((nextProps.indices !== props.indices) ||
+            (nextProps.values !== props.values) ||
+            (nextProps.minX !== props.minX) ||
             (nextProps.minY !== props.minY) ||
             (nextProps.maxX !== props.maxX) ||
             (nextProps.maxY !== props.maxY) ||
             (nextProps.width !== props.width) ||
-            (nextProps.height !== props.height) ||
-            (nextProps.indices !== props.indices) ||
-            (nextProps.values !== props.values));
+            (nextProps.height !== props.height));
   }
 
   render() {
     const props = this.props;
-    const indices = convertScales(props.indices.toJS(), props.minX,
-        props.maxX, 0, props.width);
-    // pass invert: true for Y values because pixel values go top down
-    const values = convertScales(props.values.toJS(), props.minY,
-        props.maxY, 0, props.height, { invert: true });
+    const uuid = getUUID(props.modelName, props.seriesName);
+    const color = stringToColor(uuid);
+    const scale = props.scale;
+    const maxX = scale.get('maxX');
+    const minX = scale.get('minX');
+    const maxY = scale.get('maxY');
+    const minY = scale.get('minY');
+    const width = props.width;
+    const height = props.height;
+
+    const indices = convertScales(props.indices.toJS(),
+      minX, maxX, 0, width);
+    const values = convertScales(props.values.toJS(),
+      minY, maxY, 0, height, { invert: true });
     const pairs = _zip(indices, values);
     return (<svg className="series max absolute top-0 left-0">
       {pairs.map((pair) => (
-        <circle r="0" fill={this.color} stroke="0" cx={pair[0]}
+        <circle r="0" fill={color} stroke="0" cx={pair[0]}
           cy={pair[1]} key={pair[0]}
         />
       ))}
-      <polyline style={{ strokeWidth: 1, stroke: this.color, fill: 'none' }}
+      <polyline style={{ strokeWidth: 1, stroke: color, fill: 'none' }}
         points={pairs.map((v) => v.join(',')).join(' ')}
       />
     </svg>);
@@ -51,10 +55,7 @@ Series.propTypes = {
   modelName: PropTypes.string,
   width: PropTypes.number,
   height: PropTypes.number,
-  minX: PropTypes.number,
-  minY: PropTypes.number,
-  maxX: PropTypes.number,
-  maxY: PropTypes.number,
+  scale: PropTypes.object,
 };
 
 
