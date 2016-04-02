@@ -4,6 +4,20 @@ import _zip from 'lodash/zip';
 import _map from 'lodash/map';
 import { convertScales } from 'lib';
 
+
+function rightPadDecimals2(number) {
+  const str = number.toString();
+  const splits = str.split('.');
+  if (splits[1] === undefined) {
+    return str + '.00';
+  }
+  if (splits[1].length === 1) {
+    return str + '0';
+  }
+  return str;
+}
+
+
 function getMarkings({ min, max, width, height, horizontal, showLines, numMarkings }) {
   // hack: add epsilon to max range in order to be inclusive rather than exclusive
   const step = (max - min) / numMarkings;
@@ -32,7 +46,7 @@ function getMarkings({ min, max, width, height, horizontal, showLines, numMarkin
   return _map(pairs, ([value, location], idx) => {
     const style = {
       position: 'absolute',
-      top: `${location - 5}px`,
+      top: `${location - 11}px`,
       left: '-40px',
       height: '10px',
       width: '20px',
@@ -45,18 +59,17 @@ function getMarkings({ min, max, width, height, horizontal, showLines, numMarkin
   });
 }
 
-
 function getMark({ position, horizontal, min, max, height, width }) {
   let value = null;
   if (horizontal) {
     value = position / width;
   } else {
-    value = position / height;
+    value = 1 - (position / height);
   }
   value = value * (max - min) + min;
   if (horizontal) {
     return (
-    <div key="activeMarkX" className="gridMark center current bold"
+    <div key="activeMarkX" className="gridMark center current bold x"
       style={{
         position: 'absolute',
         top: `${height + 5}px`,
@@ -65,20 +78,20 @@ function getMark({ position, horizontal, min, max, height, width }) {
         width: '20px',
       }}
     >
-      {Math.round(value)}
+      <span className="textElement">{Math.round(value)}</span>
     </div>);
   }
   return (
-  <div key="activeMarkY" className="gridMark center current bold"
+  <div key="activeMarkY" className="gridMark center current bold y"
     style={{
       position: 'absolute',
-      top: `${position - 5}px`,
+      top: `${position - 11}px`,
       left: '-40px',
       height: '10px',
       width: '20px',
     }}
   >
-    {Math.round(value * 100) / 100}
+    <span className="textElement">{rightPadDecimals2(Math.round(value * 100) / 100)}</span>
   </div>);
 }
 

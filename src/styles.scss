@@ -86,11 +86,47 @@ body{
     color: $base1;
 }
 
+$activeLegendColor: $yellow;
+
 .gridMark.current{
-    background-color: $yellow;
     color:$base3;
-    padding: 2px 6px 6px 6px;
+    .textElement{
+        background-color:$activeLegendColor;
+        border:4px solid $activeLegendColor;
+        border-radius:4px;
+        position:relative;
+    }
 }
+
+.gridMark.current.x{
+    .textElement{
+        left: -2px;
+        top: 0px;
+    }
+}
+.gridMark.current.y{
+    .textElement{
+        left: -3px;
+        top: -2px;
+    }
+}
+
+.gridMark.current.x::before{
+    content: '\2191';
+    position: absolute;
+    right: 4px;
+    top: -17px;
+    color:$activeLegendColor;
+    font-size:18px;
+}
+.gridMark.current.y::after{
+    content: '\2192';
+    color: $activeLegendColor;
+    font-size:18px;
+    position:relative;
+    right:4px;
+}
+
 .Grid-well{
     background-color: $base03;
     border-color: darken($base03, 5%);

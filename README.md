@@ -14,19 +14,25 @@
 - App >>>>>>>>>>>DONE>>>>>>>>>>>- refactor to be stateless
 - Grid >>>>>>>>>>>DONE>>>>>>>>>>>- Basic styling / colors
 - Grid >>>>>>>>>>>DONE>>>>>>>>>>>- resize on viewport change
-- Legend >>>>>>>>>>>DONE>>>>>>>>>>> - styling and colors
-- Legend >>>>>>>>>>>DONE>>>>>>>>>>> - enable/disable series, model
-- Put in real test data
+- Legend >>>>>>>>>>>DONE>>>>>>>>>>>- styling and colors
+- Legend >>>>>>>>>>>DONE>>>>>>>>>>>- enable/disable series, model
+- Server >>>>>>>>>>>DONE>>>>>>>>>>>- Put in real test data
+- Legend >>>>>>>>>>>DONE>>>>>>>>>>>- Fix scale (currently reversed w log loss)
+- Legend >>>>>>>>>>>DONE>>>>>>>>>>>- On Hover --- slow cursors w/ lots of movement
 - Options menu?
     - Scale:
         - Make the scale manually adjustable (text input)
         - log scale if its easy. (It's probably not.)
+- Profile it, see if you can make speed adjustments. Where can you optimize shouldComponentUpdate?
 - Gridlines: make hover box look a little cooler
-- Ability to delete old trials.
+- Ability to delete old trials (or at least not request them, and not have the server load each time.)
 - Ability to save trials, and back them up.
+- Ability to save state?
+
 
 If have time:
 
+- d3 scaling code?
 - Series display options
     - candlestick (minibatch)
     - exponential weighted
