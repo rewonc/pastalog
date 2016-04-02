@@ -5,8 +5,12 @@ import _map from 'lodash/map';
 import _forEach from 'lodash/forEach';
 
 
+export function round2(input) {
+  return Math.round(input * 100) / 100;
+}
+
 export function rightPadDecimals2(input) {
-  const number = Math.round(input * 100) / 100;
+  const number = round2(input);
   const str = number.toString();
   const splits = str.split('.');
   if (splits[1] === undefined) {

@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { rightPadDecimals2 } from 'lib';
+import { round2 } from 'lib';
 
 function ScaleMenu(props) {
   const state = props.state;
@@ -9,10 +9,43 @@ function ScaleMenu(props) {
       type: 'TOGGLE_SCALE_MENU',
     });
   };
-  const minX = rightPadDecimals2(state.getIn(['scale', 'minX']));
-  const minY = rightPadDecimals2(state.getIn(['scale', 'minY']));
-  const maxX = rightPadDecimals2(state.getIn(['scale', 'maxX']));
-  const maxY = rightPadDecimals2(state.getIn(['scale', 'maxY']));
+  const minX = round2(state.getIn(['scale', 'minX']));
+  const minY = round2(state.getIn(['scale', 'minY']));
+  const maxX = round2(state.getIn(['scale', 'maxX']));
+  const maxY = round2(state.getIn(['scale', 'maxY']));
+
+  const stepX = (maxX - minX) / 20;
+  const stepY = (maxY - minY) / 20;
+  const change = (str) => (ev) => {
+    props.store.dispatch({
+      type: 'RESCALE',
+      scale: {
+        [str]: ev.target.value,
+      },
+    });
+  };
+
+  const stepUp = (name, amount) => (e) => {
+    e.preventDefault();
+    const qty = state.getIn(['scale', name]);
+    props.store.dispatch({
+      type: 'RESCALE',
+      scale: {
+        [name]: qty + amount,
+      },
+    });
+  };
+
+  const stepDown = (name, amount) => (e) => {
+    e.preventDefault();
+    const qty = state.getIn(['scale', name]);
+    props.store.dispatch({
+      type: 'RESCALE',
+      scale: {
+        [name]: qty - amount,
+      },
+    });
+  };
 
   return (<div className="ScaleMenu">
     <h3 className="headlines h3 buttonLink mb0" onClick={toggle}>
@@ -26,24 +59,36 @@ function ScaleMenu(props) {
     </h3>
     {isMenuShown ? (<ul className="list-reset m0">
       <li>minX: &nbsp;
-        <span className="adjust">[-]</span>
-        <input className="center" value={minX} />
-        <span className="adjust">[+]</span>
+        <span className="adjust" onClick={stepDown('minX', stepX)}>[-]</span>
+        <input type="number" className="center"
+          value={minX} onChange={change('minX')}
+          step={stepX}
+        />
+        <span className="adjust" onClick={stepUp('minX', stepX)}>[+]</span>
       </li>
       <li>maxX: &nbsp;
-        <span className="adjust">[-]</span>
-        <input className="center" value={maxX} />
-        <span className="adjust">[+]</span>
+        <span className="adjust" onClick={stepDown('maxX', stepX)}>[-]</span>
+        <input type="number" className="center"
+          value={maxX} onChange={change('maxX')}
+          step={stepX}
+        />
+        <span className="adjust" onClick={stepUp('maxX', stepX)}>[+]</span>
       </li>
       <li>minY: &nbsp;
-        <span className="adjust">[-]</span>
-        <input className="center" value={minY} />
-        <span className="adjust">[+]</span>
+        <span className="adjust" onClick={stepDown('minY', stepY)}>[-]</span>
+        <input type="number" className="center"
+          value={minY} onChange={change('minY')}
+          step={stepY}
+        />
+        <span className="adjust" onClick={stepUp('minY', stepY)}>[+]</span>
       </li>
       <li>maxY: &nbsp;
-        <span className="adjust">[-]</span>
-        <input className="center" value={maxY} />
-        <span className="adjust">[+]</span>
+        <span className="adjust" onClick={stepDown('maxY', stepY)}>[-]</span>
+        <input type="number" className="center"
+          value={maxY} onChange={change('maxY')}
+          step={stepY}
+        />
+        <span className="adjust" onClick={stepUp('maxY', stepY)}>[+]</span>
       </li>
       <li className="mt2"> auto adjust: &nbsp;
         <span className="adjust buttonLink underline">on</span>
