@@ -4,9 +4,15 @@ import { round2 } from 'lib';
 function ScaleMenu(props) {
   const state = props.state;
   const isMenuShown = state.get('scaleMenu') === true;
+  const noAutoUpdate = state.get('noAutoUpdate') === true;
   const toggle = () => {
     props.store.dispatch({
       type: 'TOGGLE_SCALE_MENU',
+    });
+  };
+  const toggleUpdate = () => {
+    props.store.dispatch({
+      type: 'TOGGLE_AUTO_UPDATE',
     });
   };
   const minX = round2(state.getIn(['scale', 'minX']));
@@ -91,7 +97,10 @@ function ScaleMenu(props) {
         <span className="adjust" onClick={stepUp('maxY', stepY)}>[+]</span>
       </li>
       <li className="mt2"> auto adjust: &nbsp;
-        <span className="adjust buttonLink underline">on</span>
+        { (noAutoUpdate) ?
+          <span className="buttonLink underline" onClick={toggleUpdate}>off</span> :
+          <span className="adjust buttonLink underline" onClick={toggleUpdate}>on</span>
+        }
       </li>
     </ul>) : null}
   </div>);

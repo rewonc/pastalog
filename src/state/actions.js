@@ -13,6 +13,7 @@ export const INITIAL_STATE = fromJS(
       maxY: 0.5,
     },
     scaleMenu: false,
+    noAutoUpdate: false,
     size: {
       width: 1000,
       height: 600,
@@ -105,12 +106,14 @@ export function initializeLogs(state = Map(), logs) {
   return initializeScale(state, logs).set('logs', logs);
 }
 
-export function addLogPoint(state = Map(), modelName, seriesName, index, value) {
-  let rescaledState = state;
-  if (isSeriesEnabled(state.get('disabled', Map()), modelName, seriesName)) {
-    rescaledState = updateScale(state, index, value);
+export function addLogPoint(_state = Map(), modelName, seriesName, index, value) {
+  let state = _state;
+  const shouldUpdateScale = state.get('noAutoUpdate', false) === false;
+  const isEnabled = isSeriesEnabled(state.get('disabled', Map()), modelName, seriesName);
+  if (shouldUpdateScale && isEnabled) {
+    state = updateScale(state, index, value);
   }
-  return rescaledState.updateIn(
+  return state.updateIn(
     ['logs', modelName, seriesName], Map(), list => list.
       update('indices', List(), arr => arr.push(index)).
       update('values', List(), arr => arr.push(value))

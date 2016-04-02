@@ -93,6 +93,23 @@ describe('Log', () => {
       expect(newState.getIn(['scale', 'maxY'], 0)).to.be.above(10000);
     });
 
+    it('should NOT update scales if noAutoUpdate is true', () => {
+      const initialState = reducer(INITIAL_STATE.merge(fromJS({
+        logs: { modelA: { trainLoss: { values: [12, 13, 14, 15], indices: [0, 1, 2, 3] } } },
+      })), {
+        type: 'TOGGLE_AUTO_UPDATE',
+      });
+      const newState = reducer(initialState, {
+        type: 'UPDATE_MODEL',
+        modelName: 'modelA',
+        seriesName: 'trainLoss',
+        index: 1000,
+        value: 10000,
+      });
+      expect(newState.getIn(['scale', 'maxX'], 0)).to.be.below(1000);
+      expect(newState.getIn(['scale', 'maxY'], 0)).to.be.below(10000);
+    });
+
     it('should update values for models that dont exist', () => {
       const initialState = fromJS({
         logs: { modelA: { trainLoss: { values: [12, 13, 14, 15], indices: [0, 1, 2, 3] } } },
@@ -284,6 +301,16 @@ describe('App state actions', () => {
         value: false,
       });
       expect(newState.get('hovering')).to.equal(false);
+    });
+  });
+
+  describe('misc', () => {
+    it('should toggle autoupdate', () => {
+      const initialState = INITIAL_STATE;
+      const newState = reducer(initialState, {
+        type: 'TOGGLE_AUTO_UPDATE',
+      });
+      expect(newState.get('noAutoUpdate')).to.equal(true);
     });
   });
 });

@@ -72,6 +72,7 @@
 	    maxY: 0.5
 	  },
 	  scaleMenu: false,
+	  noAutoUpdate: false,
 	  size: {
 	    width: 1000,
 	    height: 600
@@ -173,17 +174,20 @@
 	}
 
 	function addLogPoint() {
-	  var state = arguments.length <= 0 || arguments[0] === undefined ? /* harmony import */__WEBPACK_IMPORTED_MODULE_0_immutable__["Map"].bind()() : arguments[0];
+	  var _state = arguments.length <= 0 || arguments[0] === undefined ? /* harmony import */__WEBPACK_IMPORTED_MODULE_0_immutable__["Map"].bind()() : arguments[0];
+
 	  var modelName = arguments[1];
 	  var seriesName = arguments[2];
 	  var index = arguments[3];
 	  var value = arguments[4];
 
-	  var rescaledState = state;
-	  if (/* harmony import */__WEBPACK_IMPORTED_MODULE_1__helpers__["b"].bind()(state.get('disabled', /* harmony import */__WEBPACK_IMPORTED_MODULE_0_immutable__["Map"].bind()()), modelName, seriesName)) {
-	    rescaledState = updateScale(state, index, value);
+	  var state = _state;
+	  var shouldUpdateScale = state.get('noAutoUpdate', false) === false;
+	  var isEnabled = /* harmony import */__WEBPACK_IMPORTED_MODULE_1__helpers__["b"].bind()(state.get('disabled', /* harmony import */__WEBPACK_IMPORTED_MODULE_0_immutable__["Map"].bind()()), modelName, seriesName);
+	  if (shouldUpdateScale && isEnabled) {
+	    state = updateScale(state, index, value);
 	  }
-	  return rescaledState.updateIn(['logs', modelName, seriesName], /* harmony import */__WEBPACK_IMPORTED_MODULE_0_immutable__["Map"].bind()(), function (list) {
+	  return state.updateIn(['logs', modelName, seriesName], /* harmony import */__WEBPACK_IMPORTED_MODULE_0_immutable__["Map"].bind()(), function (list) {
 	    return list.update('indices', /* harmony import */__WEBPACK_IMPORTED_MODULE_0_immutable__["List"].bind()(), function (arr) {
 	      return arr.push(index);
 	    }).update('values', /* harmony import */__WEBPACK_IMPORTED_MODULE_0_immutable__["List"].bind()(), function (arr) {
@@ -280,6 +284,8 @@
 	//       maxY: 0.5,
 	//     },
 	//     scaleMenu: false,
+	// noAutoUpdate: false,
+
 	//     size: {
 	//       width: 1000,
 	//       height: 600,
@@ -314,6 +320,10 @@
 	      return /* harmony import */__WEBPACK_IMPORTED_MODULE_0__actions__["b"].bind()(state, 'scale', action.scale);
 	    case 'TOGGLE_SCALE_MENU':
 	      return state.update('scaleMenu', function (bool) {
+	        return !bool;
+	      });
+	    case 'TOGGLE_AUTO_UPDATE':
+	      return state.update('noAutoUpdate', function (bool) {
 	        return !bool;
 	      });
 	    case 'RESIZE':
@@ -453,6 +463,23 @@
 	      });
 	      /* harmony import */__WEBPACK_IMPORTED_MODULE_2_chai__["expect"].bind()(newState.getIn(['scale', 'maxX'], 0)).to.be.above(1000);
 	      /* harmony import */__WEBPACK_IMPORTED_MODULE_2_chai__["expect"].bind()(newState.getIn(['scale', 'maxY'], 0)).to.be.above(10000);
+	    });
+
+	    /* harmony import */__WEBPACK_IMPORTED_MODULE_1_mocha__["it"].bind()('should NOT update scales if noAutoUpdate is true', function () {
+	      var initialState = /* harmony import */__WEBPACK_IMPORTED_MODULE_3__src_state_reducer__["a"].bind()(/* harmony import */__WEBPACK_IMPORTED_MODULE_4__src_state_actions__["a"].merge(/* harmony import */__WEBPACK_IMPORTED_MODULE_0_immutable__["fromJS"].bind()({
+	        logs: { modelA: { trainLoss: { values: [12, 13, 14, 15], indices: [0, 1, 2, 3] } } }
+	      })), {
+	        type: 'TOGGLE_AUTO_UPDATE'
+	      });
+	      var newState = /* harmony import */__WEBPACK_IMPORTED_MODULE_3__src_state_reducer__["a"].bind()(initialState, {
+	        type: 'UPDATE_MODEL',
+	        modelName: 'modelA',
+	        seriesName: 'trainLoss',
+	        index: 1000,
+	        value: 10000
+	      });
+	      /* harmony import */__WEBPACK_IMPORTED_MODULE_2_chai__["expect"].bind()(newState.getIn(['scale', 'maxX'], 0)).to.be.below(1000);
+	      /* harmony import */__WEBPACK_IMPORTED_MODULE_2_chai__["expect"].bind()(newState.getIn(['scale', 'maxY'], 0)).to.be.below(10000);
 	    });
 
 	    /* harmony import */__WEBPACK_IMPORTED_MODULE_1_mocha__["it"].bind()('should update values for models that dont exist', function () {
@@ -649,6 +676,16 @@
 	        value: false
 	      });
 	      /* harmony import */__WEBPACK_IMPORTED_MODULE_2_chai__["expect"].bind()(newState.get('hovering')).to.equal(false);
+	    });
+	  });
+
+	  /* harmony import */__WEBPACK_IMPORTED_MODULE_1_mocha__["describe"].bind()('misc', function () {
+	    /* harmony import */__WEBPACK_IMPORTED_MODULE_1_mocha__["it"].bind()('should toggle autoupdate', function () {
+	      var initialState = /* harmony import */__WEBPACK_IMPORTED_MODULE_4__src_state_actions__["a"];
+	      var newState = /* harmony import */__WEBPACK_IMPORTED_MODULE_3__src_state_reducer__["a"].bind()(initialState, {
+	        type: 'TOGGLE_AUTO_UPDATE'
+	      });
+	      /* harmony import */__WEBPACK_IMPORTED_MODULE_2_chai__["expect"].bind()(newState.get('noAutoUpdate')).to.equal(true);
 	    });
 	  });
 	});

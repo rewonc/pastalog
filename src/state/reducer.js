@@ -13,6 +13,8 @@ import { disable, enable, updateObject, initializeLogs, addLogPoint,
 //       maxY: 0.5,
 //     },
 //     scaleMenu: false,
+    // noAutoUpdate: false,
+
 //     size: {
 //       width: 1000,
 //       height: 600,
@@ -45,6 +47,8 @@ export default function reducer(state = INITIAL_STATE, action) {
       return updateObject(state, 'scale', action.scale);
     case 'TOGGLE_SCALE_MENU':
       return state.update('scaleMenu', bool => !bool);
+    case 'TOGGLE_AUTO_UPDATE':
+      return state.update('noAutoUpdate', bool => !bool);
     case 'RESIZE':
       return updateObject(state, 'size', action.size);
     case 'MOVE_HOVER':
