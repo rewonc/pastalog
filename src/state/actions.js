@@ -12,6 +12,7 @@ export const INITIAL_STATE = fromJS(
       minY: -0.001,
       maxY: 0.5,
     },
+    scaleMenu: false,
     size: {
       width: 1000,
       height: 600,

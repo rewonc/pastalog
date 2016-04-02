@@ -1,8 +1,9 @@
 import React, { PropTypes } from 'react';
-import { getUUID, stringToColor } from 'lib';
-import { isSeriesEnabled, forEachSeries, isDisabled } from './../state/helpers';
 import _uniq from 'lodash/uniq';
 import _map from 'lodash/map';
+import { getUUID, stringToColor } from 'lib';
+import { isSeriesEnabled, forEachSeries, isDisabled } from './../state/helpers';
+import ScaleMenu from './ScaleMenu';
 
 function Legend(props) {
   const state = props.state;
@@ -102,6 +103,7 @@ function Legend(props) {
     <ul className="m1 list-reset">
       {typeElements}
     </ul>
+    <ScaleMenu {...props} />
   </div>
   );
 }

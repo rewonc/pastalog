@@ -114,6 +114,14 @@ describe('Log', () => {
 
 describe('App state actions', () => {
   describe('rescale', () => {
+    it('should toggle the menu', () => {
+      const initialState = fromJS({});
+      const newState = reducer(initialState, {
+        type: 'TOGGLE_SCALE_MENU',
+      });
+      expect(newState.get('scaleMenu')).to.equal(true);
+    });
+
     it('should work for state variables with no scale property', () => {
       const initialState = fromJS({});
       const newScale = { xMin: 10 };

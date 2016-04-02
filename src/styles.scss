@@ -132,6 +132,15 @@ $activeLegendColor: $yellow;
     border-color: darken($base03, 5%);
 }
 
+.ScaleMenu{
+    .alert{
+        color: $magenta;
+    }
+    li{
+    }
+}
+
+
 .max-height{
     height: 100%;
 }

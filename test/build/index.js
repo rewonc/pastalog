@@ -71,6 +71,7 @@
 	    minY: -0.001,
 	    maxY: 0.5
 	  },
+	  scaleMenu: false,
 	  size: {
 	    width: 1000,
 	    height: 600
@@ -199,11 +200,11 @@
 /* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__lib__ = __webpack_require__(112);
 	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_immutable__ = __webpack_require__(0);
 	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_immutable___default = __WEBPACK_IMPORTED_MODULE_0_immutable__ && __WEBPACK_IMPORTED_MODULE_0_immutable__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_0_immutable__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_0_immutable__; }
 	/* harmony import */ Object.defineProperty(__WEBPACK_IMPORTED_MODULE_0_immutable___default, 'a', { get: __WEBPACK_IMPORTED_MODULE_0_immutable___default });
-	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__lib__ = __webpack_require__(112);
-	/* harmony export */ exports["c"] = isDisabled;/* harmony export */ exports["b"] = isSeriesEnabled;/* unused harmony export forEachSeries *//* harmony export */ exports["a"] = forEachEnabledSeries;/* unused harmony export mapSeries *//* unused harmony export mapEnabledSeries */'use strict';
+	/* unused harmony export mapEnabledSeries *//* unused harmony export mapSeries *//* harmony export */ exports["a"] = forEachEnabledSeries;/* unused harmony export forEachSeries *//* harmony export */ exports["b"] = isSeriesEnabled;/* harmony export */ exports["c"] = isDisabled;'use strict';
 
 
 
@@ -278,6 +279,7 @@
 	//       minY: -0.001,
 	//       maxY: 0.5,
 	//     },
+	//     scaleMenu: false,
 	//     size: {
 	//       width: 1000,
 	//       height: 600,
@@ -310,6 +312,10 @@
 	  switch (action.type) {
 	    case 'RESCALE':
 	      return /* harmony import */__WEBPACK_IMPORTED_MODULE_0__actions__["b"].bind()(state, 'scale', action.scale);
+	    case 'TOGGLE_SCALE_MENU':
+	      return state.update('scaleMenu', function (bool) {
+	        return !bool;
+	      });
 	    case 'RESIZE':
 	      return /* harmony import */__WEBPACK_IMPORTED_MODULE_0__actions__["b"].bind()(state, 'size', action.size);
 	    case 'MOVE_HOVER':
@@ -471,6 +477,14 @@
 
 	/* harmony import */__WEBPACK_IMPORTED_MODULE_1_mocha__["describe"].bind()('App state actions', function () {
 	  /* harmony import */__WEBPACK_IMPORTED_MODULE_1_mocha__["describe"].bind()('rescale', function () {
+	    /* harmony import */__WEBPACK_IMPORTED_MODULE_1_mocha__["it"].bind()('should toggle the menu', function () {
+	      var initialState = /* harmony import */__WEBPACK_IMPORTED_MODULE_0_immutable__["fromJS"].bind()({});
+	      var newState = /* harmony import */__WEBPACK_IMPORTED_MODULE_3__src_state_reducer__["a"].bind()(initialState, {
+	        type: 'TOGGLE_SCALE_MENU'
+	      });
+	      /* harmony import */__WEBPACK_IMPORTED_MODULE_2_chai__["expect"].bind()(newState.get('scaleMenu')).to.equal(true);
+	    });
+
 	    /* harmony import */__WEBPACK_IMPORTED_MODULE_1_mocha__["it"].bind()('should work for state variables with no scale property', function () {
 	      var initialState = /* harmony import */__WEBPACK_IMPORTED_MODULE_0_immutable__["fromJS"].bind()({});
 	      var newScale = { xMin: 10 };
