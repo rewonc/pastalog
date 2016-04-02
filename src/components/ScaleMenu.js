@@ -45,8 +45,8 @@ function ScaleMenu(props) {
         <input className="center" value={maxY} />
         <span className="adjust">[+]</span>
       </li>
-      <li className="mt2">
-        <span className="adjust buttonLink underline">reset to default</span>
+      <li className="mt2"> auto adjust: &nbsp;
+        <span className="adjust buttonLink underline">on</span>
       </li>
     </ul>) : null}
   </div>);

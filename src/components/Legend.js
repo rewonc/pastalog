@@ -89,6 +89,9 @@ function Legend(props) {
 
   return (
   <div className="Legend md-col md-col-2">
+    <div className="legend-menu" style={
+      { maxHeight: `${state.getIn(['size', 'height']) * 0.85}px` }}
+    >
     <h3 className="headlines h3">Series </h3>
     <ul className="m1 list-reset">
       {seriesElements}
@@ -101,6 +104,7 @@ function Legend(props) {
     <ul className="m1 list-reset">
       {typeElements}
     </ul>
+    </div>
     <ScaleMenu {...props} />
   </div>
   );

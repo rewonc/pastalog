@@ -16,11 +16,31 @@ $blue:      #268bd2;
 $cyan:      #2aa198;
 $green:     #859900;
 
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+      background-color: $base02;
+} /* the new scrollbar will have a flat appearance with the set background color */
+ 
+::-webkit-scrollbar-thumb {
+      background-color: rgba(0, 0, 0, 0.2); 
+} /* this will style the thumb, ignoring the track */
+ 
+::-webkit-scrollbar-button {
+      background-color: $base03;
+} /* optionally, you can style the top and the bottom buttons (left and right for horizontal bars) */
+ 
+::-webkit-scrollbar-corner {
+      background-color: black;
+} /* if both the vertical and the horizontal bars appear, then perhaps the right bottom corner also needs to be styled */
+
+
 html{
     // font-family: -apple-technique, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
     font-family: monospace;
     line-height: 1.5;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 body{
@@ -37,6 +57,9 @@ body{
 
 .Legend{
     // background-color: $base02;
+    .legend-menu{
+        overflow-y: auto;
+    }
     .headlines{
         color: $base1;
     }
@@ -86,7 +109,7 @@ body{
     color: $base1;
 }
 
-$activeLegendColor: $yellow;
+$activeLegendColor: $magenta;
 
 .gridMark.current{
     color:$base3;

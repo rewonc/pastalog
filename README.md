@@ -19,12 +19,12 @@
 - Server >>>>>>>>>>>DONE>>>>>>>>>>>- Put in real test data
 - Legend >>>>>>>>>>>DONE>>>>>>>>>>>- Fix scale (currently reversed w log loss)
 - Legend >>>>>>>>>>>DONE>>>>>>>>>>>- On Hover --- slow cursors w/ lots of movement
+- Gridlines >>>>>>>>>>>DONE>>>>>>>>>>>- make hover box look a little cooler
 - Options menu?
     - Scale:
         - Make the scale manually adjustable (text input)
         - log scale if its easy. (It's probably not.)
 - Profile it, see if you can make speed adjustments. Where can you optimize shouldComponentUpdate?
-- Gridlines: make hover box look a little cooler
 - Ability to delete old trials (or at least not request them, and not have the server load each time.)
 - Ability to save trials, and back them up.
 - Ability to save state?

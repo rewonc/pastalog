@@ -53,10 +53,9 @@ class Grid extends React.Component {
     const height = Math.max(document.documentElement.clientHeight,
       window.innerHeight || 0);
     const width = ReactDOM.findDOMNode(this).getBoundingClientRect().width;
-    console.log(height, width);
     this.props.store.dispatch({
       type: 'RESIZE',
-      size: { width: width - 70, height: height - 70 },
+      size: { width: width - 70, height: height - 80 },
     });
   }
 
@@ -67,12 +66,10 @@ class Grid extends React.Component {
     const width = state.getIn(['size', 'width']);
     const height = state.getIn(['size', 'height']);
     const scale = state.get('scale');
-    const hovering = state.get('hovering');
-    const hoverIndex = Math.round(state.getIn(['hoverPosition', 'hoverX'], 0));
 
     return (
     <div className="Grid md-col md-col-10">
-      <div className="relative Grid-well clearfix mt1 mr0 ml4 mb4"
+      <div className="relative Grid-well clearfix mt1 mr0 ml4 mb2"
         style={{ width, height }}
         onMouseEnter={this.onMouseEnter}
         onMouseLeave={this.onMouseLeave}
