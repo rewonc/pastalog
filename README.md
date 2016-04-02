@@ -20,10 +20,10 @@
 - Legend >>>>>>>>>>>DONE>>>>>>>>>>>- Fix scale (currently reversed w log loss)
 - Legend >>>>>>>>>>>DONE>>>>>>>>>>>- On Hover --- slow cursors w/ lots of movement
 - Gridlines >>>>>>>>>>>DONE>>>>>>>>>>>- make hover box look a little cooler
-- Options menu?
-    - Scale:
-        - Make the scale manually adjustable (text input)
-        - log scale if its easy. (It's probably not.)
+- Options menu  >>>>>>>>>>>DONE>>>>>>>>>>>?
+    - Scale >>>>>>>>>>>DONE>>>>>>>>>>>:
+        - Make the scale manually adjustable >>>>>>>>>>>DONE>>>>>>>>>>> (text input)
+
 - Profile it, see if you can make speed adjustments. Where can you optimize shouldComponentUpdate?
 - Ability to delete old trials (or at least not request them, and not have the server load each time.)
 - Ability to save trials, and back them up.

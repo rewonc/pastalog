@@ -20,8 +20,8 @@ function ScaleMenu(props) {
   const maxX = round2(state.getIn(['scale', 'maxX']));
   const maxY = round2(state.getIn(['scale', 'maxY']));
 
-  const stepX = (maxX - minX) / 20;
-  const stepY = (maxY - minY) / 20;
+  const stepX = (maxX - minX) / 10;
+  const stepY = (maxY - minY) / 10;
   const change = (str) => (ev) => {
     props.store.dispatch({
       type: 'RESCALE',
