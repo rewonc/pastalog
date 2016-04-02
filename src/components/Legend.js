@@ -89,17 +89,15 @@ function Legend(props) {
 
   return (
   <div className="Legend md-col md-col-2">
-    <h3 className="headlines h3">Series <small className="h6">
-      <span className="buttonLink">show all</span> / <span className="buttonLink">hide all</span>
-    </small></h3>
+    <h3 className="headlines h3">Series </h3>
     <ul className="m1 list-reset">
       {seriesElements}
     </ul>
-    <h3 className="headlines h3">Models <small className="h6">show all / hide all</small></h3>
+    <h3 className="headlines h3">Models </h3>
     <ul className="m1 list-reset">
       {modelElements}
     </ul>
-    <h3 className="headlines h3">Types <small className="h6">show all / hide all</small></h3>
+    <h3 className="headlines h3">Types </h3>
     <ul className="m1 list-reset">
       {typeElements}
     </ul>
