@@ -29,11 +29,24 @@ function addDataPoint(point) {
   io.emit('data point', point);
 }
 
-function addNewData(modelName, rate, step = 0) {
+function doNegativeLog(step, bias) {
+  const noise = Math.random() + bias;
+  const fraction = (step + 1) / 10000;
+  const val = -1 * Math.log(fraction);
+  return val + (noise - 0.5) * 1;
+}
+
+function getAccuracy(step, bias) {
+  const noise = Math.random() + bias;
+  const fraction = (step + 1) / 10000;
+  return fraction + (noise - 0.5) * 0.3;
+}
+
+function addNewData(modelName, rate, bias, step = 0) {
   addDataPoint({
     modelName,
     pointType: 'trainLoss',
-    pointValue: Math.random(),
+    pointValue: doNegativeLog(step, bias),
     globalStep: step,
   });
 
@@ -41,20 +54,26 @@ function addNewData(modelName, rate, step = 0) {
     addDataPoint({
       modelName,
       pointType: 'validLoss',
-      pointValue: Math.random(),
+      pointValue: doNegativeLog(step, bias + 0.2),
+      globalStep: step,
+    });
+    addDataPoint({
+      modelName,
+      pointType: 'validAccuracy',
+      pointValue: getAccuracy(step, bias),
       globalStep: step,
     });
   }
 
   setTimeout(() => {
-    addNewData(modelName, rate, step + 1);
+    addNewData(modelName, rate, bias, step + 1);
   }, rate);
 }
 
 // generate fake data
-addNewData('modelA', 3000);
-addNewData('modelB', 3200);
-addNewData('modelC', 2800);
+addNewData('modelA', 300, 0.25);
+addNewData('modelB', 320, 0.1);
+addNewData('modelC', 280, -0.05);
 // end generate fake data
 
 

@@ -16,18 +16,21 @@
 - Grid >>>>>>>>>>>DONE>>>>>>>>>>>- resize on viewport change
 - Legend >>>>>>>>>>>DONE>>>>>>>>>>> - styling and colors
 - Legend >>>>>>>>>>>DONE>>>>>>>>>>> - enable/disable series, model
-- Scale:
-    Make the scale manually adjustable (text input)
-- Gridlines: make hover box look a little cooler
 - Put in real test data
-- Ability to save (automatically) / delete stuff?
+- Options menu?
+    - Scale:
+        - Make the scale manually adjustable (text input)
+        - log scale if its easy. (It's probably not.)
+- Gridlines: make hover box look a little cooler
+- Ability to delete old trials.
+- Ability to save trials, and back them up.
+
+If have time:
+
 - Series display options
     - candlestick (minibatch)
     - exponential weighted
     - raw
-
-Contributions that would help:
-
 - Series: on add: highlight line in yellow or something
 - Series: onHover: highlight on nearest index point, print out value
 - Legend - enable/disable all
