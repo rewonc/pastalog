@@ -25,6 +25,9 @@
         - Make the scale manually adjustable >>>>>>>>>>>DONE>>>>>>>>>>> (text input)
 
 - Profile it, see if you can make speed adjustments. Where can you optimize shouldComponentUpdate?
+    - Box and whisker plot? smoothing once n elements > some density?
+    - auto candle plots?
+
 - Ability to delete old trials (or at least not request them, and not have the server load each time.)
 - Ability to save trials, and back them up.
 - Ability to save state?

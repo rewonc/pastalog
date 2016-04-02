@@ -72,7 +72,7 @@ function addNewData(modelName, rate, bias, step = 0, repeat = false) {
   }
 }
 
-const nStartPoints = 8000;
+const nStartPoints = 7000;
 
 for (let i = 0; i < nStartPoints; i++) {
   addNewData('modelA', null, 0.25, i, false);

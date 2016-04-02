@@ -2,6 +2,8 @@ import React, { PropTypes } from 'react';
 import { List } from 'immutable';
 import { stringToColor, convertScales, getUUID } from 'lib';
 import _zip from 'lodash/zip';
+import _filter from 'lodash/filter';
+
 
 class Series extends React.Component {
   /* This class displays a line corresponding to a series.*/
@@ -31,7 +33,9 @@ class Series extends React.Component {
       minX, maxX, 0, width);
     const values = convertScales(props.values.toJS(),
       minY, maxY, 0, height, { invert: true });
-    const pairs = _zip(indices, values);
+    const pairs = _filter(_zip(indices, values), (pair) =>
+      (pair[0] > 0) && (pair[0] < width)
+    );
     return (<svg className="series max absolute top-0 left-0">
       {
       pairs.map((pair) => (
