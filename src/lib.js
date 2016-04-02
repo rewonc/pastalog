@@ -4,6 +4,20 @@ import _mapValues from 'lodash/mapValues';
 import _map from 'lodash/map';
 import _forEach from 'lodash/forEach';
 
+
+export function rightPadDecimals2(input) {
+  const number = Math.round(input * 100) / 100;
+  const str = number.toString();
+  const splits = str.split('.');
+  if (splits[1] === undefined) {
+    return `${str}.00`;
+  }
+  if (splits[1].length === 1) {
+    return `${str}0`;
+  }
+  return str;
+}
+
 export function updateLog(database, point) {
   /* Update a database with a new data point
   ** This assumes that db has a key 'log' and mutates

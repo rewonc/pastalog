@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-
+import { rightPadDecimals2 } from 'lib';
 
 function ScaleMenu(props) {
   const state = props.state;
@@ -9,8 +9,13 @@ function ScaleMenu(props) {
       type: 'TOGGLE_SCALE_MENU',
     });
   };
+  const minX = rightPadDecimals2(state.getIn(['scale', 'minX']));
+  const minY = rightPadDecimals2(state.getIn(['scale', 'minY']));
+  const maxX = rightPadDecimals2(state.getIn(['scale', 'maxX']));
+  const maxY = rightPadDecimals2(state.getIn(['scale', 'maxY']));
+
   return (<div className="ScaleMenu">
-    <h3 className="headlines h3 buttonLink" onClick={toggle}>
+    <h3 className="headlines h3 buttonLink mb0" onClick={toggle}>
       {(isMenuShown) ? (
         <span className="h6 alert">
           &#9660;
@@ -19,11 +24,19 @@ function ScaleMenu(props) {
         </span>)}
         &nbsp; Scale
     </h3>
-    {isMenuShown ? (<ul>
-      <li>minX:</li>
-      <li>maxX:</li>
-      <li>minY:</li>
-      <li>maxY:</li>
+    {isMenuShown ? (<ul className="list-reset m0">
+      <li>minX:
+        <input value={minX} />
+      </li>
+      <li>maxX:
+        <input value={maxX} />
+      </li>
+      <li>minY:
+        <input value={minY} />
+      </li>
+      <li>maxY:
+        <input value={maxY} />
+      </li>
     </ul>) : null}
   </div>);
 }

@@ -2,20 +2,7 @@ import React, { PropTypes } from 'react';
 import _range from 'lodash/range';
 import _zip from 'lodash/zip';
 import _map from 'lodash/map';
-import { convertScales } from 'lib';
-
-
-function rightPadDecimals2(number) {
-  const str = number.toString();
-  const splits = str.split('.');
-  if (splits[1] === undefined) {
-    return str + '.00';
-  }
-  if (splits[1].length === 1) {
-    return str + '0';
-  }
-  return str;
-}
+import { convertScales, rightPadDecimals2 } from 'lib';
 
 
 function getMarkings({ min, max, width, height, horizontal, showLines, numMarkings }) {
@@ -91,7 +78,7 @@ function getMark({ position, horizontal, min, max, height, width }) {
       width: '20px',
     }}
   >
-    <span className="textElement">{rightPadDecimals2(Math.round(value * 100) / 100)}</span>
+    <span className="textElement">{rightPadDecimals2(value)}</span>
   </div>);
 }
 
