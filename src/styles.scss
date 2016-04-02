@@ -137,6 +137,22 @@ $activeLegendColor: $yellow;
         color: $magenta;
     }
     li{
+        cursor: default;
+        color: $base1;
+    }
+    .adjust{
+        font-weight:bold;
+        color: $magenta;
+        cursor: pointer;
+    }
+    input{
+        background-color:$base03;
+        border:0px;
+        color: $base3;
+        font-weight:bold;
+        font-family:monospace;
+        padding: 2px;
+        width: 60px;
     }
 }
 

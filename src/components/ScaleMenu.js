@@ -25,17 +25,28 @@ function ScaleMenu(props) {
         &nbsp; Scale
     </h3>
     {isMenuShown ? (<ul className="list-reset m0">
-      <li>minX:
-        <input value={minX} />
+      <li>minX: &nbsp;
+        <span className="adjust">[-]</span>
+        <input className="center" value={minX} />
+        <span className="adjust">[+]</span>
       </li>
-      <li>maxX:
-        <input value={maxX} />
+      <li>maxX: &nbsp;
+        <span className="adjust">[-]</span>
+        <input className="center" value={maxX} />
+        <span className="adjust">[+]</span>
       </li>
-      <li>minY:
-        <input value={minY} />
+      <li>minY: &nbsp;
+        <span className="adjust">[-]</span>
+        <input className="center" value={minY} />
+        <span className="adjust">[+]</span>
       </li>
-      <li>maxY:
-        <input value={maxY} />
+      <li>maxY: &nbsp;
+        <span className="adjust">[-]</span>
+        <input className="center" value={maxY} />
+        <span className="adjust">[+]</span>
+      </li>
+      <li className="mt2">
+        <span className="adjust buttonLink underline">reset to default</span>
       </li>
     </ul>) : null}
   </div>);
