@@ -29,7 +29,7 @@
     - >>>>>>>>>>>DONE>>>>>>>>>>>- Box and whisker plot? smoothing once n elements > some density?
     - >>>>>>>>>>>DONE>>>>>>>>>>>- auto candle plots?
 
-- Implement zoom and pan
+- >>>>>>>>>>>DONE>>>>>>>>>>> Implement zoom and pan
 
 - Ability to delete old trials (or at least not request them, and not have the server load each time.)
 - Maybe split up into separate files?

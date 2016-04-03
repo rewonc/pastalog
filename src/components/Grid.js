@@ -86,18 +86,21 @@ class Grid extends React.Component {
     if (dragging) {
       const anchors = state.get('anchors');
       const scales = anchors.scales;
+      const dims = state.get('size');
       // dy is reversed because of top down
       // Divide by factors to make scrolling less quick
       // Y by more because it feels faster
-      const dx = (anchors.x - e.clientX) / 10;
-      const dy = (e.clientY - anchors.y) / 50;
+      const dx = (anchors.x - e.clientX) / dims.get('width');
+      const dy = (e.clientY - anchors.y) / dims.get('height');
+      const dXScale = scales.get('maxX') - scales.get('minX');
+      const dYScale = scales.get('maxY') - scales.get('minY');
       store.dispatch({
         type: 'RESCALE',
         scale: {
-          minX: scales.get('minX') + dx,
-          minY: scales.get('minY') + dy,
-          maxX: scales.get('maxX') + dx,
-          maxY: scales.get('maxY') + dy,
+          minX: scales.get('minX') + dx * dXScale,
+          minY: scales.get('minY') + dy * dYScale,
+          maxX: scales.get('maxX') + dx * dXScale,
+          maxY: scales.get('maxY') + dy * dYScale,
         },
       });
       return;

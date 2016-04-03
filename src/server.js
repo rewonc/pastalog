@@ -9,8 +9,8 @@ import App from './components/App';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { updateLog, logsToJS } from 'lib';
-import makeStore from './state/store';
 import { INITIAL_STATE } from './state/actions';
+import makeStore from './state/store';
 
 const app = express();
 const HTTP = new Server(app);
@@ -72,7 +72,7 @@ function addNewData(modelName, rate, bias, step = 0, repeat = false) {
   }
 }
 
-const nStartPoints = 50;
+const nStartPoints = 10000;
 
 for (let i = 0; i < nStartPoints; i++) {
   addNewData('modelA', null, 0.25, i, false);
