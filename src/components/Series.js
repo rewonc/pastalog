@@ -4,7 +4,7 @@ import { stringToColor, convertScales, getUUID } from 'lib';
 import _zip from 'lodash/zip';
 import _filter from 'lodash/filter';
 
-const MAX_POINTS_IN_SERIES = 1500;
+const MAX_POINTS_IN_SERIES = 1000;
 const WIDTH_FRACTION_CANDLES = 200;
 
 function normalSeries(pairs, color, uuid) {
@@ -12,11 +12,11 @@ function normalSeries(pairs, color, uuid) {
     {
     pairs.map((pair) => (
       <circle r="1" fill={color} stroke="0" cx={pair[0]}
-        cy={pair[1]} key={uuid + pair[0]}
+        cy={pair[1]} key={uuid + pair[0]} className="no-pointer"
       />))
     }
     <polyline style={{ strokeWidth: 1, stroke: color, fill: 'none' }}
-      points={pairs.map((v) => v.join(',')).join(' ')}
+      points={pairs.map((v) => v.join(',')).join(' ')} className="no-pointer"
     />
   </svg>);
 }
@@ -58,6 +58,7 @@ function candleStick(pairs, color, uuid, width) {
           strokeWidth: 1,
           stroke: color,
         }}
+        className="no-pointer"
       />,
       <line key={`${uuid}-${idx}-1`} y1={candle.third} y2={candle.max}
         x1={candle.midX} x2={candle.midX}
@@ -65,6 +66,7 @@ function candleStick(pairs, color, uuid, width) {
           strokeWidth: 1,
           stroke: color,
         }}
+        className="no-pointer"
       />,
       <rect key={`${uuid}-${idx}-2`} width={candle.width} height={candle.third - candle.first}
         x={candle.left} y={candle.first}
@@ -73,6 +75,7 @@ function candleStick(pairs, color, uuid, width) {
           stroke: color,
           fill: 'none',
         }}
+        className="no-pointer"
       >
       </rect>,
       <rect key={`${uuid}-${idx}-3`} width={candle.width} height="3"
@@ -80,6 +83,7 @@ function candleStick(pairs, color, uuid, width) {
         style={{
           fill: color,
         }}
+        className="no-pointer"
       >
       </rect>,
     ]

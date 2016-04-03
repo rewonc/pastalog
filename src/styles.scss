@@ -55,6 +55,10 @@ body{
     height: 100%;
 }
 
+.no-pointer{
+    pointer-events: none;
+}
+
 .Legend{
     // background-color: $base02;
     .legend-menu{
