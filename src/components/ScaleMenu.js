@@ -26,7 +26,7 @@ function ScaleMenu(props) {
     props.store.dispatch({
       type: 'RESCALE',
       scale: {
-        [str]: ev.target.value,
+        [str]: ev.target.valueAsNumber,
       },
     });
   };
