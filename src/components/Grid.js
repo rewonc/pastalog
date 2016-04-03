@@ -87,7 +87,9 @@ class Grid extends React.Component {
               />
             </div>)
           )
-        ) : (<div className="no-series col col-4 border mt-3 mx-auto">No logs Yet</div>)}
+        ) : (<div className="no-series max clearfix">
+               <h3 className="center pt4 pb4 m4 border message">Waiting for data ...</h3>
+             </div>)}
       </div>
     </div>
     );

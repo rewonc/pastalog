@@ -95,6 +95,13 @@ body{
     }
 }
 
+.no-series{
+    .message{
+        margin-top:20%;
+        color: $magenta;
+        border-color: $magenta;
+    }
+}
 .Grid{
     background-color: $base02;
 }
