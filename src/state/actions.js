@@ -13,6 +13,8 @@ export const INITIAL_STATE = fromJS(
       maxY: 0.5,
     },
     scaleMenu: false,
+    dragging: false,
+    anchors: { x: null, y: null },
     noAutoUpdate: false,
     size: {
       width: 1000,
@@ -50,6 +52,9 @@ export function updateObject(state = INITIAL_STATE, key, current) {
   return state.update(key, fromJS({}), val => mergeElements(val, current));
 }
 
+export function setObject(state = INITIAL_STATE, key, current) {
+  return state.set(key, current);
+}
 
 export function disable(state, category, id) {
   return state.updateIn(

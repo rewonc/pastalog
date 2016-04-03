@@ -139,6 +139,23 @@ describe('App state actions', () => {
       expect(newState.get('scaleMenu')).to.equal(true);
     });
 
+    it('should set if dragging is being done', () => {
+      const initialState = fromJS({});
+      const newState = reducer(initialState, {
+        type: 'SET_DRAG', value: true,
+      });
+      expect(newState.get('dragging')).to.equal(true);
+    });
+
+    it('should set initial anchors for drags', () => {
+      const initialState = fromJS({});
+      const anchors = { x: 50, y: 20 };
+      const newState = reducer(initialState, {
+        type: 'SET_ANCHORS', anchors,
+      });
+      expect(newState.get('anchors')).to.equal(anchors);
+    });
+
     it('should work for state variables with no scale property', () => {
       const initialState = fromJS({});
       const newScale = { xMin: 10 };

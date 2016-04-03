@@ -96,13 +96,15 @@ function ScaleMenu(props) {
         />
         <span className="adjust" onClick={stepUp('maxY', stepY)}>[+]</span>
       </li>
-      <li className="mt2"> auto adjust: &nbsp;
+    </ul>) : null}
+    <ul className="list-reset m0">
+     <li className="mt2"> auto adjust: &nbsp;
         { (noAutoUpdate) ?
           <span className="buttonLink underline" onClick={toggleUpdate}>off</span> :
           <span className="adjust buttonLink underline" onClick={toggleUpdate}>on</span>
         }
       </li>
-    </ul>) : null}
+    </ul>
   </div>);
 }
 

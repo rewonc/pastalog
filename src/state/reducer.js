@@ -1,5 +1,5 @@
 import { disable, enable, updateObject, initializeLogs, addLogPoint,
-  toggleHover, INITIAL_STATE } from './actions';
+  toggleHover, INITIAL_STATE, setObject } from './actions';
 
 
 // reference state tree syntax
@@ -13,8 +13,9 @@ import { disable, enable, updateObject, initializeLogs, addLogPoint,
 //       maxY: 0.5,
 //     },
 //     scaleMenu: false,
-    // noAutoUpdate: false,
-
+//     noAutoUpdate: false,
+//     scaling: false,
+//     anchors: {x: null, y: null},
 //     size: {
 //       width: 1000,
 //       height: 600,
@@ -49,6 +50,10 @@ export default function reducer(state = INITIAL_STATE, action) {
       return state.update('scaleMenu', bool => !bool);
     case 'TOGGLE_AUTO_UPDATE':
       return state.update('noAutoUpdate', bool => !bool);
+    case 'SET_DRAG':
+      return state.update('dragging', () => action.value);
+    case 'SET_ANCHORS':
+      return setObject(state, 'anchors', action.anchors);
     case 'RESIZE':
       return updateObject(state, 'size', action.size);
     case 'MOVE_HOVER':

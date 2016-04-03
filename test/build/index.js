@@ -54,7 +54,7 @@
 	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_immutable___default = __WEBPACK_IMPORTED_MODULE_0_immutable__ && __WEBPACK_IMPORTED_MODULE_0_immutable__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_0_immutable__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_0_immutable__; }
 	/* harmony import */ Object.defineProperty(__WEBPACK_IMPORTED_MODULE_0_immutable___default, 'a', { get: __WEBPACK_IMPORTED_MODULE_0_immutable___default });
 	/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(2);
-	/* harmony export */ exports["e"] = toggleHover;/* harmony export */ exports["b"] = updateObject;/* harmony export */ exports["c"] = disable;/* harmony export */ exports["d"] = enable;/* harmony export */ exports["f"] = initializeLogs;/* harmony export */ exports["g"] = addLogPoint;'use strict';
+	/* harmony export */ exports["f"] = toggleHover;/* harmony export */ exports["b"] = updateObject;/* harmony export */ exports["c"] = setObject;/* harmony export */ exports["d"] = disable;/* harmony export */ exports["e"] = enable;/* harmony export */ exports["g"] = initializeLogs;/* harmony export */ exports["h"] = addLogPoint;'use strict';
 
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -72,6 +72,8 @@
 	    maxY: 0.5
 	  },
 	  scaleMenu: false,
+	  dragging: false,
+	  anchors: { x: null, y: null },
 	  noAutoUpdate: false,
 	  size: {
 	    width: 1000,
@@ -111,6 +113,14 @@
 	  return state.update(key, /* harmony import */__WEBPACK_IMPORTED_MODULE_0_immutable__["fromJS"].bind()({}), function (val) {
 	    return mergeElements(val, current);
 	  });
+	}
+
+	function setObject() {
+	  var state = arguments.length <= 0 || arguments[0] === undefined ? INITIAL_STATE : arguments[0];
+	  var key = arguments[1];
+	  var current = arguments[2];
+
+	  return state.set(key, current);
 	}
 
 	function disable(state, category, id) {
@@ -284,8 +294,9 @@
 	//       maxY: 0.5,
 	//     },
 	//     scaleMenu: false,
-	// noAutoUpdate: false,
-
+	//     noAutoUpdate: false,
+	//     scaling: false,
+	//     anchors: {x: null, y: null},
 	//     size: {
 	//       width: 1000,
 	//       height: 600,
@@ -326,20 +337,26 @@
 	      return state.update('noAutoUpdate', function (bool) {
 	        return !bool;
 	      });
+	    case 'SET_DRAG':
+	      return state.update('dragging', function () {
+	        return action.value;
+	      });
+	    case 'SET_ANCHORS':
+	      return /* harmony import */__WEBPACK_IMPORTED_MODULE_0__actions__["c"].bind()(state, 'anchors', action.anchors);
 	    case 'RESIZE':
 	      return /* harmony import */__WEBPACK_IMPORTED_MODULE_0__actions__["b"].bind()(state, 'size', action.size);
 	    case 'MOVE_HOVER':
 	      return /* harmony import */__WEBPACK_IMPORTED_MODULE_0__actions__["b"].bind()(state, 'hoverPosition', action.coords);
 	    case 'DISABLE':
-	      return /* harmony import */__WEBPACK_IMPORTED_MODULE_0__actions__["c"].bind()(state, action.category, action.id);
-	    case 'ENABLE':
 	      return /* harmony import */__WEBPACK_IMPORTED_MODULE_0__actions__["d"].bind()(state, action.category, action.id);
+	    case 'ENABLE':
+	      return /* harmony import */__WEBPACK_IMPORTED_MODULE_0__actions__["e"].bind()(state, action.category, action.id);
 	    case 'TOGGLE_HOVER':
-	      return /* harmony import */__WEBPACK_IMPORTED_MODULE_0__actions__["e"].bind()(state, action.value);
+	      return /* harmony import */__WEBPACK_IMPORTED_MODULE_0__actions__["f"].bind()(state, action.value);
 	    case 'INITIALIZE_LOGS':
-	      return /* harmony import */__WEBPACK_IMPORTED_MODULE_0__actions__["f"].bind()(state, action.logs);
+	      return /* harmony import */__WEBPACK_IMPORTED_MODULE_0__actions__["g"].bind()(state, action.logs);
 	    case 'UPDATE_MODEL':
-	      return /* harmony import */__WEBPACK_IMPORTED_MODULE_0__actions__["g"].bind()(state, action.modelName, action.seriesName, action.index, action.value);
+	      return /* harmony import */__WEBPACK_IMPORTED_MODULE_0__actions__["h"].bind()(state, action.modelName, action.seriesName, action.index, action.value);
 	    default:
 	      return state;
 	  }
@@ -510,6 +527,23 @@
 	        type: 'TOGGLE_SCALE_MENU'
 	      });
 	      /* harmony import */__WEBPACK_IMPORTED_MODULE_2_chai__["expect"].bind()(newState.get('scaleMenu')).to.equal(true);
+	    });
+
+	    /* harmony import */__WEBPACK_IMPORTED_MODULE_1_mocha__["it"].bind()('should set if dragging is being done', function () {
+	      var initialState = /* harmony import */__WEBPACK_IMPORTED_MODULE_0_immutable__["fromJS"].bind()({});
+	      var newState = /* harmony import */__WEBPACK_IMPORTED_MODULE_3__src_state_reducer__["a"].bind()(initialState, {
+	        type: 'SET_DRAG', value: true
+	      });
+	      /* harmony import */__WEBPACK_IMPORTED_MODULE_2_chai__["expect"].bind()(newState.get('dragging')).to.equal(true);
+	    });
+
+	    /* harmony import */__WEBPACK_IMPORTED_MODULE_1_mocha__["it"].bind()('should set initial anchors for drags', function () {
+	      var initialState = /* harmony import */__WEBPACK_IMPORTED_MODULE_0_immutable__["fromJS"].bind()({});
+	      var anchors = { x: 50, y: 20 };
+	      var newState = /* harmony import */__WEBPACK_IMPORTED_MODULE_3__src_state_reducer__["a"].bind()(initialState, {
+	        type: 'SET_ANCHORS', anchors: anchors
+	      });
+	      /* harmony import */__WEBPACK_IMPORTED_MODULE_2_chai__["expect"].bind()(newState.get('anchors')).to.equal(anchors);
 	    });
 
 	    /* harmony import */__WEBPACK_IMPORTED_MODULE_1_mocha__["it"].bind()('should work for state variables with no scale property', function () {
