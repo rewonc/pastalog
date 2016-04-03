@@ -25,9 +25,9 @@
         - Make the scale manually adjustable >>>>>>>>>>>DONE>>>>>>>>>>> (text input)
 - Manual rescale >>>>>>>>>>>DONE>>>>>>>>>>>  -- makes a Nan?
 
-- Profile it, see if you can make speed adjustments. Where can you optimize shouldComponentUpdate?
-    - Box and whisker plot? smoothing once n elements > some density?
-    - auto candle plots?
+- App >>>>>>>>>>>DONE>>>>>>>>>>>- Profile it, see if you can make speed adjustments. Where can you optimize shouldComponentUpdate?
+    - >>>>>>>>>>>DONE>>>>>>>>>>>- Box and whisker plot? smoothing once n elements > some density?
+    - >>>>>>>>>>>DONE>>>>>>>>>>>- auto candle plots?
 
 - Ability to delete old trials (or at least not request them, and not have the server load each time.)
 - Ability to save trials, and back them up.
@@ -36,11 +36,6 @@
 
 If have time:
 
-- d3 scaling code?
-- Series display options
-    - candlestick (minibatch)
-    - exponential weighted
-    - raw
 - Series: on add: highlight line in yellow or something
 - Series: onHover: highlight on nearest index point, print out value
 - Legend - enable/disable all
