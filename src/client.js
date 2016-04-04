@@ -10,9 +10,15 @@ import { fromJS } from 'immutable';
 
 const socket = io();
 const store = makeStore();
+const serverActions = {
+  delete: (modelName, seriesName) => {
+    console.log(modelName, seriesName);
+  },
+};
 
 function render(state) {
-  ReactDOM.render(<Container state={state} store={store} />, document.getElementById('container'));
+  ReactDOM.render(<Container state={state} store={store} actions={serverActions} />,
+    document.getElementById('container'));
 }
 
 store.subscribe(() => {

@@ -34,7 +34,14 @@ function Legend(props) {
       const conf = window.confirm('Are you sure you want to ' +
         'delete this series? It will no longer appear, and any new data ' +
         'sent will create a new series.');
-      console.log(conf);
+      if (conf) {
+        props.actions.delete(modelName, seriesName);
+        // optimistically delete on client as well
+        props.store.dispatch({
+          modelName, seriesName,
+          type: 'DELETE',
+        });
+      }
     };
     const el = (
       <li key={uuid} className='clearfix'>
@@ -124,6 +131,7 @@ function Legend(props) {
 Legend.propTypes = {
   state: PropTypes.object,
   store: PropTypes.object,
+  actions: PropTypes.object,
 };
 
 export default Legend;

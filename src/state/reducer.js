@@ -69,6 +69,8 @@ export default function reducer(state = INITIAL_STATE, action) {
     case 'UPDATE_MODEL':
       return addLogPoint(state, action.modelName, action.seriesName,
           action.index, action.value);
+    case 'DELETE':
+      return state.deleteIn(['logs', action.modelName, action.seriesName]);
     default:
       return state;
   }
