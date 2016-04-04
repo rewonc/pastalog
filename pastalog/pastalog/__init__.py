@@ -1,4 +1,12 @@
+'''
+The pastalog Log class, which simply sends a POST request to a the server.
+'''
 
-def joke():
-    return (u'Wenn ist das Nunst\u00fcck git und Slotermeyer? Ja! ... '
-            u'Beiherhund das Oder die Flipperwaldt gersput.')
+
+class Log(object):
+    def __init__(self, url, model_name):
+        self.url = url
+        self.model_name = model_name
+
+    def post(self, series_name, value):
+        pass
