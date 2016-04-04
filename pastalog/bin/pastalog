@@ -1,5 +1,43 @@
-#!/bin/bash
+#!/usr/bin/env python
+import os
+import sys
+import subprocess
+import argparse
 
-set -e
+parser = argparse.ArgumentParser(description='Pastalog utilities')
+parser.add_argument('--install', action='store_true',
+                    help='Install the npm dependencies required to serve\
+                     Pastalog')
 
-echo 'Hello world'
+parser.add_argument('--serve', type=int, nargs='?',
+                    help='Run the server at a specified port')
+
+args = parser.parse_args()
+
+if not args.install and not args.serve:
+    print 'Please run either "install" or "serve [PORT]", or\
+     --help for more info.'
+    sys.exit(1)
+
+
+# switch to the install directory
+directory = os.path.dirname(os.path.realpath(__file__))
+os.chdir(os.path.join(directory, '..'))
+
+if args.install:
+    try:
+        subprocess.call(["npm", "install", "--production"])
+    except OSError as e:
+        if e.errno == os.errno.ENOENT:
+            print 'Please install npm and node.'
+        else:
+            raise e
+
+if args.serve:
+    try:
+        subprocess.call(["npm", "start", "--", "--port", str(args.serve)])
+    except OSError as e:
+        if e.errno == os.errno.ENOENT:
+            print 'Please install npm and node.'
+        else:
+            raise e

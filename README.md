@@ -34,10 +34,10 @@
 - >>>>>>>>>>>DONE>>>>>>>>>>> Maybe split up into separate files?
 
 - >>>>>>>>>>>DONE>>>>>>>>>>> Ability to delete old trials (or at least not request them, and not have the server load each time.)
-- Python wrapper
-- have a dir called python
-    - dist, + package.json
-    - command line stuff + python module
+- >>>>>>>>>>>DONE>>>>>>>>>>>Python wrapper
+- >>>>>>>>>>>DONE>>>>>>>>>>>have a dir called python
+    - >>>>>>>>>>>DONE>>>>>>>>>>>dist, + package.json
+    - >>>>>>>>>>>DONE>>>>>>>>>>>command line stuff + python module
 
 - Lua wrapper
 - Readme
