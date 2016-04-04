@@ -47,7 +47,7 @@ function dehydrateDB(data) {
   return outDB;
 }
 
-function saveDB(data) {
+export function saveDB(data) {
   const db = dehydrateDB(data);
 
   // Rename previous file to backup / avoid corruption
@@ -95,6 +95,22 @@ function saveToHardLog(modelName, seriesName, index, value) {
   const paths = getTemplate(modelName, seriesName);
   append(paths.indices, index);
   append(paths.values, value);
+}
+
+export function backupSeriesLogs(modelName, seriesName) {
+  const paths = getTemplate(modelName, seriesName);
+  const indexBackup = `${paths.indices}.~BACKUP`;
+  const valueBackup = `${paths.values}.~BACKUP`;
+  fs.rename(paths.indices, indexBackup, (renameError) => {
+    if (renameError) {
+      console.dir(renameError);
+    }
+  });
+  fs.rename(paths.values, valueBackup, (renameError) => {
+    if (renameError) {
+      console.dir(renameError);
+    }
+  });
 }
 
 export function savePoint(point, database) {

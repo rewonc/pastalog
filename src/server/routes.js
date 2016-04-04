@@ -2,14 +2,11 @@ import express from 'express';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import bodyParser from 'body-parser';
-import _keys from 'lodash/keys';
-import _pick from 'lodash/pick';
 import Container from './../components/Container';
 import App from './../components/App';
 import { INITIAL_STATE } from './../state/actions';
 
-
-export default function makeRoutes({ app, store, io, db, addDataPoint }) {
+export default function makeRoutes({ app, store, io, db, addDataPoint, deleteSeries }) {
   app.use(bodyParser.json());
   app.use(express.static('dist/assets'));
 
@@ -34,9 +31,9 @@ export default function makeRoutes({ app, store, io, db, addDataPoint }) {
   });
 
   io.on('connection', (socket) => {
-    socket.emit('available models', _keys(db.logs));
-    socket.on('data request', (models) => {
-      socket.emit('refreshed data', _pick(db.logs, models));
+    socket.emit('refreshed data', db.logs);
+    socket.on('delete series', ({ modelName, seriesName }) => {
+      deleteSeries(modelName, seriesName, socket);
     });
   });
 }

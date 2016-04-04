@@ -12,7 +12,10 @@ const socket = io();
 const store = makeStore();
 const serverActions = {
   delete: (modelName, seriesName) => {
-    console.log(modelName, seriesName);
+    socket.emit('delete series', {
+      modelName, seriesName,
+    });
+    console.log('deleting:', modelName, seriesName);
   },
 };
 
@@ -24,13 +27,6 @@ function render(state) {
 store.subscribe(() => {
   const state = store.getState();
   render(state);
-});
-
-socket.on('available models', (models) => {
-  // todo: add way to delete models, which means don't request them.
-  const modelBlacklist = [];
-  const validModels = _difference(models, modelBlacklist);
-  socket.emit('data request', validModels);
 });
 
 socket.on('refreshed data', (rawJSLogs) => {
