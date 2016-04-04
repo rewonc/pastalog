@@ -62,20 +62,32 @@ body{
 .Legend{
     // background-color: $base02;
     .legend-menu{
-        overflow-y: auto;
+        overflow: auto;
     }
     .headlines{
         color: $base1;
     }
     li{
         color: $base2;
-        cursor: pointer;
+        .deleteButton{
+            display: none;
+        }
+        .activated{
+            opacity: 1;
+        }
+        .deactivated{
+            opacity: 0.4;
+        }
     }
-    li.activated{
-        opacity: 1;
-    }
-    li.deactivated{
-        opacity: 0.4;
+    li:hover{
+        position:relative;
+        .deleteButton{
+            display:inline;
+            position: absolute;
+            right: 2px;
+            top: -1px;
+            color: $magenta;
+        }
     }
     .bullet{
         position:relative;

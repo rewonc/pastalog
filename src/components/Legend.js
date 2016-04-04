@@ -28,11 +28,22 @@ function Legend(props) {
         id: uuid,
       });
     };
+    const deleteSeries = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const conf = window.confirm('Are you sure you want to ' +
+        'delete this series? It will no longer appear, and any new data ' +
+        'sent will create a new series.');
+      console.log(conf);
+    };
     const el = (
-      <li key={uuid} onClick={toggle}
-        className={enabled ? 'activated clearfix' : 'deactivated clearfix'}
-      >
-        <span className="h4">{modelName} - {seriesName}</span>
+      <li key={uuid} className='clearfix'>
+        <span className="h4" onClick={toggle} className={
+          enabled ? 'activated buttonLink' : 'deactivated buttonLink'}
+        >
+          {modelName} - {seriesName}
+        </span>
+        <span className="h3 bold p0 m0 deleteButton buttonLink" onClick={deleteSeries}>&#215;</span>
         <span className="bullet left"
           style={{ color }}
         > &bull; </span>
@@ -54,10 +65,10 @@ function Legend(props) {
       });
     };
     return (
-      <li key={modelName}
-        onClick={toggle} className={notEnabled ? 'deactivated sub' : 'activated sub'}
-      >
-        <span className="h4">{modelName}</span>
+      <li key={modelName} onClick={toggle} className="sub">
+        <span className={`${notEnabled ? 'deactivated' : 'activated'} h4 buttonLink`}>
+          {modelName}
+        </span>
         <span className="bullet left">
           { notEnabled ? <span>&times;</span> : <span>&bull;</span> }
         </span>
@@ -76,10 +87,10 @@ function Legend(props) {
       });
     };
     return (
-      <li key={typeName} onClick={toggle}
-        className={notEnabled ? 'deactivated sub' : 'activated sub'}
-      >
-        <span className="h4">{typeName}</span>
+      <li key={typeName} onClick={toggle} className="sub">
+        <span className={`${notEnabled ? 'deactivated' : 'activated'} h4 buttonLink`}>
+          {typeName}
+        </span>
         <span className="bullet left">
           { notEnabled ? <span>&times;</span> : <span>&bull;</span> }
         </span>
