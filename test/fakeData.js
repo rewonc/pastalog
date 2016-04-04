@@ -44,17 +44,21 @@ function addNewData(dbfunc, modelName, rate, bias, step = 0, repeat = false) {
 }
 
 
-export default function fakeData({ addDataPoint }) {
-  const nStartPoints = 200;
-
-  for (let i = 0; i < nStartPoints; i++) {
-    addNewData(addDataPoint, 'modelA', null, 0.25, i, false);
-    addNewData(addDataPoint, 'modelB', null, 0.1, i, false);
-    addNewData(addDataPoint, 'modelC', null, -0.05, i, false);
-    addNewData(addDataPoint, 'modelD', null, 0, i, false);
+export default function fakeData({ addDataPoint, db }) {
+  let nStartPoints = 200;
+  if (db.logs.modelA !== undefined) {
+    // it already exists
+    nStartPoints = db.logs.modelA.trainLoss.values.length;
+  } else {
+    for (let i = 0; i < nStartPoints; i++) {
+      addNewData(addDataPoint, 'modelA', null, 0.25, i, false);
+      addNewData(addDataPoint, 'modelB', null, 0.1, i, false);
+      addNewData(addDataPoint, 'modelC', null, -0.05, i, false);
+      addNewData(addDataPoint, 'modelD', null, 0, i, false);
+    }
   }
 
-  // generate fake data
+  // generate fake data from this point on
   addNewData(addDataPoint, 'modelA', 1500, 0.25, nStartPoints, true);
   addNewData(addDataPoint, 'modelB', 2000, 0.1, nStartPoints, true);
   addNewData(addDataPoint, 'modelC', 1800, -0.05, nStartPoints, true);

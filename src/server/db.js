@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import mkdirp from 'mkdirp';
 import _forOwn from 'lodash/forOwn';
+import _map from 'lodash/map';
 import { getUUID } from 'lib';
 
 function getTemplate(modelName, seriesName) {
@@ -18,7 +19,7 @@ function loadData(filepath) {
   const data = fs.readFileSync(filepath, 'utf8');
   // remove trailing comma
   const str = data.substring(0, data.length - 1);
-  return str.split(',');
+  return _map(str.split(','), (val) => parseFloat(val));
 }
 
 function hydrateDB(data, cb) {
