@@ -69,6 +69,11 @@ Prerequisites: npm, node (https://docs.npmjs.com/getting-started/installing-node
 pip install pastalog
 pastalog install
 pastalog run 8120
+
+default: 8120
+npm start -- --port 8121
+
+
 ```
 
 Then, when training:
