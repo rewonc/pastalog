@@ -2,7 +2,6 @@ import express from 'express';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import bodyParser from 'body-parser';
-import { logsToJS } from 'lib';
 import _keys from 'lodash/keys';
 import _pick from 'lodash/pick';
 import Container from './../components/Container';
@@ -37,7 +36,7 @@ export default function makeRoutes({ app, store, io, db, addDataPoint }) {
   io.on('connection', (socket) => {
     socket.emit('available models', _keys(db.logs));
     socket.on('data request', (models) => {
-      socket.emit('refreshed data', logsToJS(_pick(db.logs, models)));
+      socket.emit('refreshed data', _pick(db.logs, models));
     });
   });
 }

@@ -1,8 +1,5 @@
 // Library for common server-client utilities
-import { List } from 'immutable';
-import _mapValues from 'lodash/mapValues';
 import _map from 'lodash/map';
-import _forEach from 'lodash/forEach';
 
 
 export function round2(input) {
@@ -22,24 +19,6 @@ export function rightPadDecimals2(input) {
   return str;
 }
 
-
-export function logsToJS(logs) {
-  return _mapValues(logs, (model) => (
-    _mapValues(model, (series) => (
-      _mapValues(series, (list) => (list.toJS()))
-    ))
-  ));
-}
-
-
-export function logsFromJS(logs) {
-  return _mapValues(logs, (model) => (
-    _mapValues(model, (series) => (
-      _mapValues(series, (arr) => (List(arr)))
-    ))
-  ));
-}
-
 export function convertScales(list, minIn, maxIn, minOut, maxOut, options = {}) {
   const deltaIn = maxIn - minIn;
   const deltaOut = maxOut - minOut;
@@ -51,16 +30,6 @@ export function convertScales(list, minIn, maxIn, minOut, maxOut, options = {}) 
 
 export function getUUID(modelName, seriesName) {
   return `${modelName}/${seriesName}`;
-}
-
-export function seriesMap(logs, cb) {
-  const results = [];
-  _forEach(logs, (series, modelName) => {
-    _forEach(series, (list, seriesName) => {
-      results.push(cb(list, modelName, seriesName));
-    });
-  });
-  return results;
 }
 
 /*
@@ -103,5 +72,5 @@ End String to Color
 */
 
 export default {
-  updateLog, logsToJS, logsFromJS, stringToColor, getUUID
+  stringToColor, getUUID, convertScales, rightPadDecimals2, round2,
 };
