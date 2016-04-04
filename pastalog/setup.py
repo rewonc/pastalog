@@ -11,4 +11,5 @@ setup(name='pastalog',
       install_requires=[
           'requests',
       ],
+      scripts=['bin/pastalog'],
       zip_safe=False)

@@ -1,4 +1,4 @@
 {
   "verbose": true,
-  "ignore": ["database.json", "database.json.~BACKUP", "database/*"]
+  "ignore": ["database.json", "database.json.~BACKUP", "database/*", "pastalog/*"]
 }
