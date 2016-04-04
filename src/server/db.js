@@ -1,8 +1,15 @@
-import fs from 'fs';
+import jsonfile from 'jsonfile';
 
+function hydrateDB(db) {
+
+}
+
+function dehydrateDB(db) {
+
+}
 
 export function initializeDB(path, cb) {
-  fs.readFile(path, 'utf8', (err, data) => {
+  jsonfile.readFile(path, (err, data) => {
     let db;
     if (err) {
       console.log(err);
@@ -12,5 +19,16 @@ export function initializeDB(path, cb) {
     }
     console.log(db);
     cb(db);
+  });
+}
+
+export function saveDB(path, db, cb) {
+  jsonfile.write(path, db, (err) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log('successfully saved');
+      cb();
+    }
   });
 }

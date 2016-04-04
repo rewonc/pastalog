@@ -17,6 +17,7 @@
     "body-parser": "^1.15.0",
     "express": "^4.13.4",
     "immutable": "^3.7.6",
+    "jsonfile": "^2.2.3",
     "lodash": "^4.6.1",
     "minimist": "^1.2.0",
     "react": "^0.14.7",
