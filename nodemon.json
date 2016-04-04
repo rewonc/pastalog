@@ -1,0 +1,4 @@
+{
+  "verbose": true,
+  "ignore": ["database.json", "database.json.~BACKUP", "database/*"]
+}

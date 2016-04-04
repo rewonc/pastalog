@@ -20,6 +20,7 @@
     "jsonfile": "^2.2.3",
     "lodash": "^4.6.1",
     "minimist": "^1.2.0",
+    "mkdirp": "^0.5.1",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
     "redux": "^3.3.1",

@@ -45,7 +45,7 @@ function addNewData(dbfunc, modelName, rate, bias, step = 0, repeat = false) {
 
 
 export default function fakeData({ addDataPoint }) {
-  const nStartPoints = 10000;
+  const nStartPoints = 200;
 
   for (let i = 0; i < nStartPoints; i++) {
     addNewData(addDataPoint, 'modelA', null, 0.25, i, false);
