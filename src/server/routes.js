@@ -8,7 +8,7 @@ import { INITIAL_STATE } from './../state/actions';
 
 export default function makeRoutes({ app, store, io, db, addDataPoint, deleteSeries }) {
   app.use(bodyParser.json());
-  app.use(express.static('dist/assets'));
+  app.use(express.static('build/assets'));
 
   app.get('/', (req, res) => {
     const innerElement = ReactDOMServer.renderToString(

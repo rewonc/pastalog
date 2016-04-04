@@ -2,4 +2,5 @@ database
 database.json
 database.json.~BACKUP
 node_modules
-dist
+build
+pastalog/build

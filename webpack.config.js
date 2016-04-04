@@ -22,7 +22,7 @@ module.exports = [
   {
     entry: './src/client.js',
     output: {
-      filename: './dist/assets/app.js',
+      filename: './build/assets/app.js',
     },
     module: {
       loaders: [
@@ -56,7 +56,7 @@ module.exports = [
     entry: './src/server.js',
     target: 'node',
     output: {
-      filename: './dist/server.js',
+      filename: './build/server.js',
     },
     module: {
       loaders: [
