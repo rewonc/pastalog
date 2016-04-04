@@ -8,4 +8,7 @@ setup(name='pastalog',
       author_email='rewonc@gmail.com',
       license='MIT',
       packages=['pastalog'],
+      install_requires=[
+          'requests',
+      ],
       zip_safe=False)
