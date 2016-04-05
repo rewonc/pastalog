@@ -5,7 +5,7 @@ _Dead-simple realtime visualization of neural network logs_
 [insert screenshots here]
 [screenshot]
 
-Features:
+## Features
 
 - Real-time updates -- see your models train in real time
 - Toggle different models and losses to easily compare performance
@@ -85,18 +85,17 @@ Go to localhost:8120 and view your logs updating in real time.
 
 ##### `pastalog.Log(server_path, model_name)`
 
-Pass it:
 
-- The host/port (e.g. `http://localhost:8120`) 
-- The name of the model as you want it displayed (e.g. `resnet_48_A_V5`).
+- `server_path`: The host/port (e.g. `http://localhost:8120`) 
+- `model_name`: The name of the model as you want it displayed (e.g. `resnet_48_A_V5`).
 
 This returns a Log object with one method:
 
 ##### `Log.post(series_name, value, step)`
 
-- `series_name` is typically the type of metric (e.g. `validLoss`, `trainLoss`, `validAccuracy`). 
-- `value` is a number, and the value (e.g. `1.56`, `0.20`, etc.)
-- `step` is whatever you want to plot on the x axis. If you have batches of size 100, will run for 10 epochs, and want to plot losses for each batch as well as each epoch, `step` should represent how many batches have been seen already (0..1000).
+- `series_name`: typically the type of metric (e.g. `validLoss`, `trainLoss`, `validAccuracy`). 
+- `value`: the value of the metric (e.g. `1.56`, `0.20`, etc.)
+- `step`: whatever quantity you want to plot on the x axis. If you have batches of size 100, will run for 10 epochs, and want to plot losses for each batch as well as each epoch, `step` should represent how many batches have been seen already (0..1000).
 
 ## POST endpoint
 
@@ -104,7 +103,7 @@ If you want to use pastalog from a non-python setup, you can just send POST requ
 
 `{"modelName":"model1","pointType":"validLoss", "pointValue": 2.5, "globalStep": 1}`
 
-modelName, pointType, pointValue, globalStep correspond with `model_name`, `series_name`, `value`, `step` above.
+`modelName`, `pointType`, `pointValue`, `globalStep` correspond with `model_name`, `series_name`, `value`, `step` above.
 
 An example with `curl`:
 
@@ -132,7 +131,9 @@ Simply click the name of any model under 'series.'  To toggle everything from a 
 
 #### Deleting logs
 
-Click the `x` next to the name of the series.  If you confirm deletion, this will remove it on the server and remove it from your view. Note: if you delete a series, then add more points under the same, it will act as if it is a new series.
+Click the `x` next to the name of the series.  If you confirm deletion, this will remove it on the server and remove it from your view. 
+
+Note: if you delete a series, then add more points under the same, it will act as if it is a new series.
 
 ## Backups
 
