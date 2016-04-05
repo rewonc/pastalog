@@ -5,6 +5,13 @@ _Dead-simple realtime visualization of neural network logs_
 [insert screenshots here]
 [screenshot]
 
+1. [Features](#features)
+2. [Getting started](#getting-started)
+3. [Python API](#python-api)
+4. [POST endpoint](#post-endpoint)
+5. [Usage notes](#usage-notes)
+5. [Contributing](#contributing)
+
 ## Features
 
 - Real-time updates -- see your models train in real time
@@ -81,7 +88,7 @@ Go to localhost:8120 and view your logs updating in real time.
 
 [animated gif]
 
-## API
+## Python API
 
 ##### `pastalog.Log(server_path, model_name)`
 
@@ -135,7 +142,7 @@ Click the `x` next to the name of the series.  If you confirm deletion, this wil
 
 Note: if you delete a series, then add more points under the same, it will act as if it is a new series.
 
-## Backups
+#### Backups
 
 You should backup your logs on your own and should not trust this library to keep track of anything. Pastalog does keep track of what it sees, though, inside a file called `database.json` and a directory called `database/`, inside the root directory of the package.
 
