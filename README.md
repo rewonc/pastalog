@@ -1,6 +1,6 @@
 # pastalog
 
-_Dead-simple realtime visualization of neural network logs_
+_Simple, realtime visualization of neural network training performance._
 
 [insert screenshots here]
 [screenshot]
