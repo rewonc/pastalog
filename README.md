@@ -20,6 +20,7 @@ _Dead-simple realtime visualization of neural network logs_
 - Candlestick view for enhanced visiblity and performance at 10k+ points
 - Python API (use with lasagne, keras, tensorflow, or others)
 - Also exposes a REST endpoint (for use with Torch and other non-python libraries)
+- MIT license
 
 It's named 'pastalog' because I like to use [lasagne](http://lasagne.readthedocs.org/en/latest/), which is a wonderful library for training deep networks.
 
@@ -149,7 +150,7 @@ You should backup your logs on your own and should not trust this library to kee
 
 ## Contributing
 
-Any contributors are welcome. 
+Any contributors are welcome.  The repo is MIT licensed.
 
 ```bash
 # to install
