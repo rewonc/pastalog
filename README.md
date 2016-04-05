@@ -19,10 +19,13 @@ Simple, realtime visualization server for training neural networks. Use with Las
 
 #### Easiest method for python 
 
-This has the node.js server packaged inside python module.
+The python package `pastalog` has a node.js server packaged inside python module, as well as helper functions for logging data.
 
 You need node.js 5+:
-`brew install node`  (If you don't have homebrew, download an installer from https://nodejs.org/en/)
+
+`brew install node`  
+
+(If you don't have homebrew, download an installer from https://nodejs.org/en/)
 
 ```bash
 pip install pastalog
