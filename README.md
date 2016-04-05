@@ -9,7 +9,7 @@ _Simple, realtime visualization of neural network training performance._
 5. [Contributing](#contributing)
 6. [Misc](#misc)
 
-![alt text](https://raw.githubusercontent.com/rewonc/pastalog/master/screenshots/main.gif "Pastalog demo")
+![alt text](https://raw.githubusercontent.com/rewonc/pastalog/master/screenshots/main-big.gif "Pastalog demo")
 
 
 
