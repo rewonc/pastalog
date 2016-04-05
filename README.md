@@ -2,24 +2,15 @@
 
 _Simple, realtime visualization of neural network training performance._
 
+1. [Getting started](#getting-started)
+2. [Python API](#python-api)
+3. [POST endpoint](#post-endpoint)
+4. [Usage notes](#usage-notes)
+5. [Contributing](#contributing)
+6. [Misc](#misc)
+
 ![alt text](https://raw.githubusercontent.com/rewonc/pastalog/master/screenshots/main.gif "Pastalog demo")
 
-1. [Features](#features)
-2. [Getting started](#getting-started)
-3. [Python API](#python-api)
-4. [POST endpoint](#post-endpoint)
-5. [Usage notes](#usage-notes)
-6. [Contributing](#contributing)
-7. [Misc](#misc)
-
-## Features
-
-- Real-time updates -- see your models train in real time
-- Toggle different models and losses to easily compare performance
-- Pan and zoom for intuitively exploring data
-- Candlestick view for enhanced visiblity and performance at 10k+ points
-- Python API (use with lasagne, keras, tensorflow, or others)
-- REST endpoint (use with Torch et. al)
 
 
 ## Getting started
