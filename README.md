@@ -95,7 +95,7 @@ This returns a Log object with one method:
 
 ## POST endpoint
 
-If you want to use pastalog from a non-python setup, you can just send POST requests to the Pastalog server and everything will work the same. The data should be json and encoded like so:
+If you want to use pastalog from a non-python setup (like Torch), you can just send POST requests to the Pastalog server and everything will work the same. The data should be json and encoded like so:
 
 `{"modelName":"model1","pointType":"validLoss", "pointValue": 2.5, "globalStep": 1}`
 
@@ -106,6 +106,8 @@ An example with `curl`:
 ```bash
 curl -H "Content-Type: application/json" -X POST -d '{"modelName":"model1","pointType":"validLoss", "pointValue": 2.5, "globalStep": 1}' http://localhost:8120/data
 ```
+
+I hear that the (async library)[https://github.com/clementfarabet/async] is a convenient way of using an http client in Torch.
 
 ## Usage notes
 
