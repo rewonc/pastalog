@@ -10,7 +10,8 @@ _Dead-simple realtime visualization of neural network logs_
 3. [Python API](#python-api)
 4. [POST endpoint](#post-endpoint)
 5. [Usage notes](#usage-notes)
-5. [Contributing](#contributing)
+6. [Contributing](#contributing)
+7. [Misc](#misc)
 
 ## Features
 
@@ -21,8 +22,6 @@ _Dead-simple realtime visualization of neural network logs_
 - Python API (use with lasagne, keras, tensorflow, or others)
 - Also exposes a REST endpoint (for use with Torch and other non-python libraries)
 - MIT license
-
-It's named 'pastalog' because I like to use [lasagne](http://lasagne.readthedocs.org/en/latest/), which is a wonderful library for training deep networks.
 
 
 ## Getting started
@@ -175,3 +174,14 @@ npm run build
 
 ```
 
+## Misc
+
+#### License
+
+MIT License (MIT)
+
+Copyright (c) 2016 Rewon Child
+
+#### Thanks
+
+This is named named `pastalog` because I like to use [lasagne](http://lasagne.readthedocs.org/en/latest/). Props to those guys for a great library!
