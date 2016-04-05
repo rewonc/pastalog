@@ -2,8 +2,9 @@ database
 database.json
 database.json.~BACKUP
 node_modules
-build
-pastalog/build
+pastalog/pastalog/build/
+pastalog/build/
+build/
 *.pyc
 pastalog/dist
 pastalog/*.egg-info

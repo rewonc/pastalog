@@ -1,12 +1,13 @@
 {
   "name": "pastalog",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Simple, realtime visualization of neural network training performance.",
   "main": "index.js",
   "scripts": {
     "test": "mocha test/build/index.js --debug",
     "test:watch": "npm run test -- --watch",
-    "build": "webpack --watch",
+    "build": "webpack",
+    "build:watch": "webpack --watch",
     "dev": "nodemon build/server.js -- --fakeData",
     "start": "node build/server.js"
   },

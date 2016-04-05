@@ -4,21 +4,23 @@
 
 Simple, realtime visualization server for training neural networks. Use with Lasagne, Keras, Tensorflow, Torch, Theano, and basically everything else.
 
-1. [Getting started](#getting-started)
-2. [Python API](#python-api)
-3. [POST endpoint](#post-endpoint)
-4. [Usage notes](#usage-notes)
-5. [Contributing](#contributing)
-6. [Misc](#misc)
+- [Installation](#installation)
+- [Logging data](#getting-started)
+- [Python API](#python-api)
+- [POST endpoint](#post-endpoint)
+- [Usage notes](#usage-notes)
+- [Contributing](#contributing)
+- [Misc](#misc)
 
 ![alt text](https://raw.githubusercontent.com/rewonc/pastalog/master/screenshots/main-big.gif "Pastalog demo")
 
 
-## Getting started
+## Installation
 
-Prerequisites: node 5+, npm (https://docs.npmjs.com/getting-started/installing-node)
+#### Easiest method for python (node.js server packaged inside python module)
 
-First, download the package and start the server:
+You need node.js 5+:
+`brew install node`  (If you don't have homebrew, download an installer from https://nodejs.org/en/)
 
 ```bash
 pip install pastalog
@@ -27,7 +29,22 @@ pastalog --serve 8120
 # - Open up http://localhost:8120/ to see the server in action.
 ```
 
-Now, you can log stuff to the server. 
+#### Just node.js server (useful if you don't want the python API)
+
+```bash
+git clone https://github.com/rewonc/pastalog && cd pastalog
+npm install
+npm run build
+npm start -- --port 8120
+# - Open up http://localhost:8120/ to see the server in action.
+```
+
+## Logging data
+
+Once you have a server running, you can start logging your progress.
+
+
+#### Using Python module
 
 ```python
 from pastalog import Log
@@ -77,6 +94,13 @@ log_c.post('validAccuracy', value=0.18, step=3)
 ```
 Go to localhost:8120 and view your logs updating in real time.
 
+
+#### Using a POST request
+
+See more details in the [POST endpoint section](#post-endpoint)
+```bash
+curl -H "Content-Type: application/json" -X POST -d '{"modelName":"model1","pointType":"validLoss", "pointValue": 2.5, "globalStep": 1}' http://localhost:8120/data
+```
 
 
 ## Python API
@@ -160,7 +184,7 @@ cd pastalog
 npm install
 
 # build + watch
-npm run build
+npm run build:watch
 
 # dev server + watch
 npm run dev
