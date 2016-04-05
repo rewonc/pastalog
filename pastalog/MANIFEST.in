@@ -1,2 +1,3 @@
 include pastalog/package.json
 include pastalog/build/*
+include pastalog/build/assets/*
