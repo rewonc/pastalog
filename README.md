@@ -122,7 +122,7 @@ curl -H "Content-Type: application/json" -X POST -d '{"modelName":"model1","poin
 #### Automatic candlesticking
 
 [screenshot]
-Once you start getting a lot of points (typically several thousand), the app will automatically convert them into candlesticks for improved visibility and rendering performance. Each candlestick takes a certain number of points and shows the max, min, 1st quartile, 3rd quartile, and median instead of plotting every point. This tends to be much more useful to visualize.
+Once you start viewing a lot of points (typically several thousand), the app will automatically convert them into candlesticks for improved visibility and rendering performance. Each candlestick takes a certain number of points and shows the max, min, 1st quartile, 3rd quartile, and median instead of plotting every point. This tends to be much more useful to visualize than a solid mass of dots.
 
 
 #### Panning and zooming
@@ -143,12 +143,12 @@ Note: if you delete a series, then add more points under the same, it will act a
 
 #### Backups
 
-You should backup your logs on your own and should not trust this library to keep track of anything. Pastalog does keep track of what it sees, though, inside a file called `database.json` and a directory called `database/`, inside the root directory of the package.
+You should backup your logs on your own and should not trust this library to store important data. Pastalog does keep track of what it sees, though, inside a file called `database.json` and a directory called `database/`, inside the root directory of the package, in case you need to access it.
 
 
 ## Contributing
 
-Any contributors are welcome.  The repo is MIT licensed.
+Any contributors are welcome.
 
 ```bash
 # to install
@@ -164,8 +164,6 @@ npm run dev
 
 # tests
 npm test
-# alternatively:
-npm test:watch
 
 # To prep the python module
 npm run build
