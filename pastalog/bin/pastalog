@@ -22,7 +22,7 @@ if not args.install and not args.serve:
 
 # switch to the install directory
 directory = os.path.dirname(os.path.realpath(__file__))
-os.chdir(os.path.join(directory, '..'))
+os.chdir(os.path.join(directory, '../pastalog'))
 
 if args.install:
     try:

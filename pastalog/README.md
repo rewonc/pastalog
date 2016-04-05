@@ -1,26 +1,16 @@
 # pastalog
 
-_Simple, realtime visualization of neural network training performance._
+Simple, realtime visualization server for training neural networks. Use with Lasagne, Keras, Tensorflow, Torch, Theano, and basically everything else.
 
-[insert screenshots here]
-[screenshot]
+1. [Getting started](#getting-started)
+2. [Python API](#python-api)
+3. [POST endpoint](#post-endpoint)
+4. [Usage notes](#usage-notes)
+5. [Contributing](#contributing)
+6. [Misc](#misc)
 
-1. [Features](#features)
-2. [Getting started](#getting-started)
-3. [Python API](#python-api)
-4. [POST endpoint](#post-endpoint)
-5. [Usage notes](#usage-notes)
-6. [Contributing](#contributing)
-7. [Misc](#misc)
+![alt text](https://raw.githubusercontent.com/rewonc/pastalog/master/screenshots/main-big.gif "Pastalog demo")
 
-## Features
-
-- Real-time updates -- see your models train in real time
-- Toggle different models and losses to easily compare performance
-- Pan and zoom for intuitively exploring data
-- Candlestick view for enhanced visiblity and performance at 10k+ points
-- Python API (use with lasagne, keras, tensorflow, or others)
-- REST endpoint (use with Torch et. al)
 
 
 ## Getting started
@@ -105,7 +95,7 @@ This returns a Log object with one method:
 
 ## POST endpoint
 
-If you want to use pastalog from a non-python setup, you can just send POST requests to the Pastalog server and everything will work the same. The data should be json and encoded like so:
+If you want to use pastalog from a non-python setup (like Torch), you can just send POST requests to the Pastalog server and everything will work the same. The data should be json and encoded like so:
 
 `{"modelName":"model1","pointType":"validLoss", "pointValue": 2.5, "globalStep": 1}`
 
@@ -116,6 +106,8 @@ An example with `curl`:
 ```bash
 curl -H "Content-Type: application/json" -X POST -d '{"modelName":"model1","pointType":"validLoss", "pointValue": 2.5, "globalStep": 1}' http://localhost:8120/data
 ```
+
+I hear that the (async library)[https://github.com/clementfarabet/async] is a convenient way of using an http client in Torch.
 
 ## Usage notes
 
