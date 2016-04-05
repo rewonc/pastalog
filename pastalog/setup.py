@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='pastalog',
-      version='1.0.0',
+      version='1.0.1',
       description='Simple, realtime visualization of neural network training performance.',
       url='http://github.com/rewonc/pastalog',
       author='Rewon Child',

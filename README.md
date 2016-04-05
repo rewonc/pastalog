@@ -115,15 +115,13 @@ I hear that the (async library)[https://github.com/clementfarabet/async] is a co
 
 ![alt text](https://raw.githubusercontent.com/rewonc/pastalog/master/screenshots/candlestick.jpg "Candlestick")
 
-Once you start viewing a lot of points (typically several thousand), the app will automatically convert them into candlesticks for improved visibility and rendering performance. Each candlestick takes a certain number of points on the x axis and shows aggregate statistics for the y axis.
+Once you start viewing a lot of points (typically several thousand), the app will automatically convert them into candlesticks for improved visibility and rendering performance. Each candlestick takes a "batch" of points on the x axis and shows aggregate statistics for the y points of that batch:
 
-Quantities:
-
-- Bottom line: `min`
+- Top of line: `min`
 - Top of box: `first quartile`
 - Solid square in middle: `median`
 - Bottom of box: `third quartile`
-- Bottom line: `max`
+- Bottom of line: `max`
 
 This tends to be much more useful to visualize than a solid mass of dots. Computationally, it makes the app a lot faster than one which renders each point.
 
