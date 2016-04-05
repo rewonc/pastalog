@@ -1,10 +1,10 @@
 #!/bin/bash
 
 set -e
-mkdir -p pastalog
-cp -R build pastalog
-cp package.json pastalog
+mkdir -p pastalog/pastalog
+cp -R build pastalog/pastalog
+cp package.json pastalog/pastalog
 cp README.md pastalog
-rm -f pastalog/database.json
-rm -f pastalog/database.json.~BACKUP
-rm -rf pastalog/database
+rm -f pastalog/pastalog/database.json
+rm -f pastalog/pastalog/database.json.~BACKUP
+rm -rf pastalog/pastalog/database
