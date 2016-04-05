@@ -140,7 +140,7 @@ An example with `curl`:
 curl -H "Content-Type: application/json" -X POST -d '{"modelName":"model1","pointType":"validLoss", "pointValue": 2.5, "globalStep": 1}' http://localhost:8120/data
 ```
 
-I hear that the (async library)[https://github.com/clementfarabet/async] is a convenient way of using an http client in Torch.
+I hear that the [async library](https://github.com/clementfarabet/async) is a convenient way of using an http client in Torch.
 
 ## Usage notes
 
@@ -215,4 +215,4 @@ Copyright (c) 2016 Rewon Child
 
 #### Thanks
 
-This is named named `pastalog` because I like to use [lasagne](http://lasagne.readthedocs.org/en/latest/). Props to those guys for a great library!
+This is named `pastalog` because I like to use [lasagne](http://lasagne.readthedocs.org/en/latest/). Props to those guys for a great library!
