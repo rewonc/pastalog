@@ -2,8 +2,7 @@
 
 _Simple, realtime visualization of neural network training performance._
 
-[insert screenshots here]
-[screenshot]
+[[https://raw.githubusercontent.com/rewonc/pastalog/master/screenshots/main.gif|alt=pastalog]]
 
 1. [Features](#features)
 2. [Getting started](#getting-started)
