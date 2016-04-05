@@ -1,0 +1,2 @@
+include pastalog/package.json
+include pastalog/build/*
