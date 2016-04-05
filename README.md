@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/rewonc/pastalog.svg?branch=master)](https://travis-ci.org/rewonc/pastalog)
+
 # pastalog
 
 Simple, realtime visualization server for training neural networks. Use with Lasagne, Keras, Tensorflow, Torch, Theano, and basically everything else.
@@ -14,7 +16,7 @@ Simple, realtime visualization server for training neural networks. Use with Las
 
 ## Getting started
 
-Prerequisites: npm, node (https://docs.npmjs.com/getting-started/installing-node)
+Prerequisites: node 5+, npm (https://docs.npmjs.com/getting-started/installing-node)
 
 First, download the package and start the server:
 
