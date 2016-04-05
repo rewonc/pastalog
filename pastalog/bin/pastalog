@@ -3,6 +3,7 @@ import os
 import sys
 import subprocess
 import argparse
+from pastalog import get_package_path
 
 parser = argparse.ArgumentParser(description='Pastalog utilities')
 parser.add_argument('--install', action='store_true',
@@ -21,8 +22,8 @@ if not args.install and not args.serve:
 
 
 # switch to the install directory
-directory = os.path.dirname(os.path.realpath(__file__))
-os.chdir(os.path.join(directory, '../pastalog'))
+directory = os.path.dirname(get_package_path())
+os.chdir(os.path.join(directory))
 
 if args.install:
     try:

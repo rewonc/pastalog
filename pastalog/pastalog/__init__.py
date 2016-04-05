@@ -3,6 +3,7 @@ The pastalog Log class, which simply sends a POST request to a the server.
 '''
 import requests
 import os
+from pkg_resources import resource_filename
 
 
 class Log(object):
@@ -19,3 +20,8 @@ class Log(object):
         r = requests.post(self.url, json=payload)
 
         return r.raise_for_status()
+
+
+def get_package_path():
+    'Return the path of the package.json for npm script'
+    return resource_filename(__name__, "package.json")
