@@ -12,7 +12,6 @@ Simple, realtime visualization server for training neural networks. Use with Las
 ![alt text](https://raw.githubusercontent.com/rewonc/pastalog/master/screenshots/main-big.gif "Pastalog demo")
 
 
-
 ## Getting started
 
 Prerequisites: npm, node (https://docs.npmjs.com/getting-started/installing-node)
@@ -50,7 +49,8 @@ log_a.post('validAccuracy', value=0.18, step=6)
 ```
 Voila! You should see something like the below:
 
-[screenshot]
+![alt text](https://raw.githubusercontent.com/rewonc/pastalog/master/screenshots/first_steps.jpg "Example 1")
+
 
 Now, train some more models:
 
@@ -75,7 +75,7 @@ log_c.post('validAccuracy', value=0.18, step=3)
 ```
 Go to localhost:8120 and view your logs updating in real time.
 
-[animated gif]
+
 
 ## Python API
 
@@ -113,8 +113,19 @@ I hear that the (async library)[https://github.com/clementfarabet/async] is a co
 
 #### Automatic candlesticking
 
-[screenshot]
-Once you start viewing a lot of points (typically several thousand), the app will automatically convert them into candlesticks for improved visibility and rendering performance. Each candlestick takes a certain number of points and shows the max, min, 1st quartile, 3rd quartile, and median instead of plotting every point. This tends to be much more useful to visualize than a solid mass of dots.
+![alt text](https://raw.githubusercontent.com/rewonc/pastalog/master/screenshots/candlestick.jpg "Candlestick")
+
+Once you start viewing a lot of points (typically several thousand), the app will automatically convert them into candlesticks for improved visibility and rendering performance. Each candlestick takes a certain number of points on the x axis and shows aggregate statistics for the y axis.
+
+Quantities:
+
+- Bottom line: `min`
+- Top of box: `first quartile`
+- Solid square in middle: `median`
+- Bottom of box: `third quartile`
+- Bottom line: `max`
+
+This tends to be much more useful to visualize than a solid mass of dots. Computationally, it makes the app a lot faster than one which renders each point.
 
 
 #### Panning and zooming
