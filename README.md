@@ -1,6 +1,6 @@
 # pastalog
 
-_Simple, realtime visualization of neural network training performance._
+Simple, realtime visualization server for training neural networks. Use with Lasagne, Keras, Tensorflow, Torch, Theano, and basically everything else.
 
 1. [Getting started](#getting-started)
 2. [Python API](#python-api)
