@@ -20,8 +20,7 @@ _Simple, realtime visualization of neural network training performance._
 - Pan and zoom for intuitively exploring data
 - Candlestick view for enhanced visiblity and performance at 10k+ points
 - Python API (use with lasagne, keras, tensorflow, or others)
-- Also exposes a REST endpoint (for use with Torch and other non-python libraries)
-- MIT license
+- REST endpoint (use with Torch et. al)
 
 
 ## Getting started
