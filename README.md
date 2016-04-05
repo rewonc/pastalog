@@ -1,109 +1,147 @@
-#### todo
-- Grid >>>>>>>>>>>DONE>>>>>>>>>>>- adjust scale automatically mode 
-- Grid >>>>>>>>>>>DONE>>>>>>>>>>>- Legend
-- lib  >>>>>>>>>>>DONE>>>>>>>>>>>- extract a library function that iterates through each series and provides a cb
-- Grid >>>>>>>>>>>DONE>>>>>>>>>>>- Gridlines
-- Grid >>>>>>>>>>>DONE>>>>>>>>>>>- round numbers
-- Grid >>>>>>>>>>>DONE>>>>>>>>>>>- display options (which models, which series), refresh
-- Grid >>>>>>>>>>>DONE>>>>>>>>>>>- hover at step and display values
-- App >>>>>>>>>>>DONE>>>>>>>>>>>- Create a redux state tree to hold all the application state.
-- App >>>>>>>>>>>DONE>>>>>>>>>>>- Create unit tests for state tree
-- App >>>>>>>>>>>DONE>>>>>>>>>>> - Create tests / actions / helpers for logs
-        >>>>>>>>>>>DONE>>>>>>>>>>>- updating them w/ initial data
-        >>>>>>>>>>>DONE>>>>>>>>>>>- updating with incremental data 
-- App >>>>>>>>>>>DONE>>>>>>>>>>>- refactor to be stateless
-- Grid >>>>>>>>>>>DONE>>>>>>>>>>>- Basic styling / colors
-- Grid >>>>>>>>>>>DONE>>>>>>>>>>>- resize on viewport change
-- Legend >>>>>>>>>>>DONE>>>>>>>>>>>- styling and colors
-- Legend >>>>>>>>>>>DONE>>>>>>>>>>>- enable/disable series, model
-- Server >>>>>>>>>>>DONE>>>>>>>>>>>- Put in real test data
-- Legend >>>>>>>>>>>DONE>>>>>>>>>>>- Fix scale (currently reversed w log loss)
-- Legend >>>>>>>>>>>DONE>>>>>>>>>>>- On Hover --- slow cursors w/ lots of movement
-- Gridlines >>>>>>>>>>>DONE>>>>>>>>>>>- make hover box look a little cooler
-- Options menu  >>>>>>>>>>>DONE>>>>>>>>>>>?
-    - Scale >>>>>>>>>>>DONE>>>>>>>>>>>:
-        - Make the scale manually adjustable >>>>>>>>>>>DONE>>>>>>>>>>> (text input)
-- Manual rescale >>>>>>>>>>>DONE>>>>>>>>>>>  -- makes a Nan?
-
-- App >>>>>>>>>>>DONE>>>>>>>>>>>- Profile it, see if you can make speed adjustments. Where can you optimize shouldComponentUpdate?
-    - >>>>>>>>>>>DONE>>>>>>>>>>>- Box and whisker plot? smoothing once n elements > some density?
-    - >>>>>>>>>>>DONE>>>>>>>>>>>- auto candle plots?
-
-- >>>>>>>>>>>DONE>>>>>>>>>>> Implement zoom and pan
-- >>>>>>>>>>>DONE>>>>>>>>>>> Ability to save trials, and back them up.
-- >>>>>>>>>>>DONE>>>>>>>>>>> Maybe split up into separate files?
-
-- >>>>>>>>>>>DONE>>>>>>>>>>> Ability to delete old trials (or at least not request them, and not have the server load each time.)
-- >>>>>>>>>>>DONE>>>>>>>>>>>Python wrapper
-- >>>>>>>>>>>DONE>>>>>>>>>>>have a dir called python
-    - >>>>>>>>>>>DONE>>>>>>>>>>>dist, + package.json
-    - >>>>>>>>>>>DONE>>>>>>>>>>>command line stuff + python module
-
-- Lua wrapper
-- Readme
-
-
 # pastalog
 
-_Dead-simple realtime logging and visualization for nn libraries (like Lasagne)_
+_Dead-simple realtime visualization of neural network logs_
 
 [insert screenshots here]
+[screenshot]
 
-Why is this named "pastalog"? Well, I primarily use the library [lasagne](http://lasagne.readthedocs.org/en/latest/). You don't have to use lasagne, though. You can do whatever you want. There's an API for Python, Lua, and anything that can send a post request.
+Features:
+
+- Real-time updates -- see your models train in real time
+- Toggle different models and losses to easily compare performance
+- Pan and zoom for intuitively exploring data
+- Candlestick view for enhanced visiblity and performance at 10k+ points
+- Python API (use with lasagne, keras, tensorflow, or others)
+- Also exposes a REST endpoint (for use with Torch and other non-python libraries)
+
+It's named 'pastalog' because I like to use [lasagne](http://lasagne.readthedocs.org/en/latest/), which is a wonderful library for training deep networks.
 
 
 ## Getting started
 
 Prerequisites: npm, node (https://docs.npmjs.com/getting-started/installing-node)
 
+First, download the package and start the server:
+
 ```bash
 pip install pastalog
-pastalog install
-pastalog run 8120
-
-default: 8120
-npm start -- --port 8121
-
-
+pastalog --install
+pastalog --serve 8120
+# - Open up http://localhost:8120/ to see the server in action.
 ```
 
-Then, when training:
+Now, you can log stuff to the server. 
 
 ```python
-import pastalog
+from pastalog import Log
 
-logA = pastalog.Log('http://localhost:8120', 'modelA')
+log_a = Log('http://localhost:8120', 'modelA')
 
 # start training
 
-logA.post('train_loss', 2.7)
-logA.post('train_loss', 2.5)
-logA.post('train_loss', 2.2)
-logA.post('valid_loss', 2.6)
+log_a.post('trainLoss', value=2.7, step=1)
+log_a.post('trainLoss', value=2.15, step=2)
+log_a.post('trainLoss', value=1.32, step=3)
+log_a.post('validLoss', value=1.56, step=3)
+log_a.post('validAccuracy', value=0.15, step=3)
 
-
-# Train a different model
-
-logB = pastalog.Log('http://localhost:8120', 'modelB')
-# ...
-logB.post('train_loss', 2.7)
-logB.post('train_loss', 2.0)
-logB.post('train_loss', 1.4)
-logB.post('valid_loss', 2.6)
+log_a.post('trainLoss', value=1.31, step=4)
+log_a.post('trainLoss', value=1.28, step=5)
+log_a.post('trainLoss', value=1.11, step=6)
+log_a.post('validLoss', value=1.20, step=6)
+log_a.post('validAccuracy', value=0.18, step=6)
 
 ```
+Voila! You should see something like the below:
 
+[screenshot]
+
+Now, train some more models:
+
+```python
+log_b = Log('http://localhost:8120', 'modelB')
+log_c = Log('http://localhost:8120', 'modelC')
+
+# ...
+
+log_b.post('trainLoss', value=2.7, step=1)
+log_b.post('trainLoss', value=2.0, step=2)
+log_b.post('trainLoss', value=1.4, step=3)
+log_b.post('validLoss', value=2.6, step=3)
+log_b.post('validAccuracy', value=0.14, step=3)
+
+log_c.post('trainLoss', value=2.7, step=1)
+log_c.post('trainLoss', value=2.0, step=2)
+log_c.post('trainLoss', value=1.4, step=3)
+log_c.post('validLoss', value=2.6, step=3)
+log_c.post('validAccuracy', value=0.18, step=3)
+
+```
 Go to localhost:8120 and view your logs updating in real time.
 
 [animated gif]
 
+## API
 
-## Notes
-- Stores data in a file, so no server configuration required.
-- You might want to back up that file occasionally, though.
-- Python library is a thin wrapper which makes post requests to a node.js server instance, so the logging doesn't have to be on the same machine as the training.
+##### `pastalog.Log(server_path, model_name)`
+
+Pass it:
+
+- The host/port (e.g. `http://localhost:8120`) 
+- The name of the model as you want it displayed (e.g. `resnet_48_A_V5`).
+
+This returns a Log object with one method:
+
+##### `Log.post(series_name, value, step)`
+
+- `series_name` is typically the type of metric (e.g. `validLoss`, `trainLoss`, `validAccuracy`). 
+- `value` is a number, and the value (e.g. `1.56`, `0.20`, etc.)
+- `step` is whatever you want to plot on the x axis. If you have batches of size 100, will run for 10 epochs, and want to plot losses for each batch as well as each epoch, `step` should represent how many batches have been seen already (0..1000).
+
+## POST endpoint
+
+If you want to use pastalog from a non-python setup, you can just send POST requests to the Pastalog server and everything will work the same. The data should be json and encoded like so:
+
+`{"modelName":"model1","pointType":"validLoss", "pointValue": 2.5, "globalStep": 1}`
+
+modelName, pointType, pointValue, globalStep correspond with `model_name`, `series_name`, `value`, `step` above.
+
+An example with `curl`:
+
+```bash
+curl -H "Content-Type: application/json" -X POST -d '{"modelName":"model1","pointType":"validLoss", "pointValue": 2.5, "globalStep": 1}' http://localhost:8120/data
+```
+
+## Usage notes
+
+#### Automatic candlesticking
+
+[screenshot]
+Once you start getting a lot of points (typically several thousand), the app will automatically convert them into candlesticks for improved visibility and rendering performance. Each candlestick takes a certain number of points and shows the max, min, 1st quartile, 3rd quartile, and median instead of plotting every point. This tends to be much more useful to visualize.
+
+
+#### Panning and zooming
+
+Drag your mouse to pan.  Either scroll up or down to zoom in or out. 
+
+Note: you can also pinch in/out on your trackpad to zoom.
+
+#### Toggling visibility of lines
+
+Simply click the name of any model under 'series.'  To toggle everything from a certain model (e.g. `modelA`, or to toggle an entire type of points (e.g. `validLoss`), simply click those names in the legend to the right.
+
+#### Deleting logs
+
+Click the `x` next to the name of the series.  If you confirm deletion, this will remove it on the server and remove it from your view. Note: if you delete a series, then add more points under the same, it will act as if it is a new series.
+
+## Backups
+
+You should backup your logs on your own and should not trust this library to keep track of anything. Pastalog does keep track of what it sees, though, inside a file called `database.json` and a directory called `database/`, inside the root directory of the package.
+
 
 ## Contributing
+
+Any contributors are welcome. 
 
 ```bash
 # to install
@@ -122,6 +160,9 @@ npm test
 # alternatively:
 npm test:watch
 
+# To prep the python module
+npm run build
+./package_python.sh
 
 ```
 
