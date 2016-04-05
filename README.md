@@ -119,7 +119,9 @@ This returns a Log object with one method:
 
 - `series_name`: typically the type of metric (e.g. `validLoss`, `trainLoss`, `validAccuracy`). 
 - `value`: the value of the metric (e.g. `1.56`, `0.20`, etc.)
-- `step`: whatever quantity you want to plot on the x axis. If you have batches of size 100, will run for 10 epochs, and want to plot losses for each batch as well as each epoch, `step` should represent how many batches have been seen already (0..1000).
+- `step`: whatever quantity you want to plot on the x axis. If you have batches of size 100 and will run for 10 epochs, you could pass to `step` the number of batches have been seen already (0..1000).
+
+> **Note**: If you want to compare models across batch sizes, a good approach is to pass to `step` the fractional number of times the model has seen the data (number of epochs). In that case, you will have a fairer comparison between a model with batchsize 50 and another with batchsize 100, for example.
 
 ## POST endpoint
 
