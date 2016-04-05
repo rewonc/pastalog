@@ -2,7 +2,7 @@
 
 _Simple, realtime visualization of neural network training performance._
 
-[[https://raw.githubusercontent.com/rewonc/pastalog/master/screenshots/main.gif|alt=pastalog]]
+![alt text](https://raw.githubusercontent.com/rewonc/pastalog/master/screenshots/main.gif "Pastalog demo")
 
 1. [Features](#features)
 2. [Getting started](#getting-started)
