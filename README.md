@@ -122,7 +122,7 @@ This returns a Log object with one method:
 
 - `series_name`: typically the type of metric (e.g. `validLoss`, `trainLoss`, `validAccuracy`). 
 - `value`: the value of the metric (e.g. `1.56`, `0.20`, etc.)
-- `step`: whatever quantity you want to plot on the x axis. If you have batches of size 100 and will run for 10 epochs, you could pass to `step` the number of batches have been seen already (0..1000).
+- `step`: whatever quantity you want to plot on the x axis. If you run for 10 epochs of 100 batches each, you could pass to `step` the number of batches have been seen already (0..1000).
 
 > **Note**: If you want to compare models across batch sizes, a good approach is to pass to `step` the fractional number of times the model has seen the data (number of epochs). In that case, you will have a fairer comparison between a model with batchsize 50 and another with batchsize 100, for example.
 
@@ -150,11 +150,11 @@ I hear that the [async library](https://github.com/clementfarabet/async) is a co
 
 Once you start viewing a lot of points (typically several thousand), the app will automatically convert them into candlesticks for improved visibility and rendering performance. Each candlestick takes a "batch" of points on the x axis and shows aggregate statistics for the y points of that batch:
 
-- Top of line: `min`
-- Top of box: `first quartile`
+- Top of line: `max`
+- Top of box: `third quartile`
 - Solid square in middle: `median`
-- Bottom of box: `third quartile`
-- Bottom of line: `max`
+- Bottom of box: `first quartile`
+- Bottom of line: `min`
 
 This tends to be much more useful to visualize than a solid mass of dots. Computationally, it makes the app a lot faster than one which renders each point.
 
