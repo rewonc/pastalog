@@ -11,6 +11,10 @@
     "dev": "nodemon build/server.js -- --fakeData",
     "start": "node build/server.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/rewonc/pastalog.git"
+  },
   "author": "rewonc",
   "license": "MIT",
   "dependencies": {

@@ -17,7 +17,9 @@ Simple, realtime visualization server for training neural networks. Use with Las
 
 ## Installation
 
-#### Easiest method for python (node.js server packaged inside python module)
+#### Easiest method for python 
+
+This has the node.js server packaged inside python module.
 
 You need node.js 5+:
 `brew install node`  (If you don't have homebrew, download an installer from https://nodejs.org/en/)
