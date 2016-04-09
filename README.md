@@ -100,6 +100,12 @@ log_c.post('validAccuracy', value=0.18, step=3)
 Go to localhost:8120 and view your logs updating in real time.
 
 
+#### Using the Torch wrapper (Lua)
+
+Use the Torch interface, available here:  https://github.com/Kaixhin/torch-pastalog.  Thanks to Kaixhin for putting it together.
+
+
+
 #### Using a POST request
 
 See more details in the [POST endpoint section](#post-endpoint)
@@ -128,7 +134,7 @@ This returns a Log object with one method:
 
 ## POST endpoint
 
-If you want to use pastalog from a non-python setup (like Torch), you can just send POST requests to the Pastalog server and everything will work the same. The data should be json and encoded like so:
+If you want to use pastalog but don't want to use the Python interface or the Torch interface, you can just send POST requests to the Pastalog server and everything will work the same. The data should be json and encoded like so:
 
 `{"modelName":"model1","pointType":"validLoss", "pointValue": 2.5, "globalStep": 1}`
 
@@ -140,7 +146,6 @@ An example with `curl`:
 curl -H "Content-Type: application/json" -X POST -d '{"modelName":"model1","pointType":"validLoss", "pointValue": 2.5, "globalStep": 1}' http://localhost:8120/data
 ```
 
-I hear that the [async library](https://github.com/clementfarabet/async) is a convenient way of using an http client in Torch.
 
 ## Usage notes
 
