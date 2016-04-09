@@ -64,7 +64,7 @@ export function saveDB(data) {
   };
   fs.rename(filepath, backupPath, (renameError) => {
     if (renameError) {
-      if (renameError.errno === -2) {
+      if (renameError.code === 'ENOENT') {
         // do nothing -- original file doesn't exist
         // and will not be written.
       } else {

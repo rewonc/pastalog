@@ -2,13 +2,13 @@
 The pastalog Log class, which simply sends a POST request to a the server.
 '''
 import requests
-import os
+from urlparse import urljoin
 from pkg_resources import resource_filename
 
 
 class Log(object):
     def __init__(self, url, model_name):
-        self.url = os.path.join(url, 'data')
+        self.url = urljoin(url, 'data')
         self.model_name = model_name
 
     def post(self, series_name, value, step):
