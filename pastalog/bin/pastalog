@@ -16,8 +16,7 @@ parser.add_argument('--serve', type=int, nargs='?',
 args = parser.parse_args()
 
 if not args.install and not args.serve:
-    print 'Please run either "install" or "serve [PORT]", or\
-     --help for more info.'
+    print('Please run either "install" or "serve [PORT]", or --help for more info.')
     sys.exit(1)
 
 
@@ -30,7 +29,7 @@ if args.install:
         subprocess.call(["npm", "install", "--production"])
     except OSError as e:
         if e.errno == os.errno.ENOENT:
-            print 'Please install npm and node.'
+            print('Please install npm and node.')
         else:
             raise e
 
@@ -39,6 +38,6 @@ if args.serve:
         subprocess.call(["npm", "start", "--", "--port", str(args.serve)])
     except OSError as e:
         if e.errno == os.errno.ENOENT:
-            print 'Please install npm and node.'
+            print('Please install npm and node.')
         else:
             raise e

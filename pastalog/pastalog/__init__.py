@@ -1,9 +1,13 @@
 '''
 The pastalog Log class, which simply sends a POST request to a the server.
 '''
+
 import requests
-from urlparse import urljoin
 from pkg_resources import resource_filename
+try:
+    from urlparse import urljoin
+except ImportError:
+    from urllib.parse import urljoin
 
 
 class Log(object):
