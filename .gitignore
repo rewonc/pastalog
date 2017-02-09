@@ -8,3 +8,5 @@ build/
 *.pyc
 pastalog/dist
 pastalog/*.egg-info
+.ftpconfig
+*.log
