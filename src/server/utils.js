@@ -17,7 +17,16 @@ export function PastaServer(app, store, io, db) {
     io.emit('refreshed data', logs);
   }
 
+  function deleteModel(modelName) {
+    const logs = db.logs;
+    // delete in current store and save DB
+    delete logs[modelName];
+    saveDB(db);
+    // emit new data
+    io.emit('refreshed data', logs);
+  }
+
   return {
-    app, store, io, db, addDataPoint, deleteSeries,
+    app, store, io, db, addDataPoint, deleteSeries, deleteModel,
   };
 }

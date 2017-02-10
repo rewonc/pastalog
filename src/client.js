@@ -17,6 +17,13 @@ const serverActions = {
     });
     console.log('deleting:', modelName, seriesName);
   },
+
+  deleteModel: (modelName) => {
+	  socket.emit('delete model', {
+		  modelName,
+    });
+    console.log('deleting:', modelName);
+  },
 };
 
 function render(state) {

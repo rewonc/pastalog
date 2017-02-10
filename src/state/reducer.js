@@ -71,6 +71,8 @@ export default function reducer(state = INITIAL_STATE, action) {
           action.index, action.value);
     case 'DELETE':
       return state.deleteIn(['logs', action.modelName, action.seriesName]);
+    case 'DELETEMODEL':
+	    return state.deleteIn(['logs', action.modelName]);
     default:
       return state;
   }

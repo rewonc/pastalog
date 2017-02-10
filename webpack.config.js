@@ -84,7 +84,7 @@ module.exports = [
       extensions: ['.js', '.scss'],
     },
     node: {
-      console: 'mock',
+      console: false,
       fs: 'empty',
       net: 'empty',
       tls: 'empty',
@@ -111,7 +111,7 @@ module.exports = [
       ],
     },
     node: {
-      console: 'mock',
+      console: false,
       fs: 'empty',
       net: 'empty',
       tls: 'empty',
