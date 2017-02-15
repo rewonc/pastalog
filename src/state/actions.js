@@ -56,14 +56,38 @@ export function setObject(state = INITIAL_STATE, key, current) {
   return state.set(key, current);
 }
 
-export function disable(state, category, id) {
-  return state.updateIn(
+export function disable(_state, category, id) {
+  let state = _state;
+  state = state.updateIn(
     ['disabled', category, id], () => true
   );
+  return updateScaleHelper(state);
 }
 
-export function enable(state, category, id) {
-  return state.deleteIn(['disabled', category, id]);
+export function enable(_state, category, id) {
+  let state = _state;
+  state = state.deleteIn(['disabled', category, id]);
+  return updateScaleHelper(state);
+}
+
+function updateScaleHelper(state = Map()){
+  let logs = state.get('logs', Map());
+  let scale = INITIAL_STATE.get('scale', Map());
+  forEachEnabledSeries(logs, state.get('disabled', Map()),
+    (modelName, seriesName, lists) => {
+      const shouldUpdateScale = state.get('noAutoUpdate', false) === false;
+      const isEnabled = isSeriesEnabled(state.get('disabled', Map()), modelName, seriesName);
+      if (shouldUpdateScale && isEnabled) {
+        const minX = lists.get('indices').min();
+        const maxX = lists.get('indices').max();
+        const minY = lists.get('values').min();
+        const maxY = lists.get('values').max();
+        scale = rescale(scale, minX, minY, maxX, maxY);
+      }
+    }
+  );
+  console.log(scale)
+  return updateObject(state, 'scale', scale);
 }
 
 function rescale(oldScale, minX, minY, maxX, maxY) {
