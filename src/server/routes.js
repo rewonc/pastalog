@@ -6,7 +6,7 @@ import Container from './../components/Container';
 import App from './../components/App';
 import { INITIAL_STATE } from './../state/actions';
 
-export default function makeRoutes({ app, store, io, db, addDataPoint, deleteSeries }) {
+export default function makeRoutes({ app, store, io, db, addDataPoint, deleteSeries, deleteModel }) {
   app.use(bodyParser.json());
   app.use(express.static('build/assets'));
 
@@ -34,6 +34,9 @@ export default function makeRoutes({ app, store, io, db, addDataPoint, deleteSer
     socket.emit('refreshed data', db.logs);
     socket.on('delete series', ({ modelName, seriesName }) => {
       deleteSeries(modelName, seriesName, socket);
+    });
+    socket.on('delete model', ({ modelName }) => {
+      deleteModel(modelName, socket);
     });
   });
 }

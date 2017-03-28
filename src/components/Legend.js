@@ -71,6 +71,21 @@ function Legend(props) {
         id: modelName,
       });
     };
+	  const deleteModel = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const conf = window.confirm('Are you sure you want to ' +
+        'delete this model? It will no longer appear, and any new data ' +
+        'sent will create a new series.');
+      if (conf) {
+        props.actions.deleteModel(modelName);
+        // optimistically delete on client as well
+        props.store.dispatch({
+          modelName,
+          type: 'DELETEMODEL',
+        });
+      }
+    };
     return (
       <li key={modelName} onClick={toggle} className="sub">
         <span className={`${notEnabled ? 'deactivated' : 'activated'} h4 buttonLink`}>
@@ -79,6 +94,7 @@ function Legend(props) {
         <span className="bullet left">
           { notEnabled ? <span>&times;</span> : <span>&bull;</span> }
         </span>
+        <span className="h3 bold p0 m0 deleteButton buttonLink" onClick={deleteModel}>&#215;</span>
       </li>
     );
   });
@@ -110,10 +126,6 @@ function Legend(props) {
     <div className="legend-menu" style={
       { maxHeight: `${state.getIn(['size', 'height']) * 0.85}px` }}
     >
-    <h3 className="headlines h3">Series </h3>
-    <ul className="m1 list-reset">
-      {seriesElements}
-    </ul>
     <h3 className="headlines h3">Models </h3>
     <ul className="m1 list-reset">
       {modelElements}
@@ -121,6 +133,10 @@ function Legend(props) {
     <h3 className="headlines h3">Types </h3>
     <ul className="m1 list-reset">
       {typeElements}
+    </ul>
+    <h3 className="headlines h3">Series </h3>
+    <ul className="m1 list-reset">
+      {seriesElements}
     </ul>
     </div>
     <ScaleMenu {...props} />

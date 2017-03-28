@@ -39,7 +39,7 @@ module.exports = [
         },
         {
           test: /\.scss$/,
-          loaders: ["style", "css", "sass"]
+          loaders: ["style-loader", "css-loader", "sass-loader"]
         },
       ],
     },
@@ -47,7 +47,7 @@ module.exports = [
       alias: {
         lib: __dirname + '/src/lib',
       },
-      extensions: ['', '.js', '.scss'],
+      extensions: ['.js', '.scss'],
     },
   },
 
@@ -73,7 +73,7 @@ module.exports = [
         },
         {
           test: /\.scss$/,
-          loaders: ["style", "css", "sass"]
+          loaders: ["style-loader", "css-loader", "sass-loader"]
         },
       ],
     },
@@ -81,10 +81,10 @@ module.exports = [
       alias: {
         lib: __dirname + '/src/lib',
       },
-      extensions: ['', '.js', '.scss'],
+      extensions: ['.js', '.scss'],
     },
     node: {
-      console: 'empty',
+      console: false,
       fs: 'empty',
       net: 'empty',
       tls: 'empty',
@@ -111,7 +111,7 @@ module.exports = [
       ],
     },
     node: {
-      console: 'empty',
+      console: false,
       fs: 'empty',
       net: 'empty',
       tls: 'empty',
