@@ -1,6 +1,6 @@
-'''
+"""
 The pastalog Log class, which simply sends a POST request to a the server.
-'''
+"""
 
 import requests
 from pkg_resources import resource_filename
@@ -27,5 +27,5 @@ class Log(object):
 
 
 def get_package_path():
-    'Return the path of the package.json for npm script'
+    """Return the path of the package.json for npm script"""
     return resource_filename(__name__, "package.json")
